@@ -1,0 +1,70 @@
+:root {
+  /* Accent colors */
+  --accent-default: var(--tokens-primary-primary-100);
+  --accent-hover: var(--tokens-primary-primary-200);
+  --accent-focused: var(--tokens-primary-primary-300);
+  --accent-active: var(--tokens-primary-primary-400);
+  --accent-disabled: #8f90fb;
+
+  /* Text colors */
+  --text-light: #fafbff;
+  --text-dark: #16122c;
+  --text-disabled-dark: rgb(22 18 44 / 40%);
+  --text-disabled-light: rgb(250 251 255 / 40%);
+  --text-soft: #413b65;
+  --text-accent: #3f41d6;
+  --text-disabled-accent: rgb(63 65 214 / 40%);
+
+  /* Icon colors */
+  --icon-default: #717171;
+  --icon-disabled: rgb(22 18 44 / 40%);
+  --icon-static-dark: #221e1c;
+  --icon-static-light: #fafbff;
+  --icon-soft: #413b65;
+  --icon-disabled-light: rgb(250 251 255 / 40%);
+
+  /* Divider  */
+  --divider-default: #cfd5ec;
+
+  /* Status colors  */
+  --status-success: #26ae60;
+  --status-attention: #ff8f57;
+  --status-info: #39acff;
+  --status-error: #ff5d52;
+  --status-error-dark: #cf2e20;
+
+  /* Backgrounds */
+  --background-surface: #fff;
+  --background-surface-1: #fafbff;
+  --background-surface-2: #f3f5ff;
+  --background-surface-3: #eaecfe;
+  --background-disabled-light: rgb(255 255 255 / 30%);
+  --background-disabled-dark: rgb(34 30 28 / 30%);
+  --background-dark: #221e1c;
+
+  /* Tokens - Primary */
+  --tokens-primary-primary-100: #5e5fdb;
+  --tokens-primary-primary-200: #4c4dd6;
+  --tokens-primary-primary-300: #4243cc;
+  --tokens-primary-primary-400: #3f41d6;
+
+  /* Tokens - Secondary */
+  --tokens-secondary-secondary-100: #e8e8ff;
+  --tokens-secondary-secondary-200: #dadafb;
+  --tokens-secondary-secondary-300: #d1d1f4;
+  --tokens-secondary-secondary-400: #ceceff;
+
+  /* Secondary states */
+  --secondary-default: var(--tokens-secondary-secondary-100);
+  --secondary-hover: var(--tokens-secondary-secondary-200);
+  --secondary-focused: var(--tokens-secondary-secondary-300);
+  --secondary-active: var(--tokens-secondary-secondary-400);
+  --secondary-disabled: #e8e8ff;
+
+  /* Tertiary states */
+  --tertiary-default: #fafbff;
+  --tertiary-hover: #fafbff;
+  --tertiary-focused: #f2f2ff;
+  --tertiary-active: #e8e8ff;
+  --tertiary-disabled: #fafbff;
+}
