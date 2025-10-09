@@ -1,34 +1,40 @@
-import React from 'react';
-import { Button as RadixButton, type ButtonProps } from '@radix-ui/themes';
-import styles from './Button.module.scss';
+import React from "react";
+import { Button, type ButtonProps } from "@radix-ui/themes";
+// import styles from "./Button.module.scss";
+import { PlusIcon } from "@radix-ui/react-icons";
 
-type Props = Omit<ButtonProps, 'variant'> & {
-    variant?: 'primary' | 'secondary' | 'outline' | 'text-button' | 'with-icons' | ''
-    children: React.ReactNode;
-    width?: string;
-    minHeight?: string;
+interface ButtonHeaderProps extends ButtonProps {
+  label: React.ReactNode;
+}
+
+export const ButtonTemplate: React.FC<ButtonHeaderProps> = ({
+  label = "",
+  className = "",
+  ...rest
+}) => {
+  return (
+    <Button className={className} {...rest}>
+      {label}
+    </Button>
+  );
 };
 
-export const Button: React.FC<Props> = ({
-                                            className = '',
-                                            variant = 'primary',
-                                            children,
-                                            width = 'fit-content',
-                                            minHeight = '36px',
-                                            ...rest
-                                        }) => {
-    const childrenArray = React.Children.toArray(children);
-    const hasMultipleChildren = childrenArray.length > 1;
+interface ButtonWithIconTemplateProps {
+  label?: string;
+  className?: string;
+}
 
-    const combinedClasses = `${styles.button} ${styles[variant]} ${
-        variant === 'secondary' && hasMultipleChildren ? styles['secondary-multiple'] : ''
-    } ${className}`;
-
-    return (
-        <div className={styles.wrapper}>
-            <RadixButton className={combinedClasses} style={{ width, minHeight }} {...rest}>
-                {children}
-            </RadixButton>
-        </div>
-    );
+export const ButtonWithIconTemplate: React.FC<ButtonWithIconTemplateProps> = ({
+  label = "",
+  className = "",
+}) => {
+  return (
+    <Button className={className}>
+      <PlusIcon /> {label}
+    </Button>
+  );
 };
+
+////////////////////////////////////////////////
+
+
