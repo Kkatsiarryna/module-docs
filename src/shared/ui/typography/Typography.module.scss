@@ -1,0 +1,35 @@
+@use '../../theme/typography.scss' as t;
+
+.typography {
+  &.heading1 {
+    @include t.heading-1;
+  }
+
+  &.heading2 {
+    @include t.heading-2;
+  }
+
+  &.heading3 {
+    @include t.heading-3;
+  }
+
+  &.subheadingS {
+    @include t.subheading-s;
+  }
+
+  &.bodyM {
+    @include t.body-m;
+  }
+
+  &.bodyS {
+    @include t.body-s;
+  }
+
+  &.bodyXS {
+    @include t.body-xs;
+  }
+
+  &.body2XS {
+    @include t.body-2xs;
+  }
+}
