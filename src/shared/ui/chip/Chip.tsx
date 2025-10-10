@@ -2,34 +2,29 @@ import MuiChip from '@mui/material/Chip'
 import type { ChipProps as MuiChipProps } from '@mui/material/Chip'
 import clsx from 'clsx'
 import styles from './Chip.module.scss'
-import ExampleIcon from '../../assets/icons/outlined/example.svg'
+import ExampleIcon from '../../assets/icons/outlined/example.svg?react'
+import CloseIcon from '../../assets/icons/outlined/close.svg?react'
 import React, { useState } from 'react'
 
 type ChipSize = 'S' | 'M'
 type ChipType = 'selected' | 'enabled'
 
-interface SVGIconProps extends React.SVGProps<SVGSVGElement> {
-  className?: string
-}
-
 type Props = Omit<MuiChipProps, 'variant' | 'size' | 'color'> & {
   size?: ChipSize
   defaultType?: ChipType
   showIcon?: boolean
-  iconComponent?: React.ComponentType<SVGIconProps>
+  iconComponent?: React.ComponentType<{ className?: string }>
   label?: string
   className?: string
   onClick?: () => void
   onDelete?: () => void
 }
 
-const ExampleIconComponent = ExampleIcon as unknown as React.ComponentType<SVGIconProps>
-
 export const Chip = ({
   size = 'M',
   defaultType = 'enabled',
   showIcon = true,
-  iconComponent,
+  iconComponent: IconComponent,
   label,
   className,
   onClick,
@@ -49,29 +44,28 @@ export const Chip = ({
     onDelete?.()
   }
 
-  // const renderIcon = () => {
-  //   if (!showIcon) return undefined
-  //
-  //   if (icon) {
-  //     return React.cloneElement(icon, {
-  //       className: clsx(styles.icon, icon.props.className),
-  //     })
-  //   }
-  //
-  //   // Иначе используем дефолтную иконку
-  //   return <ExampleIconComponent className={styles.icon} />
-  // }
+  const renderIcon = () => {
+    if (!showIcon) return undefined
+
+    if (IconComponent) {
+      const Icon = IconComponent
+      return <Icon className={styles.icon} />
+    }
+
+    return <ExampleIcon className={styles.icon} />
+  }
 
   const chipClasses = clsx(styles.chip, styles[`size${size}`], styles[type], className)
-  const Icon = iconComponent || ExampleIconComponent
+
   return (
     <MuiChip
       {...rest}
       className={chipClasses}
       onClick={handleClick}
       label={label}
-      icon={showIcon ? <Icon className={styles.icon} /> : undefined}
+      icon={renderIcon()}
       onDelete={type === 'selected' ? handleDelete : undefined}
+      deleteIcon={<CloseIcon className={styles.deleteIcon} />}
     />
   )
 }
