@@ -1,4 +1,6 @@
 .chip {
+  cursor: pointer;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8,11 +10,18 @@
   font-family: var(--font-family), sans-serif;
   font-weight: 400;
 
+  transition: all 0.2s ease-in-out;
+
   &.sizeS {
     min-width: auto;
     height: 24px;
     min-height: 24px;
     padding: 4px 8px;
+
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   &.sizeM {
@@ -20,5 +29,65 @@
     height: 32px;
     min-height: 32px;
     padding: 4px 12px;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // Тип Enabled (обычное состояние)
+  &.enabled {
+    border: 1px solid var(--divider-default);
+    color: var(--text-dark);
+    background: var(--tertiary-default);
+
+    &:hover {
+      border: 1px solid var(--accent-hover);
+      background: var(--tertiary-hover);
+      box-shadow: 2px 2px 10px 0 rgb(54 50 47 / 10%);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--text-disabled-dark);
+      background: var(--background-surface);
+    }
+  }
+
+  // Тип Selected (выбранное состояние)
+  &.selected {
+    border: none;
+    color: var(--text-light);
+    background: var(--accent-default);
+
+    &:hover {
+      background: var(--accent-hover);
+      box-shadow: 2px 2px 10px 0 rgb(54 50 47 / 10%);
+    }
+
+    &:disabled {
+      color: var(--text-disabled-light);
+      background: var(--accent-disabled);
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+  }
+
+  .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.disabled {
+    pointer-events: none;
   }
 }
