@@ -16,22 +16,24 @@ type Props = Omit<MuiChipProps, 'variant' | 'size' | 'color'> & {
   iconComponent?: React.ComponentType<{ className?: string }>
   label?: string
   className?: string
+  disabled?: boolean
   onClick?: () => void
   onDelete?: () => void
 }
 
 export const Chip = ({
   size = 'M',
-  defaultType = 'enabled',
+  defaultType,
   showIcon = true,
   iconComponent: IconComponent,
   label,
   className,
   onClick,
   onDelete,
+  disabled = false,
   ...rest
 }: Props) => {
-  const [type, setType] = useState<ChipType>(defaultType)
+  const [type, setType] = useState<ChipType>(defaultType ?? 'enabled')
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation()
@@ -55,7 +57,15 @@ export const Chip = ({
     return <ExampleIcon className={styles.icon} />
   }
 
-  const chipClasses = clsx(styles.chip, styles[`size${size}`], styles[type], className)
+  const chipClasses = clsx(
+    styles.chip,
+    styles[`size${size}`],
+    styles[type],
+    {
+      [styles.disabled]: disabled,
+    },
+    className
+  )
 
   return (
     <MuiChip
