@@ -28,26 +28,14 @@
 }
 
 .dropdownContainer {
-  position: absolute;
-  top: 100%;
+  // position: absolute;
+  top: 0;
   margin-top: 4px;
   left: 0;
   border-radius: 12px;
-  width: 200px;
-  height: 112px;
+  // width: 200px;
+  height: auto;
   padding: 8px;
-  left: 9px !important;
-
-  // .dropdownContainer__item.Mui-selected {
-  //   background-color: #e8e8ff;
-  // }
-
-  // &.Mui-selected,
-  // &[aria-selected='true'] {
-  //   background-color: var(
-  //     --tertiary-active
-  //   ) !important; // Используйте !important как последний аргумент
-  // }
 
   .dropdownContainer__item {
     border-radius: 8px;
@@ -59,7 +47,7 @@
     font-size: 12px;
     line-height: 133%;
     color: var(--text-dark);
-    // background-color: var(--background-surface);
+    background-color: var(--background-surface);
 
     &:hover {
       background-color: var(--tertiary-hover);

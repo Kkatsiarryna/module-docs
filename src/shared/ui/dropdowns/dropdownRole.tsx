@@ -11,14 +11,14 @@ const MenuProps = {
   PaperProps: {
     className: styles.dropdownContainer,
   },
-  anchorOrigin: {
-    vertical: 'bottom' as const, // Меню появится снизу от инпута
-    horizontal: 'left' as const, // Левая граница меню совпадет с левой границей инпута
-  },
-  transformOrigin: {
-    vertical: 'top' as const, // Верх меню будет у нижней границы инпута
-    horizontal: 'left' as const, // Меню будет растягиваться слева направо
-  },
+  // anchorOrigin: {
+  //   vertical: 'bottom' as const, // Меню появится снизу от инпута
+  //   horizontal: 'left' as const, // Левая граница меню совпадет с левой границей инпута
+  // },
+  // transformOrigin: {
+  //   vertical: 'top' as const, // Верх меню будет у нижней границы инпута
+  //   horizontal: 'left' as const, // Меню будет растягиваться слева направо
+  // },
 }
 
 const names = ['Администратор', 'HR-специалист', 'Менеджер', 'Специалист']
@@ -74,6 +74,7 @@ export const SelectRole = () => {
               lineHeight: '24px',
               display: 'flex',
               alignItems: 'center',
+              position: 'relative',
             },
           }}
           value={role}

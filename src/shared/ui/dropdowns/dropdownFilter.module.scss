@@ -23,7 +23,10 @@
   width: 100%;
   gap: 3px;
   &:hover {
-    background-color: #e8e8ff;
+    background-color: var(--tertiary-hover);
+  }
+  &:active {
+    background-color: var(--tertiary-active);
   }
 }
 
