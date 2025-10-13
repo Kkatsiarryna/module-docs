@@ -1,5 +1,5 @@
 import { StyledEngineProvider } from '@mui/material/styles'
-import { ResponsiveAppBar, SelectRole } from '../shared/ui'
+import { FilterListItem, ResponsiveAppBar, SelectRole } from '../shared/ui'
 
 function App() {
   return (
@@ -7,6 +7,7 @@ function App() {
       Hello World!
       <ResponsiveAppBar></ResponsiveAppBar>
       <SelectRole></SelectRole>
+      <FilterListItem nameArray={'sortDates'}></FilterListItem>
     </StyledEngineProvider>
   )
 }
