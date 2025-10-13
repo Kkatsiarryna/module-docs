@@ -14,7 +14,7 @@ import styles from './HeaderWithDropdown.module.scss'
 
 const settings = ['Настройки', 'Выйти']
 
-function ResponsiveAppBar() {
+export const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -126,4 +126,3 @@ function ResponsiveAppBar() {
     </AppBar>
   )
 }
-export default ResponsiveAppBar
