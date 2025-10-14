@@ -12,7 +12,7 @@ import styles from './Header.module.scss'
 
 const settings = ['Настройки', 'Выйти']
 
-export const ResponsiveAppBar = () => {
+export const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
