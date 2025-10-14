@@ -1,6 +1,1 @@
-export { Button } from './button/Button'
-export { Typography } from './typography/Typography'
-export { ResponsiveAppBar } from './header/HeaderWithDropdown'
-export { SelectRole } from './dropdowns/dropdownRole'
-export { FilterListItem } from './dropdowns/dropdownFilter'
-export { FilterUsers } from './dropdowns/dropdownFilterUsers'
+export { Header } from './header/ui/Header'
