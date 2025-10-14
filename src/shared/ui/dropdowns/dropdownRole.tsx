@@ -32,7 +32,7 @@ const CustomSelect = styled(Select)({
   },
 })
 
-export const SelectRole = () => {
+export const DropdownRole = () => {
   const [role, setRole] = React.useState<string>('')
   const [open, setOpen] = React.useState<boolean>(false)
 

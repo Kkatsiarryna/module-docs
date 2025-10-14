@@ -10,7 +10,7 @@ import Minus from '../../assets/icons/outlined/minus.svg?react'
 import Plus from '../../assets/icons/outlined/plus.svg?react'
 import styles from './DropdownFilterUsers.module.scss'
 
-export const FilterUsers = () => {
+export const DropdownFilterUsers = () => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
   const [open, setOpen] = React.useState(true)
 

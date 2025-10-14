@@ -24,7 +24,7 @@ interface FilterListItemProps {
   nameArray: 'sortNames' | 'sortDates' | FilterOptions
 }
 
-export const FilterListItem: React.FC<FilterListItemProps> = ({ nameArray }) => {
+export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number>(0)
 
   const handleListItemClick = (
