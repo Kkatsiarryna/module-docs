@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox'
 import Collapse from '@mui/material/Collapse'
 import Minus from '../../assets/icons/outlined/minus.svg?react'
 import Plus from '../../assets/icons/outlined/plus.svg?react'
-import styles from './dropdownFilterUsers.module.scss'
+import styles from './DropdownFilterUsers.module.scss'
 
 export const FilterUsers = () => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
