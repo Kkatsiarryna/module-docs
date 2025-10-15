@@ -10,10 +10,11 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
-        'prettier/prettier',
         'plugin:import/recommended',
         'plugin:import/typescript',
+        'airbnb',
         'plugin:prettier/recommended',
+        'prettier/prettier',
     ],
     overrides: [
         {
@@ -35,6 +36,7 @@ module.exports = {
     plugins: ['react', '@typescript-eslint', 'import', 'perfectionist'],
     rules: {
         'arrow-parens': 'off',
+        "indent": ["error", 2],
         'consistent-return': 'off',
         curly: ['error', 'all'],
         'import/extensions': [

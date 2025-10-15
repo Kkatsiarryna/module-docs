@@ -48,7 +48,7 @@ export const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <img 
+            <img
               srcSet={`${logoImg.xs}?w=64&h=50&fit=crop&auto=format&dpr=2 2x`}
               src={`${logoImg.xs}?w=64&h=50&fit=crop&auto=format`}
               alt={logoImg.title}
