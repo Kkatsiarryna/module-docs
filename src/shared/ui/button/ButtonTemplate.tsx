@@ -6,7 +6,29 @@ import Plus from '../../assets/icons/outlined/plus.svg?react'
 import Close from '../../assets/icons/outlined/close.svg?react'
 import Trash from '../../assets/icons/outlined/delete.svg?react'
 import styles from "./ButtonTemplate.module.scss"
-import { isLoading } from '../../../app/App'
+// import { isLoading } from '../../../app/App'
+
+// Часть ниже - данные для смены содержимого кнопки на лоадер
+
+// const innerText = ''
+export const isLoading = false;
+
+// let disabled = true;
+
+// if(isLoading){
+//   disabled = true
+// } else {
+//   disabled = false
+// }
+
+// let variant = 'little-button-for-add-category'
+
+// export const isLoaderVariant = [
+//   'button-for-add-user',
+//   'button-for-add-document',
+//   'button-for-familiarization',
+//   'button-for-add-category',
+// ].includes(variant)
 
 export const CustomLoaderSecondary = () => (
   <CircularProgress size={16} sx={{ color: 'var(--accent-active)', padding: '0px 8px' }} />
