@@ -1,7 +1,7 @@
-export { Button } from './button/Button'
+// export { ButtonTemplate } from './button/Button'
 export { Typography } from './typography/Typography'
-export { DropdownRole } from './dropdowns/DropdownRole'
-export { DropdownFilter } from './dropdowns/DropdownFilter'
-export { DropdownFilterUsers } from './dropdowns/DropdownFilterUsers'
+export { DropdownRole } from './dropdowns/dropdownRole'
+export { DropdownFilter } from './dropdowns/dropdownFilter'
+export { DropdownFilterUsers } from './dropdowns/dropdownFilterUsers'
 
-export { ButtonTemplate } from './button/Button'
+export { ButtonTemplate } from './button/ButtonTemplate'

@@ -1,0 +1,25 @@
+.check_icon > path {
+  fill: rgba(63, 65, 214, 0.4);
+}
+
+.check_icon {
+  padding-left: 8px;
+}
+
+.plus_icon {
+  height: 18px;
+  width: 18px;
+  padding-right: 4px;
+}
+
+.plus_icon_button:hover svg {
+  fill: var(--accent-hover);
+}
+
+.close_icon:hover path {
+  fill: var(--accent-hover);
+}
+
+.button_add path {
+  fill: var(--text-light);
+}
