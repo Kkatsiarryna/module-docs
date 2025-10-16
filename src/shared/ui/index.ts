@@ -4,4 +4,4 @@ export { DropdownRole } from './dropdowns/dropdownRole'
 export { DropdownFilter } from './dropdowns/dropdownFilter'
 export { DropdownFilterUsers } from './dropdowns/dropdownFilterUsers'
 
-export { ButtonTemplate } from './button/ButtonTemplate'
+export { Button } from './button/Button'

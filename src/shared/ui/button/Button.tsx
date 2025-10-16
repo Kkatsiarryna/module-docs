@@ -1,11 +1,10 @@
 import React from 'react'
-import { Button, CircularProgress, type ButtonProps } from '@mui/material'
-import { PlusIcon } from '@radix-ui/react-icons'
+import { Button as MuiButton, CircularProgress, type ButtonProps } from '@mui/material'
 import Check from '../../assets/icons/outlined/check.svg?react'
 import Plus from '../../assets/icons/outlined/plus.svg?react'
 import Close from '../../assets/icons/outlined/close.svg?react'
 import Trash from '../../assets/icons/outlined/delete.svg?react'
-import styles from "./ButtonTemplate.module.scss"
+import styles from "./Button.module.scss"
 // import { isLoading } from '../../../app/App'
 
 // Часть ниже - данные для смены содержимого кнопки на лоадер
@@ -55,27 +54,30 @@ export const CustomLoaderOutlined = () => (
     sx={{ color: 'var(--accent-active)', padding: '0px 8px' }}
   />
 )
+
+export type ButtonVariant =
+  | 'button-for-header'
+  | 'button-for-authorization-and-password'
+  | 'button-for-add-photo'
+  | 'button-for-confirm'
+  | 'button-for-reject'
+  | 'button-for-add-user'
+  | 'button-for-add-document'
+  | 'button-for-delete-document'
+  | 'button-for-familiarization'
+  | 'button-for-add-category'
+  | 'button-for-close'
+  | 'button-basket'
+  | 'little-button-for-add-category'
+
 interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
   disabled?: boolean
-  variant:
-    | 'button-for-header'
-    | 'button-for-authorization-and-password'
-    | 'button-for-add-photo'
-    | 'button-for-confirm'
-    | 'button-for-reject'
-    | 'button-for-add-user'
-    | 'button-for-add-document'
-    | 'button-for-delete-document'
-    | 'button-for-familiarization'
-    | 'button-for-add-category'
-    | 'button-for-close'
-    | 'button-basket'
-    | 'little-button-for-add-category'
+  variant: ButtonVariant
   isLoading?: boolean
   customLoader?: React.ReactNode
 }
 
-export const ButtonTemplate: React.FC<CustomButtonProps> = ({
+export const Button: React.FC<CustomButtonProps> = ({
   children,
   variant,
   disabled,
@@ -122,7 +124,7 @@ export const ButtonTemplate: React.FC<CustomButtonProps> = ({
     buttonContent =
       variant === 'button-for-add-user' || variant === 'button-for-add-document' ? (
         <>
-          <PlusIcon />
+          <Plus />
           {children}
         </>
       ) : variant === 'button-for-familiarization' ? (
@@ -154,7 +156,7 @@ export const ButtonTemplate: React.FC<CustomButtonProps> = ({
     
 
   return (
-    <Button
+    <MuiButton
       className={variant === 'button-for-add-category' ? 'plus_icon_button' : ''}
       variant={variant}
       disabled={disabled}
@@ -180,6 +182,6 @@ export const ButtonTemplate: React.FC<CustomButtonProps> = ({
       {...props}
     >
       {buttonContent}
-    </Button>
+    </MuiButton>
   )
 }
