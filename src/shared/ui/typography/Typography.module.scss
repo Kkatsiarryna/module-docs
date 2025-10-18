@@ -1,4 +1,4 @@
-@use '../../theme/typography.scss' as t;
+@use '../../styles/variables/typography' as t;
 
 .typography {
   &.heading1 {
@@ -11,10 +11,6 @@
 
   &.heading3 {
     @include t.heading-3;
-  }
-
-  &.subheadingS {
-    @include t.subheading-s;
   }
 
   &.bodyM {
@@ -31,5 +27,21 @@
 
   &.body2XS {
     @include t.body-2xs;
+  }
+
+  &.subheadingM {
+    @include t.subheading-m;
+  }
+
+  &.subheadingS {
+    @include t.subheading-s;
+  }
+
+  &.subheadingXS {
+    @include t.subheading-xs;
+  }
+
+  &.subheading2XS {
+    @include t.subheading-2xs;
   }
 }

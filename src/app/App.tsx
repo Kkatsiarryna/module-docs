@@ -1,12 +1,11 @@
-import { StyledEngineProvider } from '@mui/material/styles'
+import { WithProviders } from '@app/providers'
+import { Header } from '@widgets/header'
 
 function App() {
   return (
-    <StyledEngineProvider injectFirst>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '50px', marginLeft: '10%' }}>
-        Hello World!
-      </div>
-    </StyledEngineProvider>
+    <WithProviders>
+      <Header />
+    </WithProviders>
   )
 }
 
