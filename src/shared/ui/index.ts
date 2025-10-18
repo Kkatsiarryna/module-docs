@@ -3,5 +3,9 @@ export { Typography } from './typography/Typography'
 export { DropdownRole } from './dropdowns/dropdownRole'
 export { DropdownFilter } from './dropdowns/dropdownFilter'
 export { DropdownFilterUsers } from './dropdowns/dropdownFilterUsers'
+<<<<<<< HEAD
 
 export { Button } from './button/Button'
+=======
+export { Chip } from './chip/Chip'
+>>>>>>> develop
