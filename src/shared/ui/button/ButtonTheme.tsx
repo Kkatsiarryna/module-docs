@@ -359,7 +359,7 @@ const theme = createTheme({
               backgroundColor: 'var(--accent-hover)',
             },
             '&:active': {
-              backgroundColor: 'var(--text-accen)',
+              backgroundColor: 'var(--text-accent)',
             },
             '&.Mui-disabled': {
               background: 'var(--accent-disabled)',
