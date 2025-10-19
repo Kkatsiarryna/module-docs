@@ -1,10 +1,10 @@
 import { WithProviders } from '@app/providers'
-import { Header } from '@widgets/header'
+import { Routing } from '@app/routing'
 
 function App() {
   return (
     <WithProviders>
-      <Header />
+      <Routing />
     </WithProviders>
   )
 }
