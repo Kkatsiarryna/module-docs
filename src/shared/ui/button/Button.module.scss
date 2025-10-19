@@ -1,154 +1,25 @@
-// .check_icon > path {
-//   fill: rgba(63, 65, 214, 0.4);
-// }
-
-// .check_icon {
-//   padding-left: 8px;
-// }
-
-// .plus_icon {
-//   height: 18px;
-//   width: 18px;
-//   padding-right: 4px;
-// }
-
-// .plus_icon_button:hover svg {
-//   fill: var(--accent-hover);
-// }
-
-// .close_icon:hover path {
-//   fill: var(--accent-hover);
-// }
-
-// .button_add path {
-//   fill: var(--text-light);
-// }
-
-// --- Базовый класс для всех кнопок ---
-.button {
-  // Структура и общие стили
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative; // Для позиционирования лоадера
-  border: none;
-  cursor: pointer;
-  border-radius: var(--radius-3x);
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-s);
-  line-height: 1.25;
-  text-transform: none;
-  box-shadow: none;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
-
-  &:hover {
-    box-shadow: 2px 2px 10px 0 rgba(54, 50, 47, 0.1);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    box-shadow: none;
-    // Стили для иконки внутри отключенной кнопки
-    svg {
-       opacity: 0.5;
-    }
-  }
-}
-
-// --- Модификаторы по РАЗМЕРУ ---
-.small {
-  height: 36px;
-  padding: 8px 16px;
-}
-
-.medium {
-  height: 40px;
-  padding: 10px 16px;
-}
-
-// --- Модификаторы по ВАРИАНТУ (цвету) ---
-.primary {
-  background-color: var(--accent-default);
-  color: var(--text-light);
-
-  &:hover:not(:disabled) {
-    background-color: var(--accent-hover);
-  }
-  &:active:not(:disabled) {
-    background-color: var(--accent-active);
-  }
-  &:disabled {
-    background-color: var(--accent-disabled);
-    color: var(--text-disabled-light);
-  }
+.secondary > path {
+  fill: rgba(63, 65, 214, 0.4);
 }
 
 .secondary {
-  background-color: var(--secondary-default);
-  color: var(--accent-active);
-
-  &:hover:not(:disabled) {
-    background-color: var(--secondary-hover);
-  }
-  &:active:not(:disabled) {
-    background-color: var(--secondary-active);
-  }
-  &:disabled {
-    background-color: var(--secondary-default);
-    color: var(--text-disabled-dark);
-  }
+  padding-left: 8px;
 }
 
-.outlined {
-  background-color: transparent;
-  border: 1px solid var(--divider-default);
-  color: var(--text-dark);
-
-  &:hover:not(:disabled) {
-    border-color: var(--accent-hover);
-  }
-  &:active:not(:disabled) {
-    background-color: var(--tertiary-focused);
-  }
-  &:disabled {
-    border-color: var(--divider-default);
-    color: var(--text-disabled-dark);
-  }
+.plus_icon {
+  height: 18px;
+  width: 18px;
+  padding-right: 4px;
 }
 
-.ghost {
-    background-color: transparent;
-    color: var(--text-dark);
-
-    &:hover:not(:disabled) {
-        background-color: var(--background-surface-2);
-        color: var(--accent-hover);
-    }
+.primary:hover svg {
+  fill: var(--accent-hover);
 }
 
-
-// --- Модификатор для кнопок-иконок ---
-.iconOnly {
-  padding: 0;
-  &.small {
-    width: 36px;
-  }
-  &.medium {
-    width: 40px;
-  }
+.ghost:hover path {
+  fill: var(--accent-hover);
 }
 
-// --- Стили для лоадера ---
-.loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-}
-
-// --- Стили для скрытия контента ---
-.contentHidden {
-    visibility: hidden;
+.primary path {
+  fill: var(--text-light);
 }
