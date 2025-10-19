@@ -1,3 +1,1 @@
-export { WithProviders } from './withProviders.tsx'
-// export { RouterProvider } from './router'
-// export { StoreProvider } from './store'
+export { WithProviders } from './WithProviders.tsx'
