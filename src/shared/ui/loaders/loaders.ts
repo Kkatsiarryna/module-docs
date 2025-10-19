@@ -1,4 +1,4 @@
-import { SIZES_ICON } from '@shared/ui/icons-imports/icons'
+import { SIZES_ICON } from '@shared/ui/icons/icons'
 import { createLoader } from './createLoader'
 
 export const LoadersSmall = {
