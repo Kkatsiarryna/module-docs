@@ -291,7 +291,6 @@ export const theme = createTheme({
       ],
       styleOverrides: {
         root: {
-          // fontSize: 'var(--font-size-s)',
           fontWeight: 'var(--font-weight-regular)',
           lineHeight: '129%',
           color: 'var(--text-dark)',
@@ -344,10 +343,10 @@ export const theme = createTheme({
         outlined: {
           // === Для medium (36px)
           '&[data-shrink="false"]': {
-            transform: 'translate(14px, 9px) scale(1)', // позиция неактивного label
+            transform: 'translate(14px, 9px) scale(1)',
           },
           '&[data-shrink="true"]': {
-            transform: 'translate(14px, -6px) scale(0.75)', // позиция активного (поднятого)
+            transform: 'translate(14px, -6px) scale(0.75)',
           },
 
           // === Для small (24px)
