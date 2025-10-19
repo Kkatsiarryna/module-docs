@@ -1,5 +1,22 @@
 import { createTheme } from '@mui/material/styles'
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    primary: true
+    secondary: true
+    outlined: true
+    ghost: true
+  }
+  interface ButtonPropsSizeOverrides {
+    small: true
+    medium: true
+    large: true
+    mediumIconButton: true
+    smallIconButton: true
+    smallestIconButton: true
+  }
+}
+
 export const theme = createTheme({
   palette: {
     primary: {
@@ -89,6 +106,155 @@ export const theme = createTheme({
           marginLeft: 0,
           paddingLeft: '4px',
         },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 'var(--radius-3x)',
+          padding: '0px',
+          fontFamily: 'var(--font-family)',
+          fontWeight: 'var(--font-weight-medium)',
+          fontSize: 'var(--font-size-s)',
+          lineHeight: '129%',
+          textAlign: 'center',
+          minWidth: '24px',
+          // height: 'auto',
+          textTransform: 'none',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+      },
+      variants: [
+        {
+          props: { variant: 'primary' },
+          style: {
+            fontSize: 'var(--font-size-s)',
+            backgroundColor: 'var(--accent-default)',
+            color: 'var(--text-light)',
+            '&:hover': {
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+              backgroundColor: 'var(--accent-hover)',
+            },
+            '&:active': {
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+              backgroundColor: 'var(--accent-active)',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: 'var(--accent-disabled)',
+              color: 'var(--text-disabled-light)',
+            },
+            '&.Mui-disabled svg path': {
+              fill: 'var(--text-disabled-light)',
+            },
+          },
+        },
+        {
+          props: { variant: 'secondary' },
+          style: {
+            fontSize: 'var(--font-size-s)',
+            backgroundColor: 'var(--secondary-default)',
+            color: 'rgba(63, 65, 214, 0.4)',
+            '& svg path': {
+              fill: 'rgba(63, 65, 214, 0.4)',
+            },
+            '&:hover': {
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+              backgroundColor: 'var(--secondary-hover)',
+            },
+            '&:active': {
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+              backgroundColor: 'var(--secondary-active)',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: 'var(--secondary-default)',
+              color: 'var(--text-disabled-accent)',
+            },
+            '&.Mui-disabled svg path': {
+              fill: 'var(--text-disabled-accent)',
+            },
+          },
+        },
+        {
+          props: { variant: 'outlined' },
+          style: {
+            fontSize: 'var(--font-size-s)',
+            border: '1px solid var(--divider-default)',
+            backgroundColor: 'transparent',
+            color: 'var(--text-dark)',
+            '&:hover': {
+              border: '1px solid var(--accent-hover)',
+              backgroundColor: 'transparent',
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+            },
+            '&:active': {
+              border: '1px solid var(--text-accent)',
+              backgroundColor: 'var(--tertiary-focused)',
+              boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
+            },
+            '&.Mui-disabled': {
+              border: '1px solid var(--divider-default)',
+              color: 'var(--text-disabled-dark)',
+            },
+          },
+        },
+        {
+          props: { variant: 'ghost' },
+          style: {
+            fontSize: 'var(--font-size-s)',
+            backgroundColor: 'transparent',
+            color: 'var(--text-dark)',
+            '&:hover': {
+              backgroundColor: 'var(--background-surface-2)',
+              color: 'var(--accent-hover)',
+            },
+            '&:active': {
+              backgroundColor: 'transparent',
+              color: 'var(--accent-hover)',
+            },
+            '&.Mui-disabled': {
+              color: 'var(--text-disabled-dark)',
+            },
+          },
+        },
+        {
+          props: { size: 'small' },
+          style: {
+            height: '36px',
+          },
+        },
+        {
+          props: { size: 'medium' },
+          style: {
+            height: '40px',
+          },
+        },
+        {
+          props: { size: 'mediumIconButton' },
+          style: {
+            height: '40px',
+          },
+        },
+        {
+          props: { size: 'smallIconButton' },
+          style: {
+            height: '36px',
+          },
+        },
+        {
+          props: { size: 'smallestIconButton' },
+          style: {
+            borderRadius: '8px',
+            height: '24px',
+          },
+        },
+      ],
+      defaultProps: {
+        disableRipple: true,
+        variant: 'primary' as const,
+        size: 'medium' as const,
       },
     },
   },

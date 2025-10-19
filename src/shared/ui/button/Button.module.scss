@@ -1,0 +1,25 @@
+.secondary > path {
+  fill: rgba(63, 65, 214, 0.4);
+}
+
+.secondary {
+  padding-left: 8px;
+}
+
+.plus_icon {
+  height: 18px;
+  width: 18px;
+  padding-right: 4px;
+}
+
+.primary:hover svg {
+  fill: var(--accent-hover);
+}
+
+.ghost:hover path {
+  fill: var(--accent-hover);
+}
+
+.primary path {
+  fill: var(--text-light);
+}
