@@ -108,6 +108,7 @@ export const theme = createTheme({
         },
       },
     },
+
     MuiButton: {
       styleOverrides: {
         root: {
@@ -255,6 +256,125 @@ export const theme = createTheme({
         disableRipple: true,
         variant: 'primary' as const,
         size: 'medium' as const,
+      },
+    },
+
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          width: '100%',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      variants: [
+        {
+          props: { size: 'medium' },
+          style: {
+            height: 36,
+            fontSize: 'var(--font-size-s)',
+            '& .MuiOutlinedInput-input': {
+              padding: '9px 12px',
+            },
+          },
+        },
+        {
+          props: { size: 'small' },
+          style: {
+            height: 24,
+            fontSize: 'var(--font-size-xs)',
+            '& .MuiOutlinedInput-input': {
+              padding: '4px 12px',
+            },
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          // fontSize: 'var(--font-size-s)',
+          fontWeight: 'var(--font-weight-regular)',
+          lineHeight: '129%',
+          color: 'var(--text-dark)',
+
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--accent-hover)',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--accent-hover)',
+            borderWidth: 2,
+          },
+          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--status-error-dark)',
+          },
+          '&.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--background-disabled-dark)',
+          },
+          '&.Mui-disabled input': {
+            color: 'var(--text-disabled-dark)',
+          },
+        },
+        notchedOutline: {
+          border: '1px solid var(--divider-default)',
+          borderRadius: 'var(--radius-3x)',
+          transition: 'all 0.2s ease-in-out',
+        },
+        input: {
+          '&::placeholder': {
+            color: 'var(--text-disabled-dark)',
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontWeight: 'var(--font-weight-regular)',
+          lineHeight: '129%',
+          color: 'var(--text-disabled-dark)',
+          '&.Mui-focused': {
+            color: 'var(--accent-focused)',
+          },
+          '&.Mui-error': {
+            color: 'var(--status-error-dark)',
+          },
+          '&.Mui-disabled': {
+            color: 'var(--text-disabled-dark)',
+          },
+        },
+        outlined: {
+          // === Для medium (36px)
+          '&[data-shrink="false"]': {
+            transform: 'translate(14px, 9px) scale(1)', // позиция неактивного label
+          },
+          '&[data-shrink="true"]': {
+            transform: 'translate(14px, -6px) scale(0.75)', // позиция активного (поднятого)
+          },
+
+          // === Для small (24px)
+          '&.MuiInputLabel-sizeSmall': {
+            '&[data-shrink="false"]': {
+              transform: 'translate(12px, 6px) scale(1)',
+              fontSize: 'var(--font-size-xs)',
+            },
+            '&[data-shrink="true"]': {
+              transform: 'translate(14px, -9px) scale(0.75)',
+            },
+          },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          padding: '4px 12px 0',
+          '&.Mui-error': {
+            fontSize: 'var(--font-size-xs)',
+            fontWeight: 'var(--font-weight-regular)',
+            color: 'var(--status-error-dark)',
+            lineHeight: '133%',
+          },
+        },
       },
     },
   },

@@ -1,13 +1,12 @@
 import MuiTextField from '@mui/material/TextField'
 import type { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField'
-import clsx from 'clsx'
-import { type ChangeEvent, useEffect, useId, useState } from 'react'
-import styles from './Input.module.scss'
+import { type ChangeEvent, type ReactNode, useEffect, useId, useState } from 'react'
 
 type InputSize = 'M' | 'XS'
 type Props = Omit<MuiTextFieldProps, 'size'> & {
   className?: string
   size?: InputSize
+  endIcon?: ReactNode
   maxLength?: number
   showCharacterCount?: boolean
 }
@@ -16,16 +15,16 @@ export const Input = ({
   className,
   id,
   size = 'M',
+  value,
+  label,
+  endIcon,
   maxLength,
   showCharacterCount = false,
-  value,
   onChange,
-  label,
   ...rest
 }: Props) => {
   const defaultId = useId()
-  const idCurrent = id || defaultId
-  const textFieldClasses = clsx(styles.textField, styles[`size${size}`], className)
+  const idCurrent = id ?? defaultId
 
   const [characterCount, setCharacterCount] = useState(0)
 
@@ -42,50 +41,23 @@ export const Input = ({
     onChange?.(event)
   }
 
-  const CustomLabel = () => (
-    <div className={styles.customLabel}>
-      <span className={styles.labelText}>{label}</span>
-      {showCharacterCount && maxLength && (
-        <span className={styles.characterCounter}>
-          {characterCount}/{maxLength}
-        </span>
-      )}
-    </div>
-  )
+  const computedLabel =
+    showCharacterCount && maxLength ? `${label ?? ''} ${characterCount}/${maxLength}     ` : label
 
   return (
     <MuiTextField
-      className={textFieldClasses}
+      id={idCurrent}
+      className={className}
       value={value}
       onChange={handleChange}
+      label={computedLabel}
+      size={size === 'XS' ? 'small' : 'medium'}
       slotProps={{
         input: {
-          classes: {
-            root: styles.inputRoot,
-            focused: styles.inputFocused,
-            notchedOutline: styles.notchedOutline,
-            error: styles.inputError,
-            disabled: styles.disabledInput,
-          },
-        },
-        formHelperText: {
-          classes: {
-            root: styles.formHelperTextRoot,
-            error: styles.formHelperTextError,
-          },
-        },
-        inputLabel: {
-          classes: {
-            root: styles.inputLabelRoot,
-            focused: styles.inputLabelFocused,
-            error: styles.inputLabelError,
-            disabled: styles.inputLabelDisabled,
-            shrink: styles.inputLabelShrink,
-          },
+          endAdornment: endIcon,
+          inputProps: { maxLength },
         },
       }}
-      label={label ? <CustomLabel /> : undefined}
-      id={idCurrent}
       {...rest}
     />
   )
