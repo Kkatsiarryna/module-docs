@@ -1,5 +1,5 @@
 import { Button as MuiButton, type ButtonProps } from '@mui/material'
-import { LoadersSmall } from '../../../types/index'
+import { LoadersSmall } from '../loaders/loaders'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
 
@@ -11,6 +11,15 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
       ghost: true
     }
   }
+
+  const ButtonsType = {
+    PRIMARY: { value: 'primary', label: 'Primary Button' },
+    SECONDARY: { value: 'secondary', label: 'Secondary Button' },
+    OUTLINED: { value: 'outlined', label: 'Outlined Button' },
+    GHOST: { value: 'ghost', label: 'Ghost Button' },
+  } as const
+
+  export type ButtonsType = (typeof ButtonsType)[keyof typeof ButtonsType]['value']
 
 interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
   variant: ButtonVariant

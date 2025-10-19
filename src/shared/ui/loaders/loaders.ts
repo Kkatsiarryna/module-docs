@@ -1,5 +1,5 @@
-import { SIZES_ICON } from '@shared/constants/icons'
-import { createLoader } from '../utils/helpers'
+import { SIZES_ICON } from '@shared/ui/icons-imports/icons'
+import { createLoader } from './createLoader'
 
 export const LoadersSmall = {
   primary: createLoader('var(--text-light)', SIZES_ICON.SMALL), // Белый на синей кнопке
@@ -21,12 +21,3 @@ export const LoadersSmallest = {
   outlined: createLoader('var(--accent-active)', SIZES_ICON.SMALLEST), // Синий на прозрачной
   ghost: createLoader('var(--text-dark)', SIZES_ICON.SMALLEST), // Темный на прозрачной
 }
-
-const ButtonsType = {
-  PRIMARY: { value: 'primary', label: 'Primary Button' },
-  SECONDARY: { value: 'secondary', label: 'Secondary Button' },
-  OUTLINED: { value: 'outlined', label: 'Outlined Button' },
-  GHOST: { value: 'ghost', label: 'Ghost Button' },
-} as const
-
-export type ButtonsType = (typeof ButtonsType)[keyof typeof ButtonsType]['value']

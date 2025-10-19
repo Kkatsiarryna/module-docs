@@ -1,10 +1,4 @@
-import { CircularProgress } from '@mui/material'
 import { SvgIcon, type SvgIconProps } from '@mui/material'
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const createLoader = (color: string, size: number) => (
-  <CircularProgress size={size} sx={{ color }} />
-)
 
 interface IconProps extends SvgIconProps {
   size?: number
@@ -13,7 +7,14 @@ interface IconProps extends SvgIconProps {
   padding?: number
 }
 
-export const Icon: React.FC<IconProps> = ({ size, padding = 0, paddingLeft = 0, paddingRight = 0, sx, ...props }) => {
+export const Icon: React.FC<IconProps> = ({
+  size,
+  padding = 0,
+  paddingLeft = 0,
+  paddingRight = 0,
+  sx,
+  ...props
+}) => {
   return (
     <SvgIcon
       sx={{
