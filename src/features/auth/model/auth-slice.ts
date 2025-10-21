@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { User } from '@features/auth/model/types.ts'
+import type { User } from '@features/auth/model/types/types.ts'
 import { authApi } from '@features/auth/api'
 
 type AuthState = {
