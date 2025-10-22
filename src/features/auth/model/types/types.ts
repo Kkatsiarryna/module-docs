@@ -7,11 +7,6 @@ export type User = {
   role: string
 }
 
-export type LoginCredentials = {
-  email: string
-  password: string
-}
-
 export type RegisterCredentials = {
   firstName: string
   lastName: string
