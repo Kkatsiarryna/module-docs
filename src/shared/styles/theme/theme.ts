@@ -85,6 +85,11 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiChip: {
       styleOverrides: {
         root: {
@@ -376,5 +381,15 @@ export const theme = createTheme({
         },
       },
     },
+    // MuiCheckbox: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: 'var(--tertiary-active)', // Основной цвет
+    //       '&.Mui-checked': {
+    //         color: 'var(--tertiary-active)', // Цвет в выбранном состоянии
+    //       },
+    //     },
+    //   },
+    // },
   },
 })

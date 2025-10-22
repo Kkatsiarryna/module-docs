@@ -6,15 +6,20 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Checkbox from '@mui/material/Checkbox'
 import Collapse from '@mui/material/Collapse'
-import Minus from '../../assets/icons/outlined/minus.svg?react'
-import Plus from '../../assets/icons/outlined/plus.svg?react'
+// import Minus from '../../assets/icons/outlined/minus.svg?react'
+// import Plus from '../../assets/icons/outlined/plus.svg?react'
 import styles from './DropdownFilterUsers.module.scss'
+import { rolesDocs } from '@shared/variables/users'
+import { BUTTON_ICONS, PAGE_ICONS } from '../icons/icons'
+import { Icon } from '../icons/icons-helper'
 
-export const DropdownFilterUsers = () => {
+interface FilterUsers {
+  size: number;
+}
+
+export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
   const [open, setOpen] = React.useState(true)
-
-  const values = ['Все сотрудники', 'Администраторы', 'HR-специалист', 'Менеджеры', 'Специалисты']
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value)
@@ -36,56 +41,74 @@ export const DropdownFilterUsers = () => {
   return (
     <List className={styles.filterUsers}>
       {/* Первый элемент - "Все сотрудники" ТОЛЬКО для раскрытия */}
-      <ListItem key={values[0]} disablePadding>
+      <ListItem key={rolesDocs[0]} disablePadding>
         <ListItemButton
           role={undefined}
           onClick={handleHeaderClick} // Только раскрытие/скрытие
+          className={styles.innerBlock__items}
           dense
         >
-          <ListItemIcon>
+          <ListItemIcon className={styles.checkboxWrapper}>
             {/* Убрали Checkbox, оставляем пустое место для выравнивания */}
             <div className={styles.topCheckbox}>
               {open ? (
-                <Minus className={styles.checkbox__sign} />
+                <Icon className={styles.mainCheckbox} component={PAGE_ICONS.MINUS} size={size} />
               ) : (
-                <Plus className={styles.checkbox__sign} />
+                <Icon className={styles.mainCheckbox} component={BUTTON_ICONS.ADD} size={size} />
               )}
             </div>
           </ListItemIcon>
-          <ListItemText id={values[0]} primary={`${values[0]}`} />
+          <ListItemText id={rolesDocs[0]} primary={`${rolesDocs[0]}`} />
         </ListItemButton>
       </ListItem>
 
       {/* Остальные элементы в раскрывающемся списке */}
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding className={styles.filterUsers__innerBlock}>
-          {values.slice(1).map(value => {
+          {rolesDocs.slice(1).map(value => {
             const labelId = `checkbox-list-label-${value}`
 
             return (
-              <ListItem
-                key={value}
-                disablePadding
-                sx={{
-                  pl: 2,
-                }}
-              >
+              <ListItem key={value} disablePadding>
                 <ListItemButton
                   className={styles.innerBlock__items}
                   role={undefined}
                   onClick={handleToggle(value)}
                   dense
                 >
-                  <ListItemIcon>
+                  <ListItemIcon className={styles.checkboxWrapper}>
                     <Checkbox
                       edge="start"
                       checked={checked.includes(value)}
+                      className={styles.checkbox}
                       tabIndex={-1}
                       disableRipple
-                      inputProps={{ 'aria-labelledby': labelId }}
+                      slotProps={{
+                        input: {
+                          'aria-labelledby': labelId,
+                        },
+                      }}
                       sx={{
-                        '&.Mui-checked': {
-                          color: 'var(--accent-default)',
+                        // Создаём кастомный фон для чекбокса
+                        '& .MuiSvgIcon-root': {
+                          position: 'relative',
+                          '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'var(--secondary-default)',
+                            borderRadius: '4px',
+                            zIndex: -1,
+                          },
+                        },
+                        '&:hover .MuiSvgIcon-root::before': {
+                          backgroundColor: 'var(--secondary-hover)',
+                        },
+                        '&.Mui-checked .MuiSvgIcon-root::before': {
+                          backgroundColor: 'var(--accent-default)',
                         },
                       }}
                     />

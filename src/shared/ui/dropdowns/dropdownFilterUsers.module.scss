@@ -1,11 +1,23 @@
 .filterUsers {
   border-radius: 8px;
   padding: 16px 12px;
-  width: 280px;
-  height: auto;
+  max-width: 280px;
+  // height: auto;
   box-shadow: 2px 2px 10px 0 rgba(54, 50, 47, 0.15);
   background: var(--background-surface);
 }
+
+.mainCheckbox path {
+fill: var(--tertiary-hover);
+}
+
+.checkboxWrapper {
+  min-width: inherit;
+}
+
+// .checkbox {
+//   background-color: var(--tertiary-active);
+// }
 
 .filterUsers__innerBlock {
   padding: 0px 0px 0px 12px;
@@ -38,14 +50,19 @@
   position: relative;
 }
 
-.checkbox__sign {
-  width: 20px;
-  height: 20px;
-}
-
-.checkbox__sign > path {
-  position: absolute;
-  fill: var(--background-surface);
-  top: 0;
-  left: 0;
+.checkbox {
+  &.MuiSvgIcon-root {
+      background-color: var(--secondary-default);
+      border-radius: 4px;
+    }
+    
+    // Фон при наведении
+    &:hover .MuiSvgIcon-root {
+      background-color: var(--secondary-default);
+    }
+    
+    // Фон выбранного чекбокса
+    &.Mui-checked .MuiSvgIcon-root {
+      background-color: var(--secondary-default);
+    }
 }

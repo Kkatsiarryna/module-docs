@@ -1,8 +1,3 @@
-import FilterFromA from '../../assets/icons/outlined/sort-a.svg?react'
-import FilterFromZ from '../../assets/icons/outlined/sort-z.svg?react'
-import Filter from '../../assets/icons/outlined/sort.svg?react'
-import ArrowUp from '../../assets/icons/outlined/arrow-up.svg?react'
-import ArrowDown from '../../assets/icons/outlined/arrow-down.svg?react'
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
@@ -10,14 +5,12 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import styles from './DropdownFilter.module.scss'
+import { PAGE_ICONS } from '../icons/icons'
+import { type ReactElement } from 'react'
 
 interface FilterOptions {
-  firstText: string
-  secondText: string
-  thirdText: string
-  firstIcon: React.ReactNode
-  secondIcon: React.ReactNode
-  thirdIcon: React.ReactNode
+  text: string[]
+  icon: ReactElement[]
 }
 
 interface FilterListItemProps {
@@ -39,22 +32,16 @@ export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => 
   }
 
   const options: FilterOptions = {
-    firstText: 'от А до Я',
-    secondText: 'от Я до А',
-    thirdText: 'По умолчанию',
-    firstIcon: <FilterFromA />,
-    secondIcon: <FilterFromZ />,
-    thirdIcon: <Filter />,
+    text: ['от А до Я', 'от Я до А', 'По умолчанию'],
+    icon: [<PAGE_ICONS.SORT_START />, <PAGE_ICONS.SORT_END />, <PAGE_ICONS.ARROWS_TWO_SIDES />],
   }
 
   const optionsTwo: FilterOptions = {
-    firstText: 'По возрастанию',
-    secondText: 'По убыванию',
-    thirdText: 'По умолчанию',
-    firstIcon: <ArrowUp />,
-    secondIcon: <ArrowDown />,
-    thirdIcon: <Filter />,
+    text: ['По возрастанию', 'По убыванию', 'По умолчанию'],
+    icon: [<PAGE_ICONS.ARROW_UP />, <PAGE_ICONS.ARROW_DOWN />, <PAGE_ICONS.ARROWS_TWO_SIDES />],
   }
+
+  const COUNT_OF_FIELD = 3;
 
   let optionsToUse: FilterOptions
   if (nameArray === 'sortNames') {
@@ -67,37 +54,18 @@ export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => 
 
   return (
     <Box className={styles.filter}>
-      <List component="nav" aria-label="main mailbox folders" sx={{ width: '100%' }}>
-        <ListItemButton
-          selected={selectedIndex === 0}
-          onClick={event => handleListItemClick(event, 0)}
-          className={styles.filter__items}
-        >
-          <ListItemIcon sx={{ minWidth: '20px', height: '20px', paddingRight: '1px' }}>
-            {optionsToUse.firstIcon}
-          </ListItemIcon>
-          <ListItemText sx={{ marginTop: '6px' }} primary={optionsToUse.firstText} />
-        </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 1}
-          onClick={event => handleListItemClick(event, 1)}
-          className={styles.filter__items}
-        >
-          <ListItemIcon sx={{ minWidth: '20px', height: '20px', paddingRight: '1px' }}>
-            {optionsToUse.secondIcon}
-          </ListItemIcon>
-          <ListItemText sx={{ marginTop: '6px' }} primary={optionsToUse.secondText} />
-        </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 2}
-          onClick={event => handleListItemClick(event, 2)}
-          className={styles.filter__items}
-        >
-          <ListItemIcon sx={{ minWidth: '20px', height: '20px', paddingRight: '1px' }}>
-            {optionsToUse.thirdIcon}
-          </ListItemIcon>
-          <ListItemText sx={{ marginTop: '6px' }} primary={optionsToUse.thirdText} />
-        </ListItemButton>
+      <List component="nav" aria-label="main mailbox folders">
+        {Array.from({ length: COUNT_OF_FIELD }, (_, i) => (
+          <ListItemButton
+            selected={selectedIndex === i}
+            key={i}
+            onClick={event => handleListItemClick(event, i)}
+            className={styles.filter__items}
+          >
+            <ListItemIcon className={styles.icon__wrapper}>{optionsToUse.icon[i]}</ListItemIcon>
+            <ListItemText className={styles.item__text} primary={optionsToUse.text[i]} />
+          </ListItemButton>
+        ))}
       </List>
     </Box>
   )
