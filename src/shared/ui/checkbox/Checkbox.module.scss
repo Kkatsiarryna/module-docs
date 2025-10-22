@@ -1,0 +1,58 @@
+.checkbox {
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .checkboxSign path {
+    fill: var(--icon-static-light);
+  }
+}
+
+.checkboxList {
+  background-color: var(--accent-default);
+  
+  &:hover {
+    outline: 1px solid var(--accent-hover);
+    outline-offset: -1px;
+  }
+  
+  &:active {
+    background-color: var(--accent-default); 
+  }
+  
+  &.checked {
+    background-color: var(--accent-default); 
+  }
+
+  &.disabled {
+      background-color: var(--accent-disabled); 
+    }
+}
+
+.checkboxCheck {
+  background-color: var(--secondary-default);
+  
+  &:hover {
+    outline: 1px solid var(--accent-hover);
+    outline-offset: -1px;
+  }
+  
+  &:active {
+    background-color: var(--accent-default);
+  }
+  
+  &.checked {
+    background-color: var(--accent-default);
+    
+    &.disabled {
+      background-color: var(--accent-disabled);
+    }
+  }
+  
+  &.disabled:not(.checked) {
+    background-color: var(--text-dark);
+    opacity: 0.4;
+  }
+}

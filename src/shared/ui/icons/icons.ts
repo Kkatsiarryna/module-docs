@@ -23,6 +23,7 @@ import BasketIcon from '../../assets/icons/outlined/delete.svg?react'
 import CheckIcon from '../../assets/icons/outlined/check.svg?react'
 import EyeIcon from '../../assets/icons/outlined/eye.svg?react'
 import HeardIcon from '../../assets/icons/outlined/like.svg?react'
+import Minus from '../../assets/icons/outlined/minus.svg?react'
 
 export const BUTTON_ICONS = {
   ADD: AddIcon,
@@ -56,6 +57,7 @@ export const PAGE_ICONS = {
   SORT_ACCESS: SortAccessIcon,
   UPLOAD: UploadIcon,
   BASKET: BasketIcon,
+  MINUS: Minus,
 } as const
 
 export const COMMON_ICONS = {
@@ -66,7 +68,13 @@ export const COMMON_ICONS = {
 
 // Размеры иконок
 export const SIZES_ICON = {
-  SMALLEST: 10,
-  SMALL: 12,
-  MEDIUM: 14,
+  SMALLEST: 16,
+  SMALL: 20,
+  MEDIUM: 24,
+} as const
+
+export const SIZES_CHECKBOX = {
+  SMALLEST: 16,
+  SMALL: 20,
+  MEDIUM: 20,
 } as const
