@@ -1,24 +1,16 @@
 import { Button, Input, Typography } from '@shared/ui'
 import styles from './LoginForm.module.scss'
-import { type LoginCredentials, loginSchema } from '@features/auth/model'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useLoginForm } from '@features/auth/model'
 
 export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    // reset,
-    // control,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginCredentials>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
-  })
+    formState: { errors },
+    onSubmit,
+    isSubmitting,
+  } = useLoginForm()
 
-  const onSubmit = (data: LoginCredentials) => {
-    console.log('Авторизация', data)
-  }
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="heading2" className={styles.title}>
@@ -37,7 +29,7 @@ export const LoginForm = () => {
 
       <Input
         label="Пароль"
-        // type="password"
+        type="password"
         required
         error={!!errors.password}
         helperText={errors.password?.message}
