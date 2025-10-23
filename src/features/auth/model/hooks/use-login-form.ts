@@ -5,11 +5,13 @@ import { useLoginMutation } from '@features/auth/api'
 import { useAppDispatch } from '@app/store'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '@shared/config'
+import { useToast } from '@app/providers/toast'
 
 export const useLoginForm = () => {
   const [loginMutation, { isLoading }] = useLoginMutation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const form = useForm<LoginCredentials>({
     resolver: zodResolver(loginSchema),
@@ -29,6 +31,7 @@ export const useLoginForm = () => {
       reset()
       navigate(routes.documents, { replace: true })
     } catch (error) {
+      showToast('Такой аккаунт не существует или введены неверные данные', 'error')
       console.error('Ошибка при авторизации:', error)
     }
   }
