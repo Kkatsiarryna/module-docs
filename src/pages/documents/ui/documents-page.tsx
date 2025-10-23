@@ -10,9 +10,8 @@ export const DocumentsPage = () => {
         <div>Documents Page</div>
         <Input label="Поиск" endIcon={<ICONS.SEARCH width={20} height={20} />} />
         <Header></Header> <DropdownRole></DropdownRole>
-        <DropdownFilter nameArray={'sortNames'}></DropdownFilter>
+        <DropdownFilter nameArray={'sortDates'}></DropdownFilter>
         <DropdownFilterUsers size={SIZES_ICON.SMALL}></DropdownFilterUsers>
-        <ICONS.CHECK></ICONS.CHECK>
       </Box>
     </StyledEngineProvider>
   )
