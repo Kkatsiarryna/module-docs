@@ -85,6 +85,11 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiChip: {
       styleOverrides: {
         root: {

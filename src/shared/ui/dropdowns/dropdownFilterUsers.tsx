@@ -4,17 +4,18 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import Checkbox from '@mui/material/Checkbox'
 import Collapse from '@mui/material/Collapse'
-import Minus from '../../assets/icons/outlined/minus.svg?react'
-import Plus from '../../assets/icons/outlined/plus.svg?react'
 import styles from './DropdownFilterUsers.module.scss'
+import { rolesDocs } from '@shared/model/users'
+import { Checkbox } from '../checkbox/Checkbox'
 
-export const DropdownFilterUsers = () => {
+interface FilterUsers {
+  size: number;
+}
+
+export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
-  const [open, setOpen] = React.useState(true)
-
-  const values = ['Все сотрудники', 'Администраторы', 'HR-специалист', 'Менеджеры', 'Специалисты']
+  const [open, setOpen] = React.useState(false)
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value)
@@ -35,60 +36,40 @@ export const DropdownFilterUsers = () => {
 
   return (
     <List className={styles.filterUsers}>
-      {/* Первый элемент - "Все сотрудники" ТОЛЬКО для раскрытия */}
-      <ListItem key={values[0]} disablePadding>
+      <ListItem key={rolesDocs[0]} disablePadding>
         <ListItemButton
           role={undefined}
-          onClick={handleHeaderClick} // Только раскрытие/скрытие
+          onClick={handleHeaderClick}
+          className={styles.innerBlock__items}
           dense
         >
-          <ListItemIcon>
-            {/* Убрали Checkbox, оставляем пустое место для выравнивания */}
-            <div className={styles.topCheckbox}>
-              {open ? (
-                <Minus className={styles.checkbox__sign} />
-              ) : (
-                <Plus className={styles.checkbox__sign} />
-              )}
-            </div>
+          <ListItemIcon className={styles.checkboxWrapper}>
+            <Checkbox checked={open} type='list' size={size}></Checkbox>
           </ListItemIcon>
-          <ListItemText id={values[0]} primary={`${values[0]}`} />
+          <ListItemText id={rolesDocs[0]} primary={`${rolesDocs[0]}`} />
         </ListItemButton>
       </ListItem>
 
       {/* Остальные элементы в раскрывающемся списке */}
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding className={styles.filterUsers__innerBlock}>
-          {values.slice(1).map(value => {
+          {rolesDocs.slice(1).map(value => {
             const labelId = `checkbox-list-label-${value}`
 
             return (
-              <ListItem
-                key={value}
-                disablePadding
-                sx={{
-                  pl: 2,
-                }}
-              >
+              <ListItem key={value} disablePadding>
                 <ListItemButton
                   className={styles.innerBlock__items}
                   role={undefined}
                   onClick={handleToggle(value)}
                   dense
                 >
-                  <ListItemIcon>
+                  <ListItemIcon className={styles.checkboxWrapper}>
                     <Checkbox
-                      edge="start"
                       checked={checked.includes(value)}
-                      tabIndex={-1}
-                      disableRipple
-                      inputProps={{ 'aria-labelledby': labelId }}
-                      sx={{
-                        '&.Mui-checked': {
-                          color: 'var(--accent-default)',
-                        },
-                      }}
-                    />
+                      type="check"
+                      size={size}
+                    ></Checkbox>
                   </ListItemIcon>
                   <ListItemText
                     className={styles.innerBlock__text}

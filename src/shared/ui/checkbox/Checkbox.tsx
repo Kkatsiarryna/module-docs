@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { BUTTON_ICONS, PAGE_ICONS, SIZES_CHECKBOX } from '../icons/icons'
+import { ICONS, SIZES_CHECKBOX } from '../icons/icons'
 import style from './Checkbox.module.scss'
 import { Icon } from '../icons/icons-helper'
 
@@ -29,10 +29,10 @@ export const Checkbox = ({
 
     switch (type) {
       case 'list':
-        return checked ? BUTTON_ICONS.CHECK : PAGE_ICONS.MINUS
+        return checked ? ICONS.CHECK : ICONS.MINUS
       case 'check':
         if (disabled && !checked) return null 
-        return checked ? BUTTON_ICONS.CHECK : null
+        return checked ? ICONS.CHECK : null
       default:
         return null
     }
