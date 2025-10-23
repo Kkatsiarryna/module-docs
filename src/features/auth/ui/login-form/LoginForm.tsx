@@ -37,7 +37,13 @@ export const LoginForm = () => {
         {...register('password')}
       />
 
-      <Button variant={'primary'} type="submit" disabled={isSubmitting} className={styles.button}>
+      <Button
+        variant={'primary'}
+        type="submit"
+        disabled={isSubmitting}
+        loading={isSubmitting}
+        className={styles.button}
+      >
         Войти
       </Button>
     </form>
