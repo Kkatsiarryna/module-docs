@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import styles from './DropdownFilter.module.scss'
-import { PAGE_ICONS } from '../icons/icons'
+import { ICONS } from '../icons/icons'
 import { type ReactElement } from 'react'
 
 interface FilterOptions {
@@ -33,12 +33,12 @@ export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => 
 
   const options: FilterOptions = {
     text: ['от А до Я', 'от Я до А', 'По умолчанию'],
-    icon: [<PAGE_ICONS.SORT_START />, <PAGE_ICONS.SORT_END />, <PAGE_ICONS.ARROWS_TWO_SIDES />],
+    icon: [<ICONS.SORT_START />, <ICONS.SORT_END />, <ICONS.ARROWS_TWO_SIDES />],
   }
 
   const optionsTwo: FilterOptions = {
     text: ['По возрастанию', 'По убыванию', 'По умолчанию'],
-    icon: [<PAGE_ICONS.ARROW_UP />, <PAGE_ICONS.ARROW_DOWN />, <PAGE_ICONS.ARROWS_TWO_SIDES />],
+    icon: [<ICONS.ARROW_UP />, <ICONS.ARROW_DOWN />, <ICONS.ARROWS_TWO_SIDES />],
   }
 
   const COUNT_OF_FIELD = 3;

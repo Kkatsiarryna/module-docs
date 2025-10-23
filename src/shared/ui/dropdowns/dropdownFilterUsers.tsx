@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse'
 // import Plus from '../../assets/icons/outlined/plus.svg?react'
 import styles from './DropdownFilterUsers.module.scss'
 import { rolesDocs } from '@shared/variables/users'
-import { BUTTON_ICONS, PAGE_ICONS } from '../icons/icons'
+import { ICONS } from '../icons/icons'
 import { Icon } from '../icons/icons-helper'
 
 interface FilterUsers {
@@ -52,9 +52,9 @@ export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
             {/* Убрали Checkbox, оставляем пустое место для выравнивания */}
             <div className={styles.topCheckbox}>
               {open ? (
-                <Icon className={styles.mainCheckbox} component={PAGE_ICONS.MINUS} size={size} />
+                <Icon className={styles.mainCheckbox} component={ICONS.MINUS} size={size} />
               ) : (
-                <Icon className={styles.mainCheckbox} component={BUTTON_ICONS.ADD} size={size} />
+                <Icon className={styles.mainCheckbox} component={ICONS.ADD} size={size} />
               )}
             </div>
           </ListItemIcon>

@@ -1,72 +1,101 @@
-import SettingsIcon from '../../assets/icons/outlined/settings.svg?react'
-import LogOutIcon from '../../assets/icons/outlined/log-out.svg?react'
-import AddIcon from '../../assets/icons/outlined/plus.svg?react'
-import WarningIcon from '../../assets/icons/filled/warning_circle_red.svg?react'
-import SuccessIcon from '../../assets/icons/filled/check_circle_green.svg?react'
-import AdminIcon from '../../assets/icons/outlined/widgets.svg?react'
-import DocsIcon from '../../assets/icons/outlined/documents.svg?react'
-import ChevronRightIcon from '../../assets/icons/outlined/chevron_right.svg?react'
-import ChevronDownIcon from '../../assets/icons/outlined/chevron_down.svg?react'
-import PhotoIcon from '../../assets/icons/outlined/photo.svg?react'
-import WarningOutlineIcon from '../../assets/icons/outlined/warning.svg?react'
-import ChevronUpIcon from '../../assets/icons/outlined/chevron_up.svg?react'
-import SearchIcon from '../../assets/icons/outlined/search.svg?react'
-import CloseIcon from '../../assets/icons/outlined/close.svg?react'
-import SortStartIcon from '../../assets/icons/outlined/sort-a.svg?react'
-import SortEndIcon from '../../assets/icons/outlined/sort-z.svg?react'
-import ArrowsTwoSidesIcon from '../../assets/icons/outlined/sort.svg?react'
-import ArrowUpIcon from '../../assets/icons/outlined/arrow-up.svg?react'
-import ArrowDownIcon from '../../assets/icons/outlined/arrow-down.svg?react'
-import SortAccessIcon from '../../assets/icons/outlined/sort-access.svg?react'
-import UploadIcon from '../../assets/icons/outlined/upload.svg?react'
-import BasketIcon from '../../assets/icons/outlined/delete.svg?react'
-import CheckIcon from '../../assets/icons/outlined/check.svg?react'
-import EyeIcon from '../../assets/icons/outlined/eye.svg?react'
-import HeardIcon from '../../assets/icons/outlined/like.svg?react'
-import Minus from '../../assets/icons/outlined/minus.svg?react'
+import AddIcon from '@icons/outlined/plus.svg?react'
+import AdminIcon from '@icons/outlined/widgets.svg?react'
+import ArrowDownIcon from '@icons/outlined/arrow-down.svg?react'
+import ArrowLeftIcon from '@icons/outlined/arrow-left.svg?react'
+import ArrowRightIcon from "@icons/outlined/arrow-right.svg?react"
+import ArrowsTwoSidesIcon from '@icons/outlined/sort.svg?react'
+import ArrowUpIcon from '@icons/outlined/arrow-up.svg?react'
+import BasketIcon from '@icons/outlined/delete.svg?react'
+import BoxIcon from '@icons/outlined/box.svg?react'
+import BurgerIcon from '@icons/outlined/burger.svg?react'
+import CalendarIcon from '@icons/outlined/calendar.svg?react'
+import CartIcon from '@icons/outlined/cart.svg?react'
+import CheckIcon from '@icons/outlined/check.svg?react'
+import ChevronDownIcon from '@icons/outlined/chevron_down.svg?react'
+import ChevronLeftIcon from '@icons/outlined/chevron_left.svg?react'
+import ChevronRightIcon from '@icons/outlined/chevron_right.svg?react'
+import ChevronUpIcon from '@icons/outlined/chevron_up.svg?react'
+import CloseIcon from '@icons/outlined/close.svg?react'
+import DocsIcon from '@icons/outlined/documents.svg?react'
+import DotsVerticalIcon from '@icons/outlined/dots_vertical.svg?react'
+import EditIcon from '@icons/outlined/edit.svg?react'
+import Example from '@icons/outlined/example.svg?react'
+import EyeClosedIcon from '@icons/outlined/eye_closed.svg?react'
+import EyeIcon from '@icons/outlined/eye.svg?react'
+import FiltersIcon from '@icons/outlined/filters.svg?react'
+import HeardFilledIcon from '@icons/outlined/like_filled.svg?react'
+import HeardIcon from '@icons/outlined/like.svg?react'
+import LogOutIcon from '@icons/outlined/log-out.svg?react'
+import MinusIcon from '@icons/outlined/minus.svg?react'
+import MoreIcon from '@icons/outlined/more.svg?react'
+import PhotoIcon from '@icons/outlined/photo.svg?react'
+import PinIcon from '@icons/outlined/pin.svg?react'
+import ProfileIcon from '@icons/outlined/profile.svg?react'
+import ReplaceIcon from '@icons/outlined/replace.svg?react'
+import SearchIcon from '@icons/outlined/search.svg?react'
+import SendIcon from '@icons/outlined/send.svg?react'
+import SettingsIcon from '@icons/outlined/settings.svg?react'
+import SortAccessIcon from '@icons/outlined/sort-access.svg?react'
+import SortEndIcon from '@icons/outlined/sort-z.svg?react'
+import SortStartIcon from '@icons/outlined/sort-a.svg?react'
+import SuccessIcon from '@icons/filled/check_circle_green.svg?react'
+import UploadIcon from '@icons/outlined/upload.svg?react'
+import WalletIcon from '@icons/outlined/wallet.svg?react'
+import WarningIcon from '@icons/filled/warning_circle_red.svg?react'
+import WarningOutlineIcon from '@icons/outlined/warning.svg?react'
+import WidgetsIcon from '@icons/outlined/widgets.svg?react'
+import ZoomInIcon from '@icons/outlined/zoom in.svg?react'
 
-export const BUTTON_ICONS = {
+export const ICONS = {
   ADD: AddIcon,
-  CLOSE: CloseIcon,
-  CHECK: CheckIcon,
-  EYE: EyeIcon,
-  HEARD: HeardIcon,
-} as const
-
-export const USER_ICONS = {
-  SETTINGS: SettingsIcon,
-  LOGOUT: LogOutIcon,
-  PHOTO: PhotoIcon,
-} as const
-
-export const INFO_ICONS = {
-  WARNING: WarningIcon,
-  SUCCESS: SuccessIcon,
-  WARNING_OUTLINE: WarningOutlineIcon,
-} as const
-
-export const PAGE_ICONS = {
   ADMIN: AdminIcon,
-  DOCS: DocsIcon,
-  SEARCH: SearchIcon,
-  SORT_START: SortStartIcon,
-  SORT_END: SortEndIcon,
+  ARROW_DOWN: ArrowDownIcon,
+  ARROW_LEFT: ArrowLeftIcon,
+  ARROW_RIGHT: ArrowRightIcon,
   ARROWS_TWO_SIDES: ArrowsTwoSidesIcon,
   ARROW_UP: ArrowUpIcon,
-  ARROW_DOWN: ArrowDownIcon,
-  SORT_ACCESS: SortAccessIcon,
-  UPLOAD: UploadIcon,
   BASKET: BasketIcon,
-  MINUS: Minus,
-} as const
-
-export const COMMON_ICONS = {
-  CHEVRON_RIGHT: ChevronRightIcon,
+  BOX: BoxIcon,
+  BURGER: BurgerIcon,
+  CALENDAR: CalendarIcon,
+  CART: CartIcon,
+  CHECK: CheckIcon,
   CHEVRON_DOWN: ChevronDownIcon,
+  CHEVRON_LEFT: ChevronLeftIcon,
+  CHEVRON_RIGHT: ChevronRightIcon,
   CHEVRON_UP: ChevronUpIcon,
+  CLOSE: CloseIcon,
+  DOCS: DocsIcon,
+  DOTS_VERTICAL: DotsVerticalIcon,
+  EDIT: EditIcon,
+  EXAMPLE: Example,
+  EYE_CLOSED: EyeClosedIcon,
+  EYE: EyeIcon,
+  FILTERS: FiltersIcon,
+  HEARD_FILLED: HeardFilledIcon,
+  HEARD: HeardIcon,
+  LOGOUT: LogOutIcon,
+  MINUS: MinusIcon,
+  MORE: MoreIcon,
+  PHOTO: PhotoIcon,
+  PIN: PinIcon,
+  PROFILE: ProfileIcon,
+  REPLACE: ReplaceIcon,
+  SEARCH: SearchIcon,
+  SEND: SendIcon,
+  SETTINGS: SettingsIcon,
+  SORT_ACCESS: SortAccessIcon,
+  SORT_END: SortEndIcon,
+  SORT_START: SortStartIcon,
+  SUCCESS: SuccessIcon,
+  UPLOAD: UploadIcon,
+  WALLET: WalletIcon,
+  WARNING: WarningIcon,
+  WARNING_OUTLINE: WarningOutlineIcon,
+  WIDGETS: WidgetsIcon,
+  ZOOM_IN: ZoomInIcon,
 } as const
 
-// Размеры иконок
 export const SIZES_ICON = {
   SMALLEST: 16,
   SMALL: 20,
