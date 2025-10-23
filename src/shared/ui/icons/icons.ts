@@ -72,3 +72,9 @@ export const SIZES_ICON = {
   SMALL: 20,
   MEDIUM: 24,
 } as const
+
+export const SIZES_CHECKBOX = {
+  SMALLEST: 16,
+  SMALL: 20,
+  MEDIUM: 20,
+} as const
