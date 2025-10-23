@@ -4,35 +4,43 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import styles from './DropdownRole.module.scss'
+import { rolesUsers } from '@shared/variables/users'
+import { Box } from '@mui/material'
+import { Icon } from '../icons/icons-helper'
+import { ICONS, SIZES_ICON } from '../icons/icons'
 
 const MenuProps = {
   PaperProps: {
     className: styles.dropdownContainer,
   },
-  // anchorOrigin: {
-  //   vertical: 'bottom' as const, // Меню появится снизу от инпута
-  //   horizontal: 'left' as const, // Левая граница меню совпадет с левой границей инпута
-  // },
-  // transformOrigin: {
-  //   vertical: 'top' as const, // Верх меню будет у нижней границы инпута
-  //   horizontal: 'left' as const, // Меню будет растягиваться слева направо
-  // },
+  disableAutoFocus: true, // ✅ Предотвращает автофокус и прокрутку
+  disableEnforceFocus: true, // ✅ Не переводит фокус на меню
+  disableAutoFocusItem: true, // ✅ Не фокусирует первый элемент
 }
 
-const names = ['Администратор', 'HR-специалист', 'Менеджер', 'Специалист']
+interface DropdownRoleProps {
+  size?: 'small' | 'medium' 
+}
 
-// Кастомный Select с измененной стрелочкой
-const CustomSelect = styled(Select)({
+const CustomSelect = styled(Select)<DropdownRoleProps>(({ size }) => ({
+  height: size === 'small' ? '32px' : size === 'medium' ? '36px' : '24px',
   '& .MuiSelect-icon': {
     color: '#221e1c',
     width: '20px',
     height: '20px',
   },
-})
+  '& fieldset': { border: 'none' },
+  '& .MuiSelect-select': {
+    padding: '0',
+    lineHeight: '24px',
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative',
+  },
+}))
 
-export const DropdownRole = () => {
+export const DropdownRole = ({ size }: DropdownRoleProps) => {
   const [role, setRole] = React.useState<string>('')
   const [open, setOpen] = React.useState<boolean>(false)
 
@@ -61,21 +69,18 @@ export const DropdownRole = () => {
   }
 
   return (
-    <div className={styles.dropdownRole_border}>
+    <Box
+      sx={{ height: size === 'small' ? '32px' : size === 'medium' ? '36px' : '24px' }}
+      className={styles.dropdownRole_border}
+    >
       <span className={styles.dropdownRole_borderTitle}>Роль</span>
       <FormControl fullWidth>
         <CustomSelect
           id="name"
           sx={{
-            height: '24px',
-            '& fieldset': { border: 'none' },
-            '& .MuiSelect-select': {
-              padding: '0',
-              lineHeight: '24px',
-              display: 'flex',
-              alignItems: 'center',
-              position: 'relative',
-            },
+            height: size === 'small' ? '32px' : size === 'medium' ? '36px' : '24px',
+            fontSize: size === 'small' ? '14px' : size === 'medium' ? '14px' : '12px',
+            paddingLeft: '12px',
           }}
           value={role}
           onChange={handleChange}
@@ -84,13 +89,15 @@ export const DropdownRole = () => {
           open={open}
           input={<OutlinedInput />}
           MenuProps={MenuProps}
-          IconComponent={KeyboardArrowDownIcon}
+          IconComponent={props => (
+            <Icon {...props} component={ICONS.CHEVRON_DOWN} size={SIZES_ICON.SMALL} />
+          )}
           displayEmpty
           renderValue={(selected: unknown) => {
             return selected as string
           }}
         >
-          {names.map(name => (
+          {rolesUsers.map(name => (
             <MenuItem
               disableRipple
               key={name}
@@ -104,6 +111,6 @@ export const DropdownRole = () => {
           ))}
         </CustomSelect>
       </FormControl>
-    </div>
+    </Box>
   )
 }

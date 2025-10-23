@@ -1,16 +1,13 @@
 .dropdownRole_border {
   border-radius: 12px;
   max-width: 200px;
-  height: 24px;
   box-shadow: 2px 2px 10px 0 rgba(54, 50, 47, 0.1);
   background: #fff;
   border: 2px solid var(--accent-focused);
   position: relative;
   margin-top: 5%;
-  padding-left: 12px;
   font-size: 12px;
 
-  // Стили для текста внутри бордера
   .dropdownRole_borderTitle {
     font-family: var(--font-family);
     font-weight: 400;
@@ -26,12 +23,10 @@
 }
 
 .dropdownContainer {
-  // position: absolute;
   top: 0;
   margin-top: 4px;
   left: 0;
   border-radius: 12px;
-  // width: 200px;
   height: auto;
   padding: 8px;
 
@@ -45,7 +40,6 @@
     font-size: 12px;
     line-height: 133%;
     color: var(--text-dark);
-    background-color: var(--background-surface);
 
     &:hover {
       background-color: var(--tertiary-hover);
@@ -55,19 +49,4 @@
       background-color: var(--tertiary-active);
     }
   }
-}
-
-// Стили для кастомной стрелочки
-.selectIcon {
-  color: var(--icon-static-dark);
-  width: 14px;
-  height: 7px;
-
-  &.open {
-    transform: rotate(180deg);
-  }
-}
-
-#name {
-  padding: 1.5px 14px;
 }
