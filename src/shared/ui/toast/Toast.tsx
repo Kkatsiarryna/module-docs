@@ -7,7 +7,7 @@ import SuccessIcon from '@icons/filled/check_circle_green.svg?react'
 import WarningIcon from '@icons/filled/warning_circle_red.svg?react'
 import CloseIcon from '@icons/outlined/close.svg?react'
 
-type ToastVariant = 'success' | 'error'
+export type ToastVariant = 'success' | 'error'
 
 type Props = {
   message: string
