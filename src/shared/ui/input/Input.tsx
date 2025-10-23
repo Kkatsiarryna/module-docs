@@ -1,6 +1,9 @@
 import MuiTextField from '@mui/material/TextField'
 import type { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField'
 import { type ChangeEvent, type ReactNode, useEffect, useId, useState } from 'react'
+import EyeIcon from '@icons/outlined/eye.svg?react'
+import EyeClosedIcon from '@icons/outlined/eye_closed.svg?react'
+import Box from '@mui/material/Box'
 
 type InputSize = 'M' | 'XS'
 type Props = Omit<MuiTextFieldProps, 'size'> & {
@@ -21,12 +24,14 @@ export const Input = ({
   maxLength,
   showCharacterCount = false,
   onChange,
+  type,
   ...rest
 }: Props) => {
   const defaultId = useId()
   const idCurrent = id ?? defaultId
 
   const [characterCount, setCharacterCount] = useState(0)
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     if (typeof value === 'string') {
@@ -41,8 +46,21 @@ export const Input = ({
     onChange?.(event)
   }
 
+  const handleTogglePassword = () => {
+    setShowPassword(prev => !prev)
+  }
+
+  const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type
+
+  const passwordEndIcon =
+    type === 'password' ? (
+      <Box onClick={handleTogglePassword}>{showPassword ? <EyeIcon /> : <EyeClosedIcon />}</Box>
+    ) : (
+      endIcon
+    )
+
   const computedLabel =
-    showCharacterCount && maxLength ? `${label ?? ''} ${characterCount}/${maxLength}     ` : label
+    showCharacterCount && maxLength ? `${label ?? ''} ${characterCount}/${maxLength}` : label
 
   return (
     <MuiTextField
@@ -52,9 +70,10 @@ export const Input = ({
       onChange={handleChange}
       label={computedLabel}
       size={size === 'XS' ? 'small' : 'medium'}
+      type={inputType}
       slotProps={{
         input: {
-          endAdornment: endIcon,
+          endAdornment: passwordEndIcon,
           inputProps: { maxLength },
         },
       }}

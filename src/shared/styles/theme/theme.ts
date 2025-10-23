@@ -276,6 +276,9 @@ export const theme = createTheme({
             '& .MuiOutlinedInput-input': {
               padding: '9px 12px',
             },
+            '& .MuiInputLabel-root': {
+              zIndex: 1,
+            },
           },
         },
         {
@@ -285,6 +288,9 @@ export const theme = createTheme({
             fontSize: 'var(--font-size-xs)',
             '& .MuiOutlinedInput-input': {
               padding: '4px 12px',
+            },
+            '& .MuiInputLabel-root': {
+              zIndex: 1,
             },
           },
         },
@@ -316,6 +322,7 @@ export const theme = createTheme({
           border: '1px solid var(--divider-default)',
           borderRadius: 'var(--radius-3x)',
           transition: 'all 0.2s ease-in-out',
+          zIndex: 0,
         },
         input: {
           '&::placeholder': {
@@ -339,6 +346,7 @@ export const theme = createTheme({
           '&.Mui-disabled': {
             color: 'var(--text-disabled-dark)',
           },
+          zIndex: 1,
         },
         outlined: {
           // === Для medium (36px)
@@ -347,6 +355,13 @@ export const theme = createTheme({
           },
           '&[data-shrink="true"]': {
             transform: 'translate(14px, -6px) scale(0.75)',
+            backgroundColor: 'var(--background-paper)',
+            padding: '0 4px',
+            marginLeft: '-4px',
+            '& .MuiFormLabel-asterisk': {
+              position: 'relative',
+              zIndex: 2,
+            },
           },
 
           // === Для small (24px)
@@ -357,6 +372,13 @@ export const theme = createTheme({
             },
             '&[data-shrink="true"]': {
               transform: 'translate(14px, -9px) scale(0.75)',
+              backgroundColor: 'var(--background-paper)',
+              padding: '0 4px',
+              marginLeft: '-4px',
+              '& .MuiFormLabel-asterisk': {
+                position: 'relative',
+                zIndex: 2,
+              },
             },
           },
         },
