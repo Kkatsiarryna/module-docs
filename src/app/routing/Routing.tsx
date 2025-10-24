@@ -1,11 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-
 import { ProtectedRoute } from '@app/routing/protected-route.tsx'
 import { DocumentsPage } from '@pages/documents'
 import { LoginPage } from '@pages/login'
 import { useAppSelector } from '@app/store'
 import { selectIsLoggedIn } from '@features/auth/model'
 import { routes } from '@shared/config'
+import { ConfirmPasswordPage } from '@pages/confirm-password'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -27,6 +27,7 @@ export const Routing = () => {
       />
       {/* Публичные маршруты */}
       <Route path={routes.login} element={<LoginPage />} />
+      <Route path={routes.confirmPassword} element={<ConfirmPasswordPage />} />
       {/* Защищенные маршруты */}
       <Route
         path={routes.documents}
