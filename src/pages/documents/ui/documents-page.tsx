@@ -1,3 +1,9 @@
+import { Header } from "@widgets/header"
+
 export const DocumentsPage = () => {
-  return <div>Documents Page</div>
+  return <>
+  <Header></Header>
+  <div>Documents Page</div>
+  </>
+  
 }

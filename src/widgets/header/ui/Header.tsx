@@ -9,6 +9,7 @@ import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import MenuItem from '@mui/material/MenuItem'
 import styles from './Header.module.scss'
+import { UserAvatar } from '@shared/ui/avatar/Avatar'
 
 const settings = ['Настройки', 'Выйти']
 
@@ -36,12 +37,12 @@ export const Header = () => {
     img: '',
   }
 
-  function stringAvatar(name: string) {
-    return {
-      className: styles.stringAvatar,
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    }
-  }
+  // function stringAvatar(name: string) {
+  //   return {
+  //     className: styles.stringAvatar,
+  //     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  //   }
+  // }
 
   return (
     <AppBar className={styles.appBar}>
@@ -69,13 +70,7 @@ export const Header = () => {
           </MenuItem>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar
-                src={user.img}
-                alt={`${user.name} ${user.surname}`}
-                {...(!user.img && stringAvatar(`${user.name} ${user.surname}`))}
-              >
-                {!user.img && stringAvatar(`${user.name} ${user.surname}`).children}
-              </Avatar>
+              <UserAvatar />
             </IconButton>
             <Menu
               className={styles.menuContainer}

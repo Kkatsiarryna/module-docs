@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import styles from './DropdownFilterUsers.module.scss'
 import { rolesDocs } from '@shared/model/users'
-import { Checkbox } from '../checkbox/Checkbox'
+import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 
 interface FilterUsers {
   size: number;
