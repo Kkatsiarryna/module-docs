@@ -1,4 +1,4 @@
-import { Button, Input, Typography } from '@shared/ui'
+import { AuthForm, Button, Input } from '@shared/ui'
 import styles from './LoginForm.module.scss'
 import { useLoginForm } from '@features/auth/model'
 
@@ -12,11 +12,7 @@ export const LoginForm = () => {
   } = useLoginForm()
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant="heading2" className={styles.title}>
-        Авторизация
-      </Typography>
-
+    <AuthForm title="Авторизация" onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <Input
         label="Email"
         // type="email"
@@ -36,9 +32,8 @@ export const LoginForm = () => {
         className={styles.inputPassword}
         {...register('password')}
       />
-
       <Button
-        variant={'primary'}
+        variant="primary"
         type="submit"
         disabled={isSubmitting}
         loading={isSubmitting}
@@ -46,6 +41,6 @@ export const LoginForm = () => {
       >
         Войти
       </Button>
-    </form>
+    </AuthForm>
   )
 }
