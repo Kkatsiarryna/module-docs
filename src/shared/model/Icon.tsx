@@ -5,6 +5,7 @@ interface IconProps extends SvgIconProps {
   paddingLeft?: number
   paddingRight?: number
   padding?: number
+  marginRight?: number
 }
 
 export const Icon: React.FC<IconProps> = ({
@@ -12,6 +13,7 @@ export const Icon: React.FC<IconProps> = ({
   padding = 0,
   paddingLeft = 0,
   paddingRight = 0,
+  marginRight = 0,
   sx,
   ...props
 }) => {
@@ -24,6 +26,7 @@ export const Icon: React.FC<IconProps> = ({
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
         padding: padding,
+        marginRight: marginRight,
         ...sx,
       }}
       {...props}
