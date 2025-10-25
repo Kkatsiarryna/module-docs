@@ -5,9 +5,9 @@ import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 import styles from './DropdownRole.module.scss'
-import { rolesUsers } from '@shared/model/users'
+import { rolesUsers } from '@shared/model/user/users'
 import { Box } from '@mui/material'
-import { Icon } from '../../../model/Icon'
+import { Icon } from '../../../model/icon/Icon'
 import { ICONS, SIZES_ICON } from '../../icons/icons'
 
 const MenuProps = {

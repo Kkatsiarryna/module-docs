@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import MenuItem from '@mui/material/MenuItem'
 import styles from './Header.module.scss'
-import { UserAvatar } from '@shared/ui/avatar/UserAvatar'
+import { Avatar } from '@shared/ui/avatar/Avatar'
 import { DropdownUser } from '@shared/ui/dropdowns/dropdownUser/DropdownUser'
 
 export const Header = () => {
@@ -55,7 +55,7 @@ export const Header = () => {
           </MenuItem>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <UserAvatar />
+              <Avatar />
             </IconButton>
             <DropdownUser anchorElUser={anchorElUser} setAnchorElUser={setAnchorElUser} />
           </Box>

@@ -2,7 +2,7 @@ import Menu from '@mui/material/Menu'
 import styles from '@shared/ui/dropdowns/dropdownUser/DropdownUser.module.scss'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { Icon } from '@shared/model/Icon'
+import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 
 interface DropdownUserProps {
