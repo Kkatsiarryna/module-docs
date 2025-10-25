@@ -1,0 +1,29 @@
+.appBar {
+  box-shadow: none;
+  background-color: #fff;
+  position: relative;
+  width: 100%;
+}
+
+.appBarContainer {
+  padding: 0;
+}
+
+.userRole {
+  cursor: default;
+  &:hover {
+    background: transparent;
+  }
+  &.Mui-focusVisible {
+    background: transparent;
+  }
+}
+
+.userRoleText {
+  text-align: center;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  color: var(--text-soft);
+}

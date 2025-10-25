@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import styles from './DropdownFilter.module.scss'
-import { ICONS } from '../icons/icons'
+import { ICONS } from '../../icons/icons'
 import { type ReactElement } from 'react'
 
 interface FilterOptions {

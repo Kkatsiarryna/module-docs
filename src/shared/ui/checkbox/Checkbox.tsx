@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { ICONS, SIZES_CHECKBOX } from '../icons/icons'
 import style from './Checkbox.module.scss'
-import { Icon } from '../icons/icons-helper'
+import { Icon } from '../../model/icon/Icon'
 
 interface CheckboxProps {
   checked: boolean

@@ -125,7 +125,7 @@ export const theme = createTheme({
           lineHeight: '129%',
           textAlign: 'center',
           minWidth: '24px',
-          // height: 'auto',
+          width: '100%',
           textTransform: 'none',
           boxShadow: 'none',
           '&:hover': {
