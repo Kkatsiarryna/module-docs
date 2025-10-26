@@ -25,10 +25,10 @@ export const Routing = () => {
         path={routes.login}
         element={isLoggedIn ? <Navigate to={routes.documents} replace /> : <LoginPage />}
       />
-      {/* Публичные маршруты */}
+
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.confirmPassword} element={<ConfirmPasswordPage />} />
-      {/* Защищенные маршруты */}
+
       <Route
         path={routes.documents}
         element={
@@ -37,7 +37,7 @@ export const Routing = () => {
           </ProtectedRoute>
         }
       />
-      {/* Редиректы */}
+
       <Route path="*" element={<div>404 - Page Not Found</div>} />
     </Routes>
   )

@@ -268,6 +268,8 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           width: '100%',
+          position: 'relative',
+          borderRadius: 'var(--radius-3x)',
         },
       },
     },
@@ -281,8 +283,15 @@ export const theme = createTheme({
             '& .MuiOutlinedInput-input': {
               padding: '9px 12px',
             },
-            '& .MuiInputLabel-root': {
-              zIndex: 1,
+            '&.MuiOutlinedInput-notchedOutline legend': {
+              '& span': {
+                paddingLeft: '8px',
+              },
+            },
+            '.search-input &': {
+              '& span': {
+                paddingLeft: 0,
+              },
             },
           },
         },
@@ -294,8 +303,10 @@ export const theme = createTheme({
             '& .MuiOutlinedInput-input': {
               padding: '4px 12px',
             },
-            '& .MuiInputLabel-root': {
-              zIndex: 1,
+            '& .MuiOutlinedInput-notchedOutline legend': {
+              '& span': {
+                paddingLeft: '16px',
+              },
             },
           },
         },
@@ -327,11 +338,18 @@ export const theme = createTheme({
           border: '1px solid var(--divider-default)',
           borderRadius: 'var(--radius-3x)',
           transition: 'all 0.2s ease-in-out',
-          zIndex: 0,
         },
         input: {
+          color: 'var(--text-dark)',
           '&::placeholder': {
             color: 'var(--text-disabled-dark)',
+          },
+          //переопределение autofill Chrome
+          '&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus': {
+            WebkitBoxShadow: '0 0 0 1000px var(--background-paper) inset !important',
+            WebkitTextFillColor: "'#16122c' !important",
+            transition: 'background-color 5000s ease-in-out 0s !important',
+            caretColor: "'#16122c' !important",
           },
         },
       },
@@ -351,7 +369,6 @@ export const theme = createTheme({
           '&.Mui-disabled': {
             color: 'var(--text-disabled-dark)',
           },
-          zIndex: 1,
         },
         outlined: {
           // === Для medium (36px)
@@ -359,14 +376,7 @@ export const theme = createTheme({
             transform: 'translate(14px, 9px) scale(1)',
           },
           '&[data-shrink="true"]': {
-            transform: 'translate(14px, -6px) scale(0.75)',
-            backgroundColor: 'var(--background-paper)',
-            padding: '0 4px',
-            marginLeft: '-4px',
-            '& .MuiFormLabel-asterisk': {
-              position: 'relative',
-              zIndex: 2,
-            },
+            transform: 'translate(14px, -7px) scale(0.75)',
           },
 
           // === Для small (24px)
@@ -376,14 +386,7 @@ export const theme = createTheme({
               fontSize: 'var(--font-size-xs)',
             },
             '&[data-shrink="true"]': {
-              transform: 'translate(14px, -9px) scale(0.75)',
-              backgroundColor: 'var(--background-paper)',
-              padding: '0 4px',
-              marginLeft: '-4px',
-              '& .MuiFormLabel-asterisk': {
-                position: 'relative',
-                zIndex: 2,
-              },
+              transform: 'translate(14px, -7px) scale(0.75)',
             },
           },
         },
@@ -392,8 +395,11 @@ export const theme = createTheme({
     MuiFormHelperText: {
       styleOverrides: {
         root: {
+          position: 'absolute',
           margin: 0,
-          padding: '4px 12px 0',
+          padding: 0,
+          bottom: '-20px',
+          left: '12px',
           '&.Mui-error': {
             fontSize: 'var(--font-size-xs)',
             fontWeight: 'var(--font-weight-regular)',

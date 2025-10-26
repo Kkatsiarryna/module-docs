@@ -1,5 +1,5 @@
 import MuiAvatar from '@mui/material/Avatar'
-import styles from './UserAvatar.module.scss'
+import styles from './Avatar.module.scss'
 
 const user = {
   name: 'John',

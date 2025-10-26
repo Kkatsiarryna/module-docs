@@ -1,9 +1,16 @@
 import MuiTextField from '@mui/material/TextField'
 import type { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField'
-import { type ChangeEvent, type ReactNode, useEffect, useId, useState } from 'react'
-import EyeIcon from '@icons/outlined/eye.svg?react'
-import EyeClosedIcon from '@icons/outlined/eye_closed.svg?react'
-import Box from '@mui/material/Box'
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useState,
+} from 'react'
+import { ICONS } from '@shared/ui'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
 
 type InputSize = 'M' | 'XS'
 type Props = Omit<MuiTextFieldProps, 'size'> & {
@@ -32,17 +39,15 @@ export const Input = ({
 
   const [characterCount, setCharacterCount] = useState(0)
   const [showPassword, setShowPassword] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
-    if (typeof value === 'string') {
-      setCharacterCount(value.length)
-    } else if (value == null) {
-      setCharacterCount(0)
-    }
+    setCharacterCount(typeof value === 'string' ? value.length : 0)
   }, [value])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCharacterCount(event.target.value.length)
+    const newValue = event.target.value
+    setCharacterCount(newValue.length)
     onChange?.(event)
   }
 
@@ -50,14 +55,27 @@ export const Input = ({
     setShowPassword(prev => !prev)
   }
 
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    const currentValue = event.target.value
+    if (!currentValue || currentValue.trim().length === 0) {
+      setShowPassword(false)
+    }
+    setIsFocused(false)
+  }
+
   const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type
 
-  const passwordEndIcon =
-    type === 'password' ? (
-      <Box onClick={handleTogglePassword}>{showPassword ? <EyeIcon /> : <EyeClosedIcon />}</Box>
-    ) : (
-      endIcon
-    )
+  const shouldShowPasswordIcon = type === 'password' && (isFocused || characterCount > 0)
+
+  const passwordEndAdornment = shouldShowPasswordIcon ? (
+    <InputAdornment position="end">
+      <IconButton onClick={handleTogglePassword} edge="end">
+        {showPassword ? <ICONS.EYE /> : <ICONS.EYE_CLOSED />}
+      </IconButton>
+    </InputAdornment>
+  ) : endIcon ? (
+    <InputAdornment position="end">{endIcon}</InputAdornment>
+  ) : null
 
   const computedLabel =
     showCharacterCount && maxLength ? `${label ?? ''} ${characterCount}/${maxLength}` : label
@@ -73,8 +91,10 @@ export const Input = ({
       type={inputType}
       slotProps={{
         input: {
-          endAdornment: passwordEndIcon,
+          endAdornment: passwordEndAdornment,
           inputProps: { maxLength },
+          onBlur: handleBlur,
+          onFocus: () => setIsFocused(true),
         },
       }}
       {...rest}
