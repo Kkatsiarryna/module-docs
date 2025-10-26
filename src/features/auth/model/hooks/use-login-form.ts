@@ -14,6 +14,7 @@ export const useLoginForm = () => {
   const { showToast } = useToast()
 
   const form = useForm<LoginCredentials>({
+    mode: 'onChange',
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',

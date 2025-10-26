@@ -14,6 +14,10 @@
     margin-bottom: var(--spacing-7x);
     text-align: center;
   }
+
+  .content {
+    width: 100%;
+  }
 }
 
 @media (width <= 768px) {

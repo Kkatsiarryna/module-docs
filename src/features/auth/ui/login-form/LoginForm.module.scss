@@ -3,15 +3,4 @@
   .inputPassword {
     margin-bottom: var(--spacing-7x);
   }
-
-  .button {
-    width: 420px;
-    margin-top: auto;
-  }
-}
-
-@media (width <= 768px) {
-  .button {
-    max-width: 100%;
-  }
 }
