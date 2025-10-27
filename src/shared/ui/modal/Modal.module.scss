@@ -1,16 +1,46 @@
 .module {
-  border-radius: var(--radius-5xx);
-padding: 32px;
-max-width: 400px;
-height: auto;
-background: var(--background-surface);
-margin: auto;
-// position: relative;
+  border-radius: var(--radius-5x);
+  padding: 32px;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  background: var(--background-surface);
+  align-items: center;
+  margin: 0;
+  position: relative;
 }
 
-.module__icon {
-  width: 40px;
-  height: 40px;
-  margin: auto;
-  padding-top: 34px;
+.alertDialogTitle {
+  font-family: var(--second-family);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-l);
+  line-height: 122%;
+  text-align: center;
+  color: var(--text-modal);
+  margin-top: 12px;
+  width: 100%;
+  padding: 0;
+}
+
+.button {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+}
+
+.buttonsContainer {
+  width: 100%;
+  margin-top: 28px;
+}
+
+.iconBox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .module {
+    max-width: 300px;
+  }
 }
