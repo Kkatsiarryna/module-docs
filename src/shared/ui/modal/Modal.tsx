@@ -41,7 +41,7 @@ export const Modal: React.FC<CustomModalProps> = ({
   }
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -89,6 +89,6 @@ export const Modal: React.FC<CustomModalProps> = ({
           </DialogActions>
         )}
       </Dialog>
-    </React.Fragment>
+    </>
   )
 }
