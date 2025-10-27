@@ -8,11 +8,14 @@ type Variant =
   | 'heading1'
   | 'heading2'
   | 'heading3'
-  | 'subheadingS'
   | 'bodyM'
   | 'bodyS'
   | 'bodyXS'
   | 'body2XS'
+  | 'subheadingM'
+  | 'subheadingS'
+  | 'subheadingXS'
+  | 'subheading2XS'
 
 type Props = Omit<MuiTypographyProps, 'variant'> & {
   variant?: Variant

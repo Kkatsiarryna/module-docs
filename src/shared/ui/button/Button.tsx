@@ -1,34 +1,66 @@
-import React from 'react'
-import { Button as RadixButton, type ButtonProps } from '@radix-ui/themes'
-import styles from './Button.module.scss'
+import { Button as MuiButton, type ButtonProps } from '@mui/material'
+import { LoadersSmall } from '../loaders/loaders'
 
-type Props = Omit<ButtonProps, 'variant'> & {
-  variant?: 'primary' | 'secondary' | 'outline' | 'text-button' | 'with-icons' | ''
-  children: React.ReactNode
-  width?: string
-  minHeight?: string
+export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
+
+  declare module '@mui/material/Button' {
+    interface ButtonPropsVariantOverrides {
+      primary: true
+      secondary: true
+      outlined: true
+      ghost: true
+    }
+  }
+
+  const ButtonsType = {
+    PRIMARY: { value: 'primary', label: 'Primary Button' },
+    SECONDARY: { value: 'secondary', label: 'Secondary Button' },
+    OUTLINED: { value: 'outlined', label: 'Outlined Button' },
+    GHOST: { value: 'ghost', label: 'Ghost Button' },
+  } as const
+
+  export type ButtonsType = (typeof ButtonsType)[keyof typeof ButtonsType]['value']
+
+interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
+  variant: ButtonVariant
+  loading?: boolean
+  loadingPosition?: 'start' | 'end'
+  isIcon?: boolean
+  maxWidth?: number | string
 }
 
-export const Button: React.FC<Props> = ({
-  className = '',
-  variant = 'primary',
-  children,
-  width = 'fit-content',
-  minHeight = '36px',
-  ...rest
-}) => {
-  const childrenArray = React.Children.toArray(children)
-  const hasMultipleChildren = childrenArray.length > 1
 
-  const combinedClasses = `${styles.button} ${styles[variant]} ${
-    variant === 'secondary' && hasMultipleChildren ? styles['secondary-multiple'] : ''
-  } ${className}`
+export const Button: React.FC<CustomButtonProps> = ({
+  children,
+  variant,
+  disabled,
+  loading = false,
+  isIcon,
+  maxWidth,
+  loadingPosition,
+  sx,
+  ...props
+}) => {
+  const isDisabled = disabled || loading
+
+  const renderContent = () => {
+        return LoadersSmall[variant]
+  }
 
   return (
-    <div className={styles.wrapper}>
-      <RadixButton className={combinedClasses} style={{ width, minHeight }} {...rest}>
-        {children}
-      </RadixButton>
-    </div>
+    <MuiButton
+      variant={variant}
+      disabled={isDisabled}
+      loading={loading}
+      loadingIndicator={renderContent()}
+      loadingPosition={loadingPosition}
+      sx={{
+        ...(maxWidth && { maxWidth }), 
+        ...sx,
+      }}
+      {...props}
+    >
+      {loading ? (isIcon ? children : '') : children}
+    </MuiButton>
   )
 }

@@ -16,7 +16,7 @@
     min-width: auto;
     height: 24px;
     min-height: 24px;
-    padding: 4px 8px !important;
+    padding: 4px 8px;
 
     font-size: 12px;
     line-height: 133%;
@@ -32,7 +32,7 @@
     min-width: auto;
     height: 32px;
     min-height: 32px;
-    padding: 4px 12px !important;
+    padding: 4px 12px;
 
     font-size: 16px;
     line-height: 137%;
@@ -114,14 +114,6 @@
     }
   }
 
-  .icon {
-    padding-right: 4px !important;
-  }
-
-  .deleteIcon {
-    padding-left: 4px !important;
-  }
-
   .content {
     display: flex;
     gap: 4px;
@@ -136,25 +128,4 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-}
-
-:global(.MuiChip-root) {
-  padding: 0 !important;
-  margin: 0 !important;
-  gap: 0 !important;
-}
-
-:global(.MuiChip-label) {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-:global(.MuiChip-icon) {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-:global(.MuiChip-deleteIcon) {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
 }

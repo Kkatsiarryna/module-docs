@@ -1,0 +1,35 @@
+.filterUsers {
+  border-radius: 8px;
+  padding: 16px 12px;
+  max-width: 280px;
+  box-shadow: 2px 2px 10px 0 rgba(54, 50, 47, 0.15);
+  background: var(--background-surface);
+}
+
+.checkboxWrapper {
+  min-width: inherit;
+}
+
+.filterUsers__innerBlock {
+  padding: 0px 0px 0px 12px;
+  height: auto;
+}
+
+.innerBlock__items {
+  border-radius: 8px;
+  gap: 8px;
+  &:hover {
+    background-color: var(--tertiary-hover);
+  }
+  &:active {
+    background-color: var(--tertiary-active);
+  }
+}
+
+.innerBlock__text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 129%;
+  color: #16122c;
+}
