@@ -25,4 +25,4 @@ build-and-push-image:
     - docker push $IMAGE_NAME:latest
   only:
     - merge_requests
-    - dev
+    - develop
