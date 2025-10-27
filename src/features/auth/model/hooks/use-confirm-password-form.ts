@@ -12,6 +12,7 @@ export const useConfirmPasswordForm = () => {
   const [isFocused, setIsFocused] = useState(false)
 
   const form = useForm({
+    mode: 'onChange',
     resolver: zodResolver(confirmPasswordSchema),
     defaultValues: {
       password: '',

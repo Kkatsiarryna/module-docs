@@ -32,6 +32,7 @@ export const LoginForm = () => {
         className={styles.inputPassword}
         {...register('password')}
       />
+
       <Button
         variant="primary"
         type="submit"
