@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import styles from './PhotoUploader.module.scss'
-import { type ChangeEvent, useRef, useState } from 'react'
+import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import PhotoIcon from '@shared/assets/icons/filled/photo.svg?react'
 import DeleteIcon from '@shared/assets/icons/outlined/delete.svg?react'
 import ZoomInIcon from '@icons/outlined/zoom in.svg?react'
@@ -9,13 +9,21 @@ import IconButton from '@mui/material/IconButton'
 
 export const PhotoUploader = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
+  const [imgFile, setImgFile] = useState<File | undefined>()
+  const [imgUrl, setImgUrl] = useState('')
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (imgFile) {
+      const url = URL.createObjectURL(imgFile)
+      setImgUrl(url)
+      return () => URL.revokeObjectURL(url)
+    }
+  }, [imgFile])
+
+  const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      const url = URL.createObjectURL(file)
-      setPreview(url)
+      setImgFile(file)
     }
   }
 
@@ -27,9 +35,9 @@ export const PhotoUploader = () => {
 
   return (
     <Box className={styles.photoUploader} onClick={handleClick}>
-      {preview ? (
+      {imgUrl ? (
         <>
-          <img src={preview} alt="preview" className={styles.previewImage} />
+          <img src={imgUrl} alt="preview" className={styles.previewImage} />
           <Box className={styles.buttonsIcon}>
             <IconButton onClick={handleDelete} className={styles.iconButton}>
               <DeleteIcon className={styles.deleteIcon} />
@@ -50,7 +58,7 @@ export const PhotoUploader = () => {
         accept="image/*"
         ref={fileInputRef}
         style={{ display: 'none' }}
-        onChange={handleFileChange}
+        onChange={handleImgChange}
       />
     </Box>
   )
