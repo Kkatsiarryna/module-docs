@@ -6,7 +6,7 @@ import DeleteIcon from '@shared/assets/icons/outlined/delete.svg?react'
 import ZoomInIcon from '@icons/outlined/zoom in.svg?react'
 import { LoadersMedium, Typography } from '@shared/ui'
 import IconButton from '@mui/material/IconButton'
-import { useFileValidation } from '@shared/model/validation/useFileValidation.ts'
+import { useFileValidation } from '@shared/model/validation'
 import { IMAGE_SCHEMA } from '@shared/ui/photo-uploader/image.schema.ts'
 import clsx from 'clsx'
 
