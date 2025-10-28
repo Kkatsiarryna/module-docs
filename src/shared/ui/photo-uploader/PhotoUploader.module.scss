@@ -14,8 +14,11 @@
   // padding: 12px 12px 16px;
   border-radius: var(--radius-4x);
 
-  // background: var(--background-surface-1);
-  background: burlywood;
+  background: var(--background-surface-1);
+
+  &.errorBorder {
+    border: 2px solid var(--status-error-dark);
+  }
 
   .photoIcon {
     width: 32px;
@@ -54,6 +57,18 @@
       width: 16px;
       height: 16px;
       color: var(--accent-default);
+    }
+  }
+
+  &.disabled {
+    background: var(--background-disabled-light);
+
+    .photoIcon {
+      color: var(--icon-disabled);
+    }
+
+    .textDisabled {
+      color: var(--text-disabled-dark);
     }
   }
 }
