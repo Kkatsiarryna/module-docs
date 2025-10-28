@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box'
 import styles from './PhotoUploader.module.scss'
 import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from 'react'
-import PhotoIcon from '@shared/assets/icons/filled/photo.svg?react'
-import DeleteIcon from '@shared/assets/icons/outlined/delete.svg?react'
-import ZoomInIcon from '@icons/outlined/zoom in.svg?react'
 import { LoadersMedium, Typography } from '@shared/ui'
 import IconButton from '@mui/material/IconButton'
 import { useFileValidation } from '@shared/model/validation'
 import { IMAGE_SCHEMA } from '@shared/ui/photo-uploader/image.schema.ts'
+import { ICONS } from '@shared/ui'
 import clsx from 'clsx'
 
 type PhotoUploader = {
@@ -70,10 +68,10 @@ export const PhotoUploader = ({ disabled = false }: PhotoUploader) => {
       <img src={previewUrl} alt="preview" className={styles.previewImage} />
       <Box className={styles.buttonsIcon}>
         <IconButton onClick={handleDelete} className={styles.iconButton}>
-          <DeleteIcon className={styles.deleteIcon} />
+          <ICONS.BASKET className={styles.deleteIcon} />
         </IconButton>
         <IconButton className={styles.iconButton}>
-          <ZoomInIcon className={styles.zoomInIcon} />
+          <ICONS.ZOOM_IN className={styles.zoomInIcon} />
         </IconButton>
       </Box>
     </>
@@ -81,7 +79,7 @@ export const PhotoUploader = ({ disabled = false }: PhotoUploader) => {
 
   const renderPlaceholder = () => (
     <>
-      <PhotoIcon className={styles.photoIcon} />
+      <ICONS.PHOTO_FILLED className={styles.photoIcon} />
       <Typography variant={'bodyS'} className={clsx({ [styles.textDisabled]: disabled })}>
         Загрузить фото
       </Typography>
