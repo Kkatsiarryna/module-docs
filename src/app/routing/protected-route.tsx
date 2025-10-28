@@ -11,7 +11,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const location = useLocation()
 
-  console.log(location)
+  //console.log(location)
   if (!isLoggedIn) {
     return <Navigate to={routes.login} state={{ from: location }} replace />
   }

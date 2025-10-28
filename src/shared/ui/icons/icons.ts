@@ -2,7 +2,7 @@ import AddIcon from '@icons/outlined/plus.svg?react'
 import AdminIcon from '@icons/outlined/widgets.svg?react'
 import ArrowDownIcon from '@icons/outlined/arrow-down.svg?react'
 import ArrowLeftIcon from '@icons/outlined/arrow-left.svg?react'
-import ArrowRightIcon from "@icons/outlined/arrow-right.svg?react"
+import ArrowRightIcon from '@icons/outlined/arrow-right.svg?react'
 import ArrowsTwoSidesIcon from '@icons/outlined/sort.svg?react'
 import ArrowUpIcon from '@icons/outlined/arrow-up.svg?react'
 import BasketIcon from '@icons/outlined/delete.svg?react'
@@ -29,6 +29,7 @@ import LogOutIcon from '@icons/outlined/log-out.svg?react'
 import MinusIcon from '@icons/outlined/minus.svg?react'
 import MoreIcon from '@icons/outlined/more.svg?react'
 import PhotoIcon from '@icons/outlined/photo.svg?react'
+import PhotoFilledIcon from '@icons/filled/photo.svg?react'
 import PinIcon from '@icons/outlined/pin.svg?react'
 import ProfileIcon from '@icons/outlined/profile.svg?react'
 import ReplaceIcon from '@icons/outlined/replace.svg?react'
@@ -78,6 +79,7 @@ export const ICONS = {
   MINUS: MinusIcon,
   MORE: MoreIcon,
   PHOTO: PhotoIcon,
+  PHOTO_FILLED: PhotoFilledIcon,
   PIN: PinIcon,
   PROFILE: ProfileIcon,
   REPLACE: ReplaceIcon,
