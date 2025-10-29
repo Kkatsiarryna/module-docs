@@ -273,6 +273,29 @@ export const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      variants: [
+        {
+          props: {
+            size: 'small',
+          },
+          style: {
+            padding: '4px 12px',
+          },
+        },
+      ],
+      styleOverrides: {
+        root: {
+          padding: '9px 12px',
+          '&.MuiInputBase-adornedStart': {
+            paddingLeft: '12px',
+          },
+          '&.MuiInputBase-adornedEnd': {
+            paddingRight: '12px',
+          },
+        },
+      },
+    },
     MuiOutlinedInput: {
       variants: [
         {
@@ -280,17 +303,6 @@ export const theme = createTheme({
           style: {
             height: 36,
             fontSize: 'var(--font-size-s)',
-            '& .MuiOutlinedInput-input': {
-              padding: '9px 12px',
-            },
-            '&.MuiOutlinedInput-notchedOutline legend': {
-              '& span': {
-                paddingLeft: '8px',
-              },
-            },
-            '.search-input &': {
-              padding: '9px 12px',
-            },
           },
         },
         {
@@ -298,13 +310,8 @@ export const theme = createTheme({
           style: {
             height: 24,
             fontSize: 'var(--font-size-xs)',
-            '& .MuiOutlinedInput-input': {
-              padding: '4px 12px',
-            },
-            '& .MuiOutlinedInput-notchedOutline legend': {
-              '& span': {
-                paddingLeft: '16px',
-              },
+            '.MuiFormControl-root:has(.MuiInputLabel-root[data-shrink="true"]) & legend > span': {
+              paddingRight: '16px',
             },
           },
         },
@@ -336,6 +343,10 @@ export const theme = createTheme({
           border: '1px solid var(--divider-default)',
           borderRadius: 'var(--radius-3x)',
           transition: 'all 0.2s ease-in-out',
+
+          '.MuiFormControl-root:has(.MuiInputLabel-root[data-shrink="true"]) & legend > span': {
+            paddingRight: '10px',
+          },
         },
         input: {
           color: 'var(--text-dark)',
@@ -343,9 +354,7 @@ export const theme = createTheme({
             color: 'var(--text-disabled-dark)',
             opacity: 1,
           },
-          '.search-input &': {
-            padding: '0 8px',
-          },
+          padding: '0px',
           //переопределение autofill Chrome
           '&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus': {
             WebkitBoxShadow: '0 0 0 1000px var(--background-paper) inset !important',
@@ -399,15 +408,9 @@ export const theme = createTheme({
         root: {
           width: '20px',
           height: '20px',
-
-          '&.MuiInputAdornment-positionEnd': {
-            margin: 0,
-            padding: 0,
-          },
-
-          '&.MuiInputAdornment-positionStart': {
-            margin: 0,
-            padding: 0,
+          '& svg': {
+            width: '20px',
+            height: '20px',
           },
         },
       },
@@ -415,6 +418,8 @@ export const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
+          width: '20px',
+          height: '20px',
           color: 'var(--icon-static-dark)',
           '&.MuiIconButton-edgeEnd': {
             margin: 0,
