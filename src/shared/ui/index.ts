@@ -1,5 +1,5 @@
 export { Typography } from './typography/Typography'
-export { DropdownRole } from './dropdowns/dropdownRole/dropdownRole'
+export { Select } from './select/Select'
 export { DropdownFilter } from './dropdowns/dropdownFilter/dropdownFilter'
 export { DropdownFilterUsers } from './dropdowns/dropdownFilterUsers/dropdownFilterUsers'
 export { Button } from './button/Button'
