@@ -5,10 +5,9 @@ import FormControl from '@mui/material/FormControl'
 import MuiSelect, { type SelectChangeEvent } from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 import styles from './Select.module.scss'
-import { Box } from '@mui/material'
+import { Box, InputLabel } from '@mui/material'
 import { Icon } from '../../model/icon/Icon'
 import { ICONS, SIZES_ICON } from '../icons/icons'
-import { Typography } from '@shared/ui/typography/Typography'
 
 const MenuProps = {
   PaperProps: {
@@ -20,14 +19,11 @@ const MenuProps = {
 }
 
 interface DropdownRoleProps {
-  size?: 'small' | 'medium'
   placeholder: string
   selectItems: string[]
 }
 
-const CustomSelect = styled(MuiSelect, {
-  shouldForwardProp: prop => prop !== 'size',
-})(() => ({
+const CustomSelect = styled(MuiSelect) ({
   paddingLeft: '12px',
   '& .MuiSelect-icon': {},
   '& fieldset': { border: 'none' },
@@ -38,7 +34,7 @@ const CustomSelect = styled(MuiSelect, {
     alignItems: 'center',
     position: 'relative',
   },
-}))
+})
 
 export const Select = ({ placeholder, selectItems }: DropdownRoleProps) => {
   const [role, setRole] = React.useState<string>('')
@@ -56,63 +52,37 @@ export const Select = ({ placeholder, selectItems }: DropdownRoleProps) => {
     setOpen(true)
   }
 
-  function changeBackground(event: React.MouseEvent<HTMLLIElement>): void {
-    const target = event.target as HTMLElement
-
-    const items: NodeListOf<HTMLElement> = document.querySelectorAll('li')
-
-    items.forEach((elem: HTMLElement) => {
-      if (target.dataset.value === elem.dataset.value) {
-        elem.style.backgroundColor = 'var(--tertiary-active)'
-      }
-    })
-  }
-
   return (
     <Box className={styles.formWrapper}>
       <Box className={styles.dropdownRole_border}>
-        <span className={styles.dropdownRole_borderTitle}>{placeholder}</span>
         <FormControl fullWidth>
+          <InputLabel
+            id="select-label"
+            className={styles.selectLabel}
+          >
+            {placeholder}
+          </InputLabel>
           <CustomSelect
             id="name"
+            labelId="select-label"
             className={styles.menu}
             value={role}
             onChange={handleChange}
             onClose={handleClose}
             onOpen={handleOpen}
             open={open}
-            input={<OutlinedInput />}
+            input={<OutlinedInput label={placeholder} />}
             MenuProps={MenuProps}
             IconComponent={props => (
               <Icon {...props} component={ICONS.CHEVRON_DOWN} size={SIZES_ICON.SMALL} />
             )}
             displayEmpty
-            renderValue={(selected: unknown) => {
-              if (!selected) {
-                return <Typography className={styles.placeholder}>{placeholder}</Typography>
-              }
-              return (
-                <Typography
-                  variant="bodyM"
-                  sx={{
-                    fontSize: {
-                      xs: '10px',
-                      sm: '12px',
-                      md: '14px',
-                    },
-                  }}
-                >
-                  {selected as string}
-                </Typography>
-              )
-            }}
           >
             {selectItems.map(name => (
               <MenuItem
                 disableRipple
                 key={name}
                 value={name}
-                onClick={changeBackground}
                 selected={role === name}
                 className={styles.dropdownContainer__item}
               >
