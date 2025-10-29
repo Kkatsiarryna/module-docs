@@ -289,9 +289,7 @@ export const theme = createTheme({
               },
             },
             '.search-input &': {
-              '& span': {
-                paddingLeft: 0,
-              },
+              padding: '9px 12px',
             },
           },
         },
@@ -343,6 +341,10 @@ export const theme = createTheme({
           color: 'var(--text-dark)',
           '&::placeholder': {
             color: 'var(--text-disabled-dark)',
+            opacity: 1,
+          },
+          '.search-input &': {
+            padding: '0 8px',
           },
           //переопределение autofill Chrome
           '&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus': {
@@ -388,6 +390,39 @@ export const theme = createTheme({
             '&[data-shrink="true"]': {
               transform: 'translate(14px, -7px) scale(0.75)',
             },
+          },
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          width: '20px',
+          height: '20px',
+
+          '&.MuiInputAdornment-positionEnd': {
+            margin: 0,
+            padding: 0,
+          },
+
+          '&.MuiInputAdornment-positionStart': {
+            margin: 0,
+            padding: 0,
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: 'var(--icon-static-dark)',
+          '&.MuiIconButton-edgeEnd': {
+            margin: 0,
+            padding: 0,
+          },
+          '&.MuiIconButton-edgeStart': {
+            margin: 0,
+            padding: 0,
           },
         },
       },
