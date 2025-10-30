@@ -5,12 +5,12 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
-import styles from './DropdownFilterUsers.module.scss'
+import styles from './dropdownFilterUsers.module.scss'
 import { rolesDocs } from '@shared/model/user/users'
 import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 
 interface FilterUsers {
-  size: number;
+  size: number
 }
 
 export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
@@ -44,7 +44,7 @@ export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
           dense
         >
           <ListItemIcon className={styles.checkboxWrapper}>
-            <Checkbox checked={open} type='list' size={size}></Checkbox>
+            <Checkbox checked={open} type="list" size={size}></Checkbox>
           </ListItemIcon>
           <ListItemText id={rolesDocs[0]} primary={`${rolesDocs[0]}`} />
         </ListItemButton>
@@ -65,11 +65,7 @@ export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
                   dense
                 >
                   <ListItemIcon className={styles.checkboxWrapper}>
-                    <Checkbox
-                      checked={checked.includes(value)}
-                      type="check"
-                      size={size}
-                    ></Checkbox>
+                    <Checkbox checked={checked.includes(value)} type="check" size={size}></Checkbox>
                   </ListItemIcon>
                   <ListItemText
                     className={styles.innerBlock__text}

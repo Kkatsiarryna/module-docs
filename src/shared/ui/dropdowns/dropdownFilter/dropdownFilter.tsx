@@ -4,7 +4,7 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import styles from './DropdownFilter.module.scss'
+import styles from './dropdownFilter.module.scss'
 import { ICONS } from '../../icons/icons'
 import { type ReactElement } from 'react'
 
@@ -41,7 +41,7 @@ export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => 
     icon: [<ICONS.ARROW_UP />, <ICONS.ARROW_DOWN />, <ICONS.ARROWS_TWO_SIDES />],
   }
 
-  const COUNT_OF_FIELD = 3;
+  const COUNT_OF_FIELD = 3
 
   let optionsToUse: FilterOptions
   if (nameArray === 'sortNames') {

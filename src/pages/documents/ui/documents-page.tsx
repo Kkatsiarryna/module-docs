@@ -1,3 +1,7 @@
 export const DocumentsPage = () => {
-  return <div>Documents Page</div>
+  return (
+    <>
+      <div style={{ margin: '20px' }}>Documents Page</div>
+    </>
+  )
 }
