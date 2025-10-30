@@ -4,6 +4,7 @@ import { type ChangeEvent, useEffect, useId, useState } from 'react'
 import { ICONS } from '@shared/ui'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
+import clsx from 'clsx'
 
 type Props = Omit<MuiTextFieldProps, 'label'> & {
   className?: string
@@ -47,7 +48,8 @@ export const InputSearch = ({ className, id, value, onChange, onClear, ...rest }
   return (
     <MuiTextField
       id={idCurrent}
-      className={`search-input ${className ?? ''}`}
+      //className={`search-input ${className ?? ''}`}
+      className={clsx('search-input', className)}
       value={inputValue}
       onChange={handleChange}
       slotProps={{

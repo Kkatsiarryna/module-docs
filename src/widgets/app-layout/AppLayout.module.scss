@@ -1,0 +1,21 @@
+.appLayout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.mainContent {
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+}
+
+.sidebarWrapper {
+  flex-shrink: 0;
+  width: 250px;
+}
+
+.content {
+  flex: 1;
+}

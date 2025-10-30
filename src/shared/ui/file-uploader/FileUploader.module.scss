@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.fileName {
+  overflow: hidden;
+
+  max-width: 140px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-s);
+  color: var(--text-disabled-dark);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

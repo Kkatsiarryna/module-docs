@@ -10,16 +10,16 @@ import clsx from 'clsx'
 
 type PhotoUploader = {
   disabled?: boolean
+  onFileSelect?: (file: File | null) => void
 }
 
-export const PhotoUploader = ({ disabled = false }: PhotoUploader) => {
+export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [selectedFile, setSelectedFile] = useState<File | undefined>()
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const { error, validateFile } = useFileValidation()
-  const hasError = Boolean(error.photo)
 
   useEffect(() => {
     if (selectedFile) {
@@ -30,26 +30,31 @@ export const PhotoUploader = ({ disabled = false }: PhotoUploader) => {
   }, [selectedFile])
 
   const resetImage = () => {
-    setSelectedFile(undefined)
+    setSelectedFile(null)
     setPreviewUrl('')
+    onFileSelect?.(null)
   }
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0] ?? null
 
     if (!file) return
 
     setIsLoading(true)
-    const isValid = validateFile(file, IMAGE_SCHEMA, 'photo')
+    const isValid = validateFile(file, IMAGE_SCHEMA)
 
-    if (isValid) setSelectedFile(file)
-    else resetImage()
+    if (isValid) {
+      setSelectedFile(file)
+      onFileSelect?.(file)
+    } else resetImage()
 
     setIsLoading(false)
   }
 
   const handleClick = () => {
-    fileInputRef.current?.click()
+    if (!disabled && !selectedFile) {
+      fileInputRef.current?.click()
+    }
   }
 
   const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
@@ -89,7 +94,7 @@ export const PhotoUploader = ({ disabled = false }: PhotoUploader) => {
   return (
     <Box
       className={clsx(styles.photoUploader, {
-        [styles.errorBorder]: hasError,
+        [styles.errorBorder]: !!error,
         [styles.disabled]: disabled,
       })}
       onClick={handleClick}
