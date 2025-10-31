@@ -18,7 +18,7 @@ function a11yProps(index: number) {
 
 const initialCategories = ['Benefits', 'ОКР']
 
-export default function Tab() {
+export const Sidebar = () => {
   const [value, setValue] = React.useState(1)
   const [open, setOpen] = React.useState<boolean>(true)
   const [showInput, setShowInput] = React.useState<boolean>(false)

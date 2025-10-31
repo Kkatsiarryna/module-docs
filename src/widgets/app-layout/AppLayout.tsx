@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Header } from '@shared/ui'
 import styles from './AppLayout.module.scss'
 import type { ReactNode } from 'react'
-import Tab from '@widgets/sidebar/Sidebar'
+import { Sidebar } from '@widgets/sidebar/Sidebar'
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation()
@@ -15,8 +15,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
       <Box className={styles.mainContent}>
         {!isHideHeader && (
           <Box className={styles.sidebarWrapper}>
-            {/*<SideBar />*/}
-            <Tab></Tab>
+            <Sidebar></Sidebar>
           </Box>
         )}
         <Box className={styles.content}>{children}</Box>
