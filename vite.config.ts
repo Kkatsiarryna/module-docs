@@ -5,6 +5,20 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/',
+  server: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'https://example.com/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+        secure: false,
+        ws: true,
+      },
+    },
+  },
   plugins: [react(), svgr()],
   resolve: {
     alias: {
