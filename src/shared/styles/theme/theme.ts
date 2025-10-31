@@ -139,7 +139,9 @@ export const theme = createTheme({
           style: {
             fontSize: 'var(--font-size-s)',
             backgroundColor: 'var(--accent-default)',
-            color: 'var(--text-light)',
+            '& svg path': {
+              fill: 'var(--text-light)',
+            },
             '&:hover': {
               boxShadow: '2px 2px 10px 0 rgba(54, 50, 47, 0.1)',
               backgroundColor: 'var(--accent-hover)',
@@ -215,6 +217,12 @@ export const theme = createTheme({
             '&:hover': {
               backgroundColor: 'var(--background-surface-2)',
               color: 'var(--accent-hover)',
+            },
+            '&:hover svg path': {
+              fill: 'var(--text-accent)',
+            },
+            '&.Mui-selected svg path': {
+              fill: 'var(--text-accent)',
             },
             '&:active': {
               backgroundColor: 'transparent',

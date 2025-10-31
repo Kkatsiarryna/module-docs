@@ -1,0 +1,120 @@
+@use '../../shared/styles/variables/typography.scss';
+
+* {
+  transition: 0.3s all ease-in-out;
+}
+
+.container {
+  height: 100vh;
+  border-right: 1px solid var(--divider-default);
+  padding-right: 36px;
+  padding-top: 20px;
+}
+
+.section {
+  @include typography.subheading-s;
+  text-transform: none;
+}
+
+.section_text {
+  flex: 1;
+  text-align: justify;
+}
+
+.section_item {
+  display: flex;
+    gap: 8px;
+    justify-content: space-between;
+        align-items: center;
+    width: -webkit-fill-available;
+
+height: 36px;
+
+svg:last-child {
+    transition: transform 0.3s ease-in-out;
+  }
+
+&:hover > .section_text {
+      color: var(--tokens-primary-primary-200);
+    }
+
+    &:hover svg path {
+fill: var(--tokens-primary-primary-200);
+    }
+
+    :global(.Mui-selected) & {
+    > .section_text {
+      color: var(--tokens-primary-primary-200);
+    }
+
+    svg:last-child {
+      transform: rotate(90deg);
+    }
+    
+    svg path {
+      fill: var(--tokens-primary-primary-200);
+    }
+  }
+    
+    
+  
+
+@media (max-width: 900px) {
+    height: 32px;
+  }
+  
+  @media (max-width: 600px) {
+    height: 24px;
+  }
+}
+
+.category {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 16px;
+}
+
+.category:hover,
+.category:hover .add_category {
+  color: var(--tokens-primary-primary-400);
+}
+
+.category:hover svg path {
+  fill: var(--tokens-primary-primary-400);
+}
+
+.categories_container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: auto;
+  margin-top: 12px;
+}
+
+.add_category_field {
+  display: flex; 
+  align-items: center;
+  padding-left: 16px;
+  gap: 4px;
+
+  .error_input {
+    border-color: var(--error-color) !important;
+  }
+}
+
+.button_icon {
+  max-width: 36px;
+  height: 36px;
+
+  @media (max-width: 900px) {
+    max-width: 32px;
+  height: 32px;
+  }
+  
+  @media (max-width: 600px) {
+    max-width: 24px;
+  height: 24px;
+  }
+}
