@@ -27,7 +27,7 @@ export default function Tab() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [categories, setCategories] = React.useState<string[]>(initialCategories)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
     setOpen(false)
   }
