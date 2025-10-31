@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 480px;
+  padding: var(--spacing-10x);
+  border-radius: var(--radius-5x);
+
+  background: #fff;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    width: 100%;
+    padding-top: 28px;
+  }
+}

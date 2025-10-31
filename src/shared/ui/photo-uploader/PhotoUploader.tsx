@@ -62,6 +62,13 @@ export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader)
     resetImage()
   }
 
+  const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+    if (!disabled) {
+      fileInputRef.current?.click()
+    }
+  }
+
   const renderLoader = () => (
     <Box className={styles.loaderOverlay}>
       <Box className={styles.loaderIcon}>{LoadersMedium.ghost}</Box>
@@ -72,11 +79,11 @@ export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader)
     <>
       <img src={previewUrl} alt="preview" className={styles.previewImage} />
       <Box className={styles.buttonsIcon}>
+        <IconButton onClick={handleEdit} className={styles.iconButton}>
+          <ICONS.EDIT className={styles.editIcon} />
+        </IconButton>
         <IconButton onClick={handleDelete} className={styles.iconButton}>
           <ICONS.BASKET className={styles.deleteIcon} />
-        </IconButton>
-        <IconButton className={styles.iconButton}>
-          <ICONS.ZOOM_IN className={styles.zoomInIcon} />
         </IconButton>
       </Box>
     </>
