@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { Header } from '@shared/ui'
 import styles from './AppLayout.module.scss'
 import type { ReactNode } from 'react'
-import Tab from '@shared/ui/tab/Tab'
+import Tab from '@widgets/sidebar/Sidebar'
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation()

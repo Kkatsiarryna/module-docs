@@ -3,11 +3,11 @@ import Tabs from '@mui/material/Tabs'
 import MuiTab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { Icon } from '@shared/model/icon/Icon'
-import { ICONS, SIZES_ICON } from '../icons/icons'
-import { Typography } from '../typography/Typography'
-import style from './Tab.module.scss'
-import { Input } from '../input/Input'
-import { Button } from '../button/Button'
+import { ICONS, SIZES_ICON } from '../../shared/ui/icons/icons'
+import { Typography } from '../../shared/ui/typography/Typography'
+import style from './Sidebar.module.scss'
+import { Input } from '../../shared/ui/input/Input'
+import { Button } from '../../shared/ui/button/Button'
 
 function a11yProps(index: number) {
   return {
