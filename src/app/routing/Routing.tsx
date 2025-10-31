@@ -7,6 +7,7 @@ import { selectIsLoggedIn } from '@features/auth/model'
 import { routes } from '@shared/config'
 import { ConfirmPasswordPage } from '@pages/confirm-password'
 import { ProfilePage } from '@pages/profile'
+import { AdminPage } from '@pages/admin'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -44,6 +45,15 @@ export const Routing = () => {
         element={
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={routes.admin}
+        element={
+          <ProtectedRoute>
+            <AdminPage />
           </ProtectedRoute>
         }
       />

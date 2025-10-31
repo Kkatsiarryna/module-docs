@@ -3,4 +3,5 @@ export const routes = {
   documents: '/documents',
   confirmPassword: '/confirm-password',
   profile: '/profile',
+  admin: '/admin',
 } as const
