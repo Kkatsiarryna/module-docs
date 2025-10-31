@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables/typography.scss';
+@use '../../shared/styles/variables/typography.scss';
 
 * {
   transition: 0.3s all ease-in-out;
@@ -12,7 +12,7 @@
 }
 
 .section {
-  @include typography.subheading-s;
+  @include subheading-s;
   text-transform: none;
 }
 
