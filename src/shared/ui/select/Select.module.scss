@@ -65,7 +65,7 @@
       background-color: var(--tertiary-active);
     }
 
-    @media (max-width: 599px) {
+    @media (max-width: 600px) {
     height: 24px;
   }
   }
@@ -78,11 +78,11 @@ font-weight: var(--font-weight-regular);
 line-height: 129%;
 font-size: 14px;
 
-@media (max-width: 899px) {
+@media (max-width: 900px) {
     font-size: 12px;
   }
   
-  @media (max-width: 599px) {
+  @media (max-width: 600px) {
     font-size: 10px;
   }
 }
@@ -91,12 +91,12 @@ font-size: 14px;
 font-size: 14px;
 height: 36px;
 
-@media (max-width: 899px) {
+@media (max-width: 900px) {
     font-size: 12px;
     height: 32px;
   }
   
-  @media (max-width: 599px) {
+  @media (max-width: 600px) {
     font-size: 10px;
     height: 24px;
   }

@@ -1,7 +1,9 @@
+// import Tab from "@shared/ui/tab/Tab"
+
 export const DocumentsPage = () => {
   return (
     <>
-      <div style={{ margin: '20px' }}>Documents Page</div>
+      <div>Documents Page</div>
     </>
   )
 }
