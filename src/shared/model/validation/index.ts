@@ -1,3 +1,5 @@
-export { passwordSchema } from './password.schema.ts'
-export { emailSchema } from './email.schema.ts'
-export { useFileValidation } from './useFileValidation'
+export { PASSWORD_SCHEMA } from '@shared/model/validation/schemas/password.schema.ts'
+export { EMAIL_SCHEMA } from '@shared/model/validation/schemas/email.schema.ts'
+export { DOCUMENT_SCHEMA } from '@shared/model/validation/schemas/document.schema.ts'
+export { IMAGE_SCHEMA } from '@shared/model/validation/schemas/image.schema.ts'
+export { useFileValidation } from './hooks/useFileValidation.ts'

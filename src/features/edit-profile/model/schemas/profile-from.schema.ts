@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { IMAGE_SCHEMA } from '@shared/ui/photo-uploader/image.schema.ts'
+import { IMAGE_SCHEMA } from '@shared/model/validation/schemas/image.schema.ts'
 
 const nameRegex = /^(?!.*--)(?!.*\s\s)[A-Za-zА-Яа-яЁё]+([-\s][A-Za-zА-Яа-яЁё]+)*$/
 

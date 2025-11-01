@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { type LoginCredentials, loginSchema, setIsLoggedInAC } from '@features/auth/model'
+import { type LoginCredentials, LOGIN_SCHEMA, setIsLoggedInAC } from '@features/auth/model'
 import { useLoginMutation } from '@features/auth/api'
 import { useAppDispatch } from '@app/store'
 import { useNavigate } from 'react-router-dom'
@@ -15,7 +15,7 @@ export const useLoginForm = () => {
 
   const form = useForm<LoginCredentials>({
     mode: 'onChange',
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(LOGIN_SCHEMA),
     defaultValues: {
       email: '',
       password: '',
