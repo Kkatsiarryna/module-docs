@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { passwordSchema } from '@shared/model/validation'
+import { PASSWORD_SCHEMA } from '@shared/model/validation'
 
-export const confirmPasswordSchema = z.object({
-  password: passwordSchema,
+export const CONFIRM_PASSWORD_SCHEMA = z.object({
+  password: PASSWORD_SCHEMA,
 })

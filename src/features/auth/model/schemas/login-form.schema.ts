@@ -1,9 +1,9 @@
 import { z } from 'zod'
-import { emailSchema, passwordSchema } from '@shared/model/validation'
+import { EMAIL_SCHEMA, PASSWORD_SCHEMA } from '@shared/model/validation'
 
-export const loginSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
+export const LOGIN_SCHEMA = z.object({
+  email: EMAIL_SCHEMA,
+  password: PASSWORD_SCHEMA,
 })
 
-export type LoginCredentials = z.infer<typeof loginSchema>
+export type LoginCredentials = z.infer<typeof LOGIN_SCHEMA>

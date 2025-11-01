@@ -1,0 +1,25 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+
+  width: 400px;
+  padding: 32px;
+  border-radius: var(--radius-5x);
+
+  background: #fff;
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 100%;
+  }
+}

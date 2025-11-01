@@ -1,2 +1,2 @@
 export { useProfileForm } from './hooks/use-profile-form'
-export { type ProfileFormData, profileSchema } from './schemas/profile-from.schema'
+export { type ProfileFormData, PROFILE_SCHEMA } from './schemas/profile-from.schema'

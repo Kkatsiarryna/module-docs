@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { confirmPasswordSchema } from '@features/auth/model'
+import { CONFIRM_PASSWORD_SCHEMA } from '@features/auth/model'
 import { useConfirmPasswordMutation } from '@features/auth/api'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '@shared/config'
@@ -13,7 +13,7 @@ export const useConfirmPasswordForm = () => {
 
   const form = useForm({
     mode: 'onChange',
-    resolver: zodResolver(confirmPasswordSchema),
+    resolver: zodResolver(CONFIRM_PASSWORD_SCHEMA),
     defaultValues: {
       password: '',
     },

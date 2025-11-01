@@ -4,7 +4,7 @@ import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from '
 import { LoadersMedium, Typography } from '@shared/ui'
 import IconButton from '@mui/material/IconButton'
 import { useFileValidation } from '@shared/model/validation'
-import { IMAGE_SCHEMA } from '@shared/ui/photo-uploader/image.schema.ts'
+import { IMAGE_SCHEMA } from '@shared/model/validation'
 import { ICONS } from '@shared/ui'
 import clsx from 'clsx'
 
