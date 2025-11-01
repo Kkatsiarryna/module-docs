@@ -31,9 +31,8 @@ export const useLoginForm = () => {
       localStorage.setItem('accessToken', response.data.token)
       reset()
       navigate(routes.documents, { replace: true })
-    } catch (error) {
+    } catch {
       showToast('Такой аккаунт не существует или введены неверные данные', 'error')
-      console.error('Ошибка при авторизации:', error)
     }
   }
 
