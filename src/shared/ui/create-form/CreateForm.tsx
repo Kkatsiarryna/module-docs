@@ -8,9 +8,11 @@ type Props = FormHTMLAttributes<HTMLFormElement> & {
   title: string
   children: ReactNode
   className?: string
+  disabled?: boolean
+  onCancel?: () => void
 }
 
-export const CreateForm = ({ title, children, className, ...rest }: Props) => {
+export const CreateForm = ({ title, children, className, disabled, onCancel, ...rest }: Props) => {
   return (
     <form className={clsx(styles.form, className)} {...rest}>
       <Typography variant="heading3" className={styles.title}>
@@ -18,8 +20,12 @@ export const CreateForm = ({ title, children, className, ...rest }: Props) => {
       </Typography>
       <div className={styles.content}>{children}</div>
       <Box className={styles.actions}>
-        <Button variant={'outlined'}>Отменить</Button>
-        <Button variant={'primary'}>Добавить</Button>
+        <Button variant={'outlined'} onClick={onCancel}>
+          Отменить
+        </Button>
+        <Button variant={'primary'} type="submit" disabled={disabled}>
+          Добавить
+        </Button>
       </Box>
     </form>
   )
