@@ -7,4 +7,4 @@ export const EMAIL_SCHEMA = z
   .string()
   .min(1, 'Введите Email')
   .max(250, 'Максимальная длина — 250 символов')
-  .regex(emailRegex, 'Невалидный Email')
+  .regex(emailRegex, 'Некорректный Email')
