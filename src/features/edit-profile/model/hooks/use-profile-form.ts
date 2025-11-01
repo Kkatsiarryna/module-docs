@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { type ProfileFormData, profileSchema } from '@features/edit-profile/model'
+import { PROFILE_SCHEMA, type ProfileFormData } from '@features/edit-profile/model'
 import { useUpdateProfileMutation } from '@features/edit-profile/api'
 
 export const useProfileForm = () => {
@@ -8,7 +8,7 @@ export const useProfileForm = () => {
 
   const form = useForm<ProfileFormData>({
     mode: 'onChange',
-    resolver: zodResolver(profileSchema),
+    resolver: zodResolver(PROFILE_SCHEMA),
     defaultValues: {
       firstname: '',
       lastname: '',
