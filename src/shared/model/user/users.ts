@@ -1,16 +1,16 @@
 export const TokenUserRolesDocs = {
-  All: 'Все сотрудники',
-  Admins: 'Администраторы',
-  HRs: 'HR-специалист',
-  Managers: 'Менеджеры',
-  Specialists: 'Специалисты',
+  all: 'Все сотрудники',
+  admins: 'Администраторы',
+  hrs: 'HR-специалист',
+  managers: 'Менеджеры',
+  specialists: 'Специалисты',
 } as const
 
 export const TokenUserRoles = {
-  Admin: 'Администратор',
-  HR: 'HR-специалист',
-  Manager: 'Менеджер',
-  Specialist: 'Специалист',
+  admin: 'Администратор',
+  hr: 'HR-специалист',
+  manager: 'Менеджер',
+  specialist: 'Специалист',
 } as const
 
 export const rolesUsers = Object.values(TokenUserRoles)
