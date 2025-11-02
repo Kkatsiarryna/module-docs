@@ -13,3 +13,7 @@ export type RegisterCredentials = {
   role: string
   email: string
 }
+
+export type CreatePasswordRequest = {
+  new_password: string
+}
