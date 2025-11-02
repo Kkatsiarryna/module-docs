@@ -1,18 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { config } from '@shared/config/constants.ts'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithReauth } from '@shared/api/base-query-with-reauth.ts'
 
 export const baseApi = createApi({
   reducerPath: 'documentsModuleApi',
-  tagTypes: ['User', 'Document'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: config.BASE_URL,
-    prepareHeaders: headers => {
-      const token = localStorage.getItem('accessToken')
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  tagTypes: ['User', 'Document', 'Category'],
+  baseQuery: baseQueryWithReauth,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   endpoints: () => ({}),
 })
