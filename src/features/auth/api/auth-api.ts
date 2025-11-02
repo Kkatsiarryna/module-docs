@@ -16,7 +16,7 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
     logout: build.mutation<void, void>({
-      query: () => ({ method: 'DELETE', url: 'auth/logout' }),
+      query: () => ({ method: 'POST', url: 'auth/logout' }),
     }),
     confirmPassword: build.mutation<void, CreatePasswordRequest>({
       query: data => ({
