@@ -3,23 +3,29 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  background-color: #fff; // Устанавливаем белый фон как у хидера
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .mainContent {
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
-  flex: 1;
-  margin: 0 40px;
+  // flex: 1;
+  margin: 0;
+  padding: 0 40px;
+  box-sizing: border-box;
+  background-color: #fff; // Устанавливаем белый фон как у хидера
 }
 
 .sidebarWrapper {
   flex-shrink: 0;
-  width: 250px;
+  max-width: 250px;
   flex: 0.3;
+  background-color: #fff; // Устанавливаем белый фон как у хидера
 }
 
 .content {
   flex: 1;
+  background-color: #fff; // Устанавливаем белый фон как у хидера
 }
-
-

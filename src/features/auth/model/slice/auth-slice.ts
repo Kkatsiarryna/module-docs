@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-
+import { createSlice, createSelector } from '@reduxjs/toolkit'
+import type { RootState } from '@app/store/store'
 import type { User } from '@features/auth/model/types/types.ts'
 import { authApi } from '@features/auth/api'
 
@@ -16,18 +16,14 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  selectors: {
-    selectIsLoggedIn: state => state.isLoggedIn,
-    selectUser: state => state.user,
-  },
-  reducers: create => ({
-    setIsLoggedInAC: create.reducer<{ isLoggedIn: boolean }>((state, action) => {
+  reducers: {
+    setIsLoggedInAC: (state, action: { payload: { isLoggedIn: boolean } }) => {
       state.isLoggedIn = action.payload.isLoggedIn
-    }),
-    setUserAC: create.reducer<User>((state, action) => {
+    },
+    setUserAC: (state, action: { payload: User }) => {
       state.user = action.payload
-    }),
-  }),
+    },
+  },
   extraReducers: build => {
     build.addMatcher(authApi.endpoints.me.matchFulfilled, (state, action) => {
       state.isLoggedIn = true
@@ -40,6 +36,9 @@ export const authSlice = createSlice({
   },
 })
 
-export const { selectIsLoggedIn, selectUser } = authSlice.selectors
+// Создаем селекторы вручную
+export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn
+export const selectUser = (state: RootState) => state.auth.user
+
 export const { setIsLoggedInAC, setUserAC } = authSlice.actions
 export const authReducer = authSlice.reducer

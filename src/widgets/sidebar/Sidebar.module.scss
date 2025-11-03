@@ -6,9 +6,11 @@
 
 .container {
   height: 100vh;
-  border-right: 1px solid var(--divider-default);
+  // Убираем правую рамку, чтобы не было вертикальной линии слева от контента
+  border-right: none;
   padding-right: 36px;
   padding-top: 20px;
+  background-color: #fff; // Устанавливаем белый фон как у хидера
 }
 
 .section {

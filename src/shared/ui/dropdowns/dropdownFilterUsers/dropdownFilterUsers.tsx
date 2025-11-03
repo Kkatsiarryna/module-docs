@@ -11,9 +11,10 @@ import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 
 interface FilterUsers {
   size: number
+  onClose?: () => void
 }
 
-export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
+export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size, onClose }) => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
   const [open, setOpen] = React.useState(false)
 
