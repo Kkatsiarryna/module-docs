@@ -18,12 +18,20 @@ const MenuProps = {
   disableAutoFocusItem: true, // Не фокусирует первый элемент
 }
 
-interface DropdownRoleProps {
-  placeholder: string
-  selectItems: string[]
+interface SelectItem {
+  value: string
+  label: string
 }
 
-const CustomSelect = styled(MuiSelect) ({
+interface DropdownRoleProps {
+  placeholder: string
+  //selectItems: string[]
+  selectItems: SelectItem[]
+  value?: string
+  onChange?: (value: string) => void
+}
+
+const CustomSelect = styled(MuiSelect)({
   paddingLeft: '12px',
   '& .MuiSelect-icon': {},
   '& fieldset': { border: 'none' },
@@ -36,12 +44,20 @@ const CustomSelect = styled(MuiSelect) ({
   },
 })
 
-export const Select = ({ placeholder, selectItems }: DropdownRoleProps) => {
-  const [role, setRole] = React.useState<string>('')
+export const Select = ({ value = '', onChange, placeholder, selectItems }: DropdownRoleProps) => {
+  //const [role, setRole] = React.useState<string>('')
+  const [internalValue, setInternalValue] = React.useState<string>(value)
   const [open, setOpen] = React.useState<boolean>(false)
 
+  React.useEffect(() => {
+    setInternalValue(value)
+  }, [value])
+
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setRole(event.target.value as string)
+    //setRole(event.target.value as string)
+    const newValue = event.target.value as string
+    setInternalValue(newValue)
+    onChange?.(newValue)
   }
 
   const handleClose = (): void => {
@@ -52,21 +68,24 @@ export const Select = ({ placeholder, selectItems }: DropdownRoleProps) => {
     setOpen(true)
   }
 
+  // Если значение не найдено в списке элементов, показываем само значение
+  const displayValue =
+    selectItems.find(item => item.value === internalValue)?.label || internalValue || ''
+
   return (
     <Box className={styles.formWrapper}>
       <Box className={styles.dropdownRole_border}>
         <FormControl fullWidth>
-          <InputLabel
-            id="select-label"
-            className={styles.selectLabel}
-          >
+          <InputLabel id="select-label" className={styles.selectLabel}>
             {placeholder}
           </InputLabel>
           <CustomSelect
             id="name"
             labelId="select-label"
             className={styles.menu}
-            value={role}
+            //value={role}
+            value={internalValue}
+            renderValue={() => displayValue}
             onChange={handleChange}
             onClose={handleClose}
             onOpen={handleOpen}
@@ -78,15 +97,26 @@ export const Select = ({ placeholder, selectItems }: DropdownRoleProps) => {
             )}
             displayEmpty
           >
-            {selectItems.map(name => (
+            {/*{selectItems.map(name => (*/}
+            {/*  <MenuItem*/}
+            {/*    disableRipple*/}
+            {/*    key={name}*/}
+            {/*    value={name}*/}
+            {/*    selected={role === name}*/}
+            {/*    className={styles.dropdownContainer__item}*/}
+            {/*  >*/}
+            {/*    {name}*/}
+            {/*  </MenuItem>*/}
+            {/*))}*/}
+            {selectItems.map(item => (
               <MenuItem
                 disableRipple
-                key={name}
-                value={name}
-                selected={role === name}
+                key={item.value}
+                value={item.value} // ← сохраняем value
+                selected={internalValue === item.value}
                 className={styles.dropdownContainer__item}
               >
-                {name}
+                {item.label}
               </MenuItem>
             ))}
           </CustomSelect>

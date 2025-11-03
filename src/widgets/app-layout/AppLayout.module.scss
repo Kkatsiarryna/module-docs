@@ -6,7 +6,7 @@
 }
 
 .mainContent {
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex: 1;
   margin: 0 40px;
@@ -14,7 +14,7 @@
 
 .sidebarWrapper {
   flex-shrink: 0;
-  width: 250px;
+  max-width: 250px;
   flex: 0.3;
 }
 

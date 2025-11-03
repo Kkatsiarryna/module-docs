@@ -15,9 +15,10 @@ interface FilterOptions {
 
 interface FilterListItemProps {
   nameArray: 'sortNames' | 'sortDates' | FilterOptions
+  onClose?: () => void
 }
 
-export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => {
+export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray, onClose }) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number>(0)
 
   const handleListItemClick = (
@@ -29,6 +30,8 @@ export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray }) => 
     console.log(elemX, elemY)
 
     setSelectedIndex(index)
+    setSelectedIndex(index)
+    onClose?.()
   }
 
   const options: FilterOptions = {

@@ -1,4 +1,4 @@
-import { Button as MuiButton, type ButtonProps } from '@mui/material'
+import LoadingButton, { type LoadingButtonProps } from '@mui/lab/LoadingButton'
 import { LoadersSmall } from '../loaders/loaders'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
@@ -21,7 +21,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost';
 
   export type ButtonsType = (typeof ButtonsType)[keyof typeof ButtonsType]['value']
 
-interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
+interface CustomButtonProps extends Omit<LoadingButtonProps, 'variant'> {
   variant: ButtonVariant
   loading?: boolean
   loadingPosition?: 'start' | 'end'
@@ -48,7 +48,7 @@ export const Button: React.FC<CustomButtonProps> = ({
   }
 
   return (
-    <MuiButton
+    <LoadingButton
       variant={variant}
       disabled={isDisabled}
       loading={loading}
@@ -61,6 +61,6 @@ export const Button: React.FC<CustomButtonProps> = ({
       {...props}
     >
       {loading ? (isIcon ? children : '') : children}
-    </MuiButton>
+    </LoadingButton>
   )
 }
