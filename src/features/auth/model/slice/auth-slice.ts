@@ -24,7 +24,7 @@ export const authSlice = createSlice({
     setIsLoggedInAC: create.reducer<{ isLoggedIn: boolean }>((state, action) => {
       state.isLoggedIn = action.payload.isLoggedIn
     }),
-    setUserAC: create.reducer<User>((state, action) => {
+    setUserAC: create.reducer<User | null>((state, action) => {
       state.user = action.payload
     }),
   }),

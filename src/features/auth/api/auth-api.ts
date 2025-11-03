@@ -1,5 +1,5 @@
 import { baseApi } from '@shared/api'
-import type { User } from '@features/auth/model'
+import type { CreatePasswordRequest, User } from '@features/auth/model'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -16,13 +16,13 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
     logout: build.mutation<void, void>({
-      query: () => ({ method: 'DELETE', url: 'auth/logout' }),
+      query: () => ({ method: 'POST', url: 'auth/logout' }),
     }),
-    confirmPassword: build.mutation<void, { password: string }>({
-      query: ({ password }) => ({
+    confirmPassword: build.mutation<void, CreatePasswordRequest>({
+      query: data => ({
         url: 'auth/createPassword',
         method: 'POST',
-        body: { password },
+        body: data,
       }),
     }),
   }),

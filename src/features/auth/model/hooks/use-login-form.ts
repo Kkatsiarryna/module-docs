@@ -28,7 +28,8 @@ export const useLoginForm = () => {
     try {
       const response = await loginMutation(data).unwrap()
       dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-      localStorage.setItem('accessToken', response.data.token)
+      localStorage.setItem('access_token', response.data.access_token)
+      localStorage.setItem('refresh_token', response.data.refresh_token)
       reset()
       navigate(routes.documents, { replace: true })
     } catch {

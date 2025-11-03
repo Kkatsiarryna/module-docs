@@ -1,15 +1,14 @@
+import { TokenUserRoles } from '@shared/model/user'
+
 export type User = {
   id: string
   email: string
   firstName: string
   lastName: string
   avatar?: string
-  role: string
+  role: keyof typeof TokenUserRoles
 }
 
-export type RegisterCredentials = {
-  firstName: string
-  lastName: string
-  role: string
-  email: string
+export type CreatePasswordRequest = {
+  new_password: string
 }
