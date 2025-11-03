@@ -20,3 +20,8 @@ export const rolesUsersArray = Object.entries(TokenUserRoles).map(([value, label
   value,
   label,
 }))
+
+export const roleDocsArray = Object.entries(TokenUserRolesDocs).map(([value, label]) => ({
+  value,
+  label,
+}))
