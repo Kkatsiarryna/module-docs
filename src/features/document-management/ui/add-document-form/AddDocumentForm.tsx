@@ -1,38 +1,51 @@
 import { CreateForm, FileUploader, Input, Select } from '@shared/ui'
-import { Controller, useForm } from 'react-hook-form'
-import { rolesUsersArray } from '@shared/model/user'
+import { Controller } from 'react-hook-form'
+import { roleDocsArray } from '@shared/model/user'
+import { useAddDocumentForm } from '@features/document-management/model'
 
 export const AddDocumentForm = () => {
-  const { control } = useForm()
+  const {
+    control,
+    register,
+    categoryOptions,
+    handleSubmit,
+    formState: { errors, isValid },
+    isSubmitting,
+  } = useAddDocumentForm()
+
   return (
-    <CreateForm title={'Добавление пользователя'}>
+    <CreateForm
+      title={'Добавление пользователя'}
+      onSubmit={handleSubmit}
+      disabled={!isValid || isSubmitting}
+    >
       <Controller
-        name="role"
+        name="category_id"
         control={control}
         render={({ field }) => (
           <Select
             placeholder="Категория документа *"
-            selectItems={rolesUsersArray}
+            selectItems={categoryOptions}
             value={field.value}
             onChange={field.onChange}
           />
         )}
       />
       <Controller
-        name="role"
+        name="role_name"
         control={control}
         render={({ field }) => (
           <Select
             placeholder="Кому доступен документ *"
-            selectItems={rolesUsersArray}
+            selectItems={roleDocsArray}
             value={field.value}
             onChange={field.onChange}
           />
         )}
       />
-      <Input label={'Название документа *'} />
+      <Input label={'Название документа *'} {...register('title')} error={!!errors.title} />
       <Controller
-        name="role"
+        name="file_content"
         control={control}
         render={({ field: { onChange } }) => <FileUploader onFileSelect={onChange} />}
       />
