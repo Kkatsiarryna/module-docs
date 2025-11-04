@@ -1,0 +1,40 @@
+.viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-surface-3);
+
+  .content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+
+    width: 90vw;
+    height: 90vh;
+
+    background: #f8f9fa;
+
+    .pdfSection {
+      overflow: auto;
+      display: flex;
+      flex: 3;
+      align-items: flex-start;
+      justify-content: center;
+
+      box-sizing: border-box;
+      padding: 16px;
+
+      background: #fff;
+    }
+
+    .metaSection {
+      overflow-y: auto;
+      flex: 1;
+
+      box-sizing: border-box;
+      border-left: 1px solid #e0e0e0;
+
+      background: #fafafa;
+    }
+  }
+}

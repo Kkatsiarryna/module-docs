@@ -1,0 +1,78 @@
+.documentMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  // align-items: flex-start;
+
+  padding: 40px 24px;
+
+  // justify-content: space-between;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    // align-items: flex-start;
+
+    .addedBy {
+      display: flex;
+      gap: 10px;
+
+      .label {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 137%;
+        color: #413b65;
+      }
+
+      .documentAuthor {
+        display: flex;
+        gap: 4px;
+
+        .userTag {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 25px;
+          height: 24px;
+          padding: 4px;
+          border-radius: 8px;
+
+          background-color: var(--secondary-disabled);
+        }
+
+        .userName {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 137%;
+          color: #16122c;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+
+      .stat {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 137%;
+        color: #413b65;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          color: #221e1c;
+        }
+      }
+    }
+  }
+}
