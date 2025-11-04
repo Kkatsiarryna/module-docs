@@ -13,7 +13,7 @@ RUN npm run build
 
 FROM nginx:stable-alpine
 
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 
 RUN rm -rf /usr/share/nginx/html/*
 
