@@ -10,7 +10,7 @@ type AuthState = {
 
 const initialState: AuthState = {
   user: null,
-  isLoggedIn: true, //поменять на false
+  isLoggedIn: false, //поменять на false
 }
 
 export const authSlice = createSlice({
