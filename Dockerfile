@@ -19,7 +19,10 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+RUN apk add --no-cache gettext
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
+
+CMD ["/bin/sh", "-c", "envsubst < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.tmp && mv /usr/share/nginx/html/index.tmp /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
