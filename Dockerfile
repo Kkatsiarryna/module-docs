@@ -25,5 +25,5 @@ COPY index.html.template /usr/share/nginx/html/index.html.template
 EXPOSE 80
 
 #CMD ["nginx", "-g", "daemon off;"]
-CMD ["/bin/sh", "-c", "envsubst < /usr/share/nginx/html/index.html.template > /usr/share/nginx/html/index.html && envsubst < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "envsubst '${BASE_URL}' < /usr/share/nginx/html/index.html.template > /usr/share/nginx/html/index.html && envsubst '${BASE_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 
