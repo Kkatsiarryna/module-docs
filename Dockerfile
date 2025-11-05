@@ -20,10 +20,11 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-COPY index.html.template /usr/share/nginx/html/index.html.template
+RUN sed -i '/<script type="module"/i <script>window.__ENV__ = { BASE_URL: "${BASE_URL}" };</script>' /usr/share/nginx/html/index.html
 
 EXPOSE 80
 
 #CMD ["nginx", "-g", "daemon off;"]
-CMD ["/bin/sh", "-c", "envsubst '${BASE_URL}' < /usr/share/nginx/html/index.html.template > /usr/share/nginx/html/index.html && envsubst '${BASE_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+
+CMD ["/bin/sh", "-c", "envsubst '${BASE_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 
