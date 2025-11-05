@@ -26,5 +26,8 @@ EXPOSE 80
 
 #CMD ["nginx", "-g", "daemon off;"]
 
-CMD ["/bin/sh", "-c", "envsubst '${BASE_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
-
+CMD ["/bin/sh", "-c", \
+  "envsubst '${BASE_URL}' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html.tmp && \
+   mv /usr/share/nginx/html/index.html.tmp /usr/share/nginx/html/index.html && \
+   envsubst '${BASE_URL}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && \
+   nginx -g 'daemon off;'"]
