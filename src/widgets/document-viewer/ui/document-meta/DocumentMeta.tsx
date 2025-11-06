@@ -1,11 +1,21 @@
 import { Button, ICONS, Typography } from '@shared/ui'
 import styles from './DocumentMeta.module.scss'
+import IconButton from '@mui/material/IconButton'
 
-export const DocumentMeta = () => {
+type Props = {
+  title: string
+  onClose?: () => void
+}
+export const DocumentMeta = ({ onClose, title }: Props) => {
   return (
     <div className={styles.documentMeta}>
+      <IconButton className={styles.closeIcon} onClick={onClose}>
+        <ICONS.CLOSE />
+      </IconButton>
       <div className={styles.title}>
-        <Typography variant={'heading3'}> Title Document </Typography>
+        <Typography variant={'heading3'} className={styles.heading}>
+          {title}
+        </Typography>
         <div className={styles.addedBy}>
           <span className={styles.label}>Добавил:</span>
           <div className={styles.documentAuthor}>
@@ -26,7 +36,9 @@ export const DocumentMeta = () => {
         </div>
       </div>
       <div className={styles.comments}>
-        <Typography variant={'heading3'}> Комментарии </Typography>
+        <Typography variant={'heading3'} className={styles.heading}>
+          Комментарии
+        </Typography>
       </div>
     </div>
   )
