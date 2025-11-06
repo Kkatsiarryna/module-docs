@@ -1,0 +1,97 @@
+@mixin text-m {
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+}
+
+.documentMeta {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 40px 24px;
+
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 36px;
+    right: 30px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: var(--background-dark);
+    }
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .addedBy {
+      display: flex;
+      gap: 10px;
+
+      .label {
+        @include text-m;
+
+        color: var(--text-soft);
+      }
+
+      .documentAuthor {
+        display: flex;
+        gap: 4px;
+
+        .userTag {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 25px;
+          height: 24px;
+          padding: 4px;
+          border-radius: 8px;
+
+          background-color: var(--secondary-disabled);
+        }
+
+        .userName {
+          @include text-m;
+
+          color: var(--text-dark);
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+
+      .stat {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        @include text-m;
+
+        color: var(--text-soft);
+
+        svg {
+          width: 24px;
+          height: 24px;
+          color: var(--icon-static-dark);
+        }
+      }
+    }
+  }
+
+  .heading {
+    @media (width <= 992px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}

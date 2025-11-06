@@ -1,0 +1,84 @@
+.viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-surface-3);
+
+  .content {
+    position: relative;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+
+    width: 90vw;
+    height: 90vh;
+
+    .pdfSection {
+      overflow: auto;
+      display: flex;
+      flex: 3;
+      align-items: flex-start;
+      justify-content: center;
+
+      box-sizing: border-box;
+      height: 100%;
+      padding: 16px;
+
+      background-color: var(--background-surface-3);
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #fff;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: var(--divider-default);
+      }
+    }
+
+    .metaSection {
+      overflow-y: auto;
+      flex: 1;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .zoom {
+      position: absolute;
+      z-index: 10;
+      bottom: 40px;
+
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      padding: 4px 8px;
+      border-radius: var(--radius-3x);
+
+      font-size: var(--font-size-m);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-m);
+      color: var(--text-light);
+
+      background: var(--background-dark);
+
+      .iconButton {
+        width: 36px;
+        height: 36px;
+        padding: 8px;
+        border-radius: var(--radius-3x);
+
+        background: var(--secondary-disabled);
+
+        .icons {
+          color: var(--tokens-primary-primary-100);
+        }
+      }
+    }
+  }
+}
