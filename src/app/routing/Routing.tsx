@@ -28,8 +28,6 @@ export const Routing = () => {
         path={routes.login}
         element={isLoggedIn ? <Navigate to={routes.documents} replace /> : <LoginPage />}
       />
-
-      <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.confirmPassword} element={<ConfirmPasswordPage />} />
 
       <Route

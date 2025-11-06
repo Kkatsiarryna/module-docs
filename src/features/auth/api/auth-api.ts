@@ -4,7 +4,7 @@ import type { CreatePasswordRequest, User } from '@features/auth/model'
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<User, void>({
-      query: () => 'auth/me',
+      query: () => 'users/me',
       providesTags: ['User'],
     }),
     login: build.mutation({
