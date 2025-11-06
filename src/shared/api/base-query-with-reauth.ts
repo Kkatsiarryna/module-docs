@@ -3,7 +3,7 @@ import { config } from '@shared/config/constants.ts'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.BASE_URL,
+  baseUrl: `${config.BASE_URL}/api/vi`,
   prepareHeaders: headers => {
     const token = localStorage.getItem('accessToken')
     if (token) {
