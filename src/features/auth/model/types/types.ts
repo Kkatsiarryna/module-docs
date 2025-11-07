@@ -11,6 +11,7 @@ export type User = {
 
 export type CreatePasswordRequest = {
   new_password: string
+  token: string
 }
 
 export type MeResponse = {
