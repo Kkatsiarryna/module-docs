@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { ProtectedRoute } from '@app/routing/protected-route.tsx'
 import { DocumentsPage } from '@pages/documents'
 import { LoginPage } from '@pages/login'
@@ -12,8 +12,10 @@ import { TokenUserRoles } from '@shared/model/user'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const location = useLocation()
+
   return (
-    <Routes>
+    <Routes key={location.pathname}>
       <Route
         path={'/'}
         element={
