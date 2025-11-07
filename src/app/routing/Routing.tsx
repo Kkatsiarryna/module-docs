@@ -8,7 +8,6 @@ import { routes } from '@shared/config'
 import { ConfirmPasswordPage } from '@pages/confirm-password'
 import { ProfilePage } from '@pages/profile'
 import { AdminPage } from '@pages/admin'
-import { TokenUserRoles } from '@shared/model/user'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -53,7 +52,7 @@ export const Routing = () => {
       <Route
         path={routes.admin}
         element={
-          <ProtectedRoute roles={[TokenUserRoles.admin]}>
+          <ProtectedRoute roles={['admin']}>
             <AdminPage />
           </ProtectedRoute>
         }
