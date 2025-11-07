@@ -8,16 +8,28 @@ export type Document = {
   updated_at: string
 }
 
-export type DocumentResponse = {
-  data: Document
+export type DocumentDetails = Document & {
+  first_name: string
+  last_name: string
 }
 
 export type DocumentsListResponse = {
-  data: Document[]
+  data: {
+    documents: Document[]
+  }
+  total_count: number
 }
 
 export type GetDocumentsParams = {
   limit?: number
   page?: number
   category_id?: number
+}
+
+export type DocumentResponse = {
+  data: DocumentDetails
+}
+
+export type AddDocumentResponse = {
+  data: Document
 }

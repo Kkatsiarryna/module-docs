@@ -1,5 +1,6 @@
 import { baseApi } from '@shared/api'
 import type {
+  AddDocumentResponse,
   DocumentResponse,
   DocumentsListResponse,
   GetDocumentsParams,
@@ -14,11 +15,10 @@ export const documentApi = baseApi.injectEndpoints({
       }),
       providesTags: ['Document'],
     }),
-    getDocument: build.query<DocumentResponse, { id: number }>({
+    getDocument: build.query<DocumentResponse, number>({
       query: id => `/documents/${id}`,
-      providesTags: ['Document'],
     }),
-    addDocument: build.mutation<DocumentResponse, { data: FormData }>({
+    addDocument: build.mutation<AddDocumentResponse, { data: FormData }>({
       query: ({ data }) => ({
         url: '/documents',
         method: 'POST',
@@ -26,8 +26,8 @@ export const documentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Document'],
     }),
-    deleteDocument: build.mutation<void, { id: number }>({
-      query: ({ id }) => ({
+    deleteDocument: build.mutation<void, number>({
+      query: id => ({
         url: `/documents/${id}`,
         method: 'DELETE',
       }),
