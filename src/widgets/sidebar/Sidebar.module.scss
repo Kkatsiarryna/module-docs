@@ -6,11 +6,10 @@
 
 .container {
   height: 100vh;
-  // Убираем правую рамку, чтобы не было вертикальной линии слева от контента
-  border-right: none;
+  border-right: 1px solid var(--divider-default);
   padding-right: 36px;
   padding-top: 20px;
-  background-color: #fff; // Устанавливаем белый фон как у хидера
+  background-color: #fff;
 }
 
 .section {
@@ -25,26 +24,26 @@
 
 .section_item {
   display: flex;
-    gap: 8px;
-    justify-content: space-between;
-        align-items: center;
-    width: -webkit-fill-available;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  width: -webkit-fill-available;
 
-height: 36px;
+  height: 36px;
 
-svg:last-child {
+  svg:last-child {
     transition: transform 0.3s ease-in-out;
   }
 
-&:hover > .section_text {
-      color: var(--tokens-primary-primary-200);
-    }
+  &:hover > .section_text {
+    color: var(--tokens-primary-primary-200);
+  }
 
-    &:hover svg path {
-fill: var(--tokens-primary-primary-200);
-    }
+  &:hover svg path {
+    fill: var(--tokens-primary-primary-200);
+  }
 
-    :global(.Mui-selected) & {
+  :global(.Mui-selected) & {
     > .section_text {
       color: var(--tokens-primary-primary-200);
     }
@@ -52,19 +51,16 @@ fill: var(--tokens-primary-primary-200);
     svg:last-child {
       transform: rotate(90deg);
     }
-    
+
     svg path {
       fill: var(--tokens-primary-primary-200);
     }
   }
-    
-    
-  
 
-@media (max-width: 900px) {
+  @media (max-width: 900px) {
     height: 32px;
   }
-  
+
   @media (max-width: 600px) {
     height: 24px;
   }
@@ -96,7 +92,7 @@ fill: var(--tokens-primary-primary-200);
 }
 
 .add_category_field {
-  display: flex; 
+  display: flex;
   align-items: center;
   padding-left: 16px;
   gap: 4px;
@@ -112,11 +108,11 @@ fill: var(--tokens-primary-primary-200);
 
   @media (max-width: 900px) {
     max-width: 32px;
-  height: 32px;
+    height: 32px;
   }
-  
+
   @media (max-width: 600px) {
     max-width: 24px;
-  height: 24px;
+    height: 24px;
   }
 }

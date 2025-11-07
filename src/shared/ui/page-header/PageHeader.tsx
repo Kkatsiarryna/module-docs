@@ -5,6 +5,7 @@ import { InputSearch } from '@shared/ui/input-search/InputSearch'
 import { Button } from '@shared/ui/button/Button'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
+import style from './PageHeader.module.scss'
 
 type Props = {
   type: 'users' | 'documents'
@@ -60,7 +61,7 @@ export const PageHeader: React.FC<Props> = ({
         }
 
   return (
-    <Box sx={{ mb: '20px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
+    <Box className={style.header}>
       <Typography
         variant={'heading1'}
         sx={{
@@ -72,26 +73,17 @@ export const PageHeader: React.FC<Props> = ({
         {headerConfig.title}
       </Typography>
       <Box
+        className={style.inputWrapper}
         sx={{
-          display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
           gap: { xs: 1.5, sm: 2 },
-          mt: '20px',
-          width: '100%',
-          maxWidth: '100%',
           alignItems: { xs: 'stretch', sm: 'center' },
         }}
       >
-        <InputSearch
-          sx={{
-            flex: '1 1 auto',
-            minWidth: 0,
-          }}
-          placeholder="Поиск"
-        />
+        <InputSearch className={style.inputSearch} placeholder="Поиск" />
         <Box
+          className={style.buttonsWrapper}
           sx={{
-            display: 'flex',
             flex: { xs: '0 1 auto', sm: '0 0 auto' },
             width: { sm: 'fit-content' },
             flexWrap: { xs: 'wrap', sm: 'nowrap' },

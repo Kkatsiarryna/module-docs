@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { useGetDocumentsQuery, useDeleteDocumentMutation } from '@features/document-management/api'
-import type { Row } from '@widgets/table/model/types'
+import type { Row } from '@widgets/table/model/types/types'
+
+interface DocumentsPayload {
+  documents: Row[]
+  total_count: number
+}
 
 export const useDocumentsTable = () => {
   const [page, setPage] = React.useState(0)
@@ -8,10 +13,10 @@ export const useDocumentsTable = () => {
 
   const { data, isLoading, refetch } = useGetDocumentsQuery({ page: page + 1, limit: rowsPerPage })
 
-  const payload = data?.data
-  const items: Row[] = Array.isArray(payload)
-    ? (payload as unknown as Row[])
-    : (payload?.documents ?? [])
+  const payload = data?.data as DocumentsPayload | Row[] | undefined
+
+  const items: Row[] = Array.isArray(payload) ? payload : (payload?.documents ?? [])
+
   const totalCount = Array.isArray(payload) ? items.length : (payload?.total_count ?? items.length)
 
   const [isAddOpen, setIsAddOpen] = React.useState(false)
@@ -41,8 +46,8 @@ export const useDocumentsTable = () => {
           .map(id => deleteDocument({ id }).unwrap())
       )
       await refetch()
-    } catch (e) {
-      console.error('Failed to delete documents', e)
+    } catch (error) {
+      console.error('Failed to delete documents', error)
     }
   }
 

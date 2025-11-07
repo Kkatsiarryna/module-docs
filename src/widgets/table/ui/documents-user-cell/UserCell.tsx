@@ -1,25 +1,9 @@
-// UserCell.tsx
 import React, { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { Avatar } from '@shared/ui/avatar/Avatar'
-// import { mockFetchUserById } from '@shared/api/userApi'
-
-import type { User } from '@widgets/table/model/types'
 import { config } from '@shared/config/constants'
-
-// Интерфейс пользователя
-// interface User {
-//   id: string
-//   first_name: string
-//   last_name: string
-//   email: string
-//   role: {
-//     id: number
-//     name: string
-//   }
-//   created_at: string
-//   file_link?: string
-// }
+import type { User } from '@features/auth/model'
+import { LoadersMedium } from '@shared/ui'
 
 interface UserCellProps {
   userId: string
@@ -59,7 +43,6 @@ const fetchUserById = async (userId: string): Promise<User | null> => {
 export const UserCell: React.FC<UserCellProps> = ({
   userId,
   userCache = {},
-  // fetchUserData = mockFetchUserById,
   fetchUserData = fetchUserById,
 }) => {
   const [userData, setUserData] = useState<User | null>(null)
@@ -84,17 +67,17 @@ export const UserCell: React.FC<UserCellProps> = ({
     <Box display="flex" alignItems="center" gap={1}>
       <Avatar
         user={{
-          name: userData?.first_name || '',
-          surname: userData?.last_name || '',
-          img: userData?.file_link,
+          name: userData?.firstName || '',
+          surname: userData?.lastName || '',
+          img: userData?.avatar,
         }}
         size={32}
       />
       <Typography variant="body2">
         {userLoading
-          ? 'Загрузка...'
+          ? LoadersMedium['outlined']
           : userData
-            ? `${userData.first_name} ${userData.last_name}`
+            ? `${userData.firstName} ${userData.lastName}`
             : 'Неизвестно'}
       </Typography>
     </Box>

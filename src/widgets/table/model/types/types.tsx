@@ -1,16 +1,4 @@
-// import type { ApiResponse } from '@shared/api/userApi'
-import type { MeResponse } from '@features/auth/model/types/types'
-
-export type User = MeResponse['data']
-
 export type Row = { id: string | number } & Record<string, unknown>
-
-export interface ApiResponse<T> {
-  data: T | null
-  success: boolean
-  error?: string
-  message?: string
-}
 
 export interface Column {
   key: string
@@ -21,10 +9,9 @@ export interface Column {
   width?: number | string
 }
 
-export interface UniversalTableProps {
+export interface TableProps {
   type: 'users' | 'documents'
   columns: Column[]
-  // fetchData: (page: number, limit: number) => Promise<ApiResponse<any>>
   items: Row[]
   totalCount: number
   isLoading: boolean

@@ -4,26 +4,7 @@ import type {
   GetUsersParams,
   UsersListResponse,
 } from '@features/user-management/model'
-
-///
-export type UserResponse = {
-  data: {
-    id: string
-    first_name: string
-    last_name: string
-    email: string
-    role: {
-      id: number
-      name: string
-    }
-    created_at: string
-    updated_at: string
-    file_link?: string
-    status?: string
-  }
-  success: boolean
-}
-///
+import type { MeResponse } from '@features/auth/model'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -34,14 +15,12 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
-    ///
-    getUserById: build.query<UserResponse, { id: string }>({
+    getUserById: build.query<MeResponse, { id: string }>({
       query: ({ id }) => ({
         url: `/users/${id}`,
       }),
       providesTags: ['User'],
     }),
-    ///
     addUser: build.mutation<void, AddUserFormData>({
       query: data => ({
         url: `/auth/register`,

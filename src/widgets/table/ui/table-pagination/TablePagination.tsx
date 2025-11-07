@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { Button } from '@shared/ui/button/Button'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
-import { createRange } from './utils/pagination'
+import { createRange } from '../../model/utils/pagination'
 
 type Props = {
   count: number
@@ -12,12 +12,7 @@ type Props = {
   onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void
 }
 
-export const CustomTablePaginationActions: React.FC<Props> = ({
-  count,
-  page,
-  rowsPerPage,
-  onPageChange,
-}) => {
+export const TablePagination: React.FC<Props> = ({ count, page, rowsPerPage, onPageChange }) => {
   const pageCount = Math.max(1, Math.ceil(count / rowsPerPage))
 
   const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {

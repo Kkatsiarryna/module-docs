@@ -1,3 +1,9 @@
+.headerTable {
+  min-width: 100%;
+  width: 100%;
+  table-layout: auto;
+}
+
 .tableBox {
   display: flex;
   flex-direction: column;
@@ -62,6 +68,7 @@
 .tableContainer {
   flex: 1;
   width: 100%;
+  scrollbar-gutter: stable;
   overflow: auto;
   min-height: 0;
   &::-webkit-scrollbar {
@@ -72,6 +79,14 @@
     background-color: var(--divider-default);
     border-radius: 0.25rem;
   }
+}
+
+.tableCell {
+  background-color: #fafbff;
+  width: 56px;
+  min-width: 56px;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
 }
 
 .action {
@@ -100,22 +115,29 @@
   }
 }
 
-.textForEmpty {
-  width: 100%;
-
-  @media (max-width: 1620px) {
-    width: 90%;
-  }
-
-  @media (max-width: 1536px) {
-    width: 80%;
-  }
-
-  @media (max-width: 1100px) {
-    width: 60%;
-  }
-
-  @media (max-width: 600px) {
-    width: 50%;
-  }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
+// .textForEmpty {
+//   width: 100%;
+
+//   @media (max-width: 1620px) {
+//     width: 90%;
+//   }
+
+//   @media (max-width: 1536px) {
+//     width: 80%;
+//   }
+
+//   @media (max-width: 1100px) {
+//     width: 60%;
+//   }
+
+//   @media (max-width: 600px) {
+//     width: 50%;
+//   }
+// }

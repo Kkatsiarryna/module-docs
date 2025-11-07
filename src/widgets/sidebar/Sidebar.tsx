@@ -72,7 +72,6 @@ export const Sidebar = () => {
     setIsLoading(true)
 
     try {
-      // Здесь нужен API вызов
       const response = await addCategoryAPI(categoryName.trim())
 
       if (response.success) {
@@ -91,7 +90,6 @@ export const Sidebar = () => {
     }
   }
 
-  // Заглушка для вызова API
   const addCategoryAPI = async (categoryName: string): Promise<{ success: boolean }> => {
     console.log(`Добавляем категорию: ${categoryName}`)
     return new Promise(resolve => {

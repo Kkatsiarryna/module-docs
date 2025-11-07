@@ -30,13 +30,11 @@ export const Avatar: React.FC<AvatarProps> = ({
   size = 40,
 }) => {
   const [imageError, setImageError] = useState(false)
-  
-  // Определяем данные для отображения
+
   const displayName = user?.name || firstName || ''
   const displaySurname = user?.surname || lastName || ''
-  const displayImage = !imageError ? (user?.img || imageUrl || '') : ''
-  
-  // Обработчик ошибки загрузки изображения
+  const displayImage = !imageError ? user?.img || imageUrl || '' : ''
+
   const handleImageError = () => {
     setImageError(true)
   }

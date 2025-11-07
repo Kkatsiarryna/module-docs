@@ -52,9 +52,11 @@ export const InputSearch = ({ className, id, value, onChange, onClear, ...rest }
       className={clsx('search-input', className)}
       value={inputValue}
       onChange={handleChange}
-      InputProps={{
-        startAdornment: startAdornmentIcon,
-        endAdornment: endAdornmentIcon,
+      slotProps={{
+        input: {
+          startAdornment: startAdornmentIcon,
+          endAdornment: endAdornmentIcon,
+        },
       }}
       {...rest}
     />
