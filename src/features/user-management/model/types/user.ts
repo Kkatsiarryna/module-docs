@@ -13,3 +13,10 @@ export type GetUsersParams = {
   limit?: number
   page?: number
 }
+
+export type AddUserRequest = {
+  email: string
+  first_name: string
+  last_name: string
+  role_name: string
+}
