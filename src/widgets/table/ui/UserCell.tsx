@@ -1,22 +1,25 @@
 // UserCell.tsx
 import React, { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
-import { Avatar } from '../../shared/ui/avatar/Avatar'
-import { mockFetchUserById } from '@shared/api/userApi'
+import { Avatar } from '@shared/ui/avatar/Avatar'
+// import { mockFetchUserById } from '@shared/api/userApi'
+
+import type { User } from '@widgets/table/model/types'
+import { config } from '@shared/config/constants'
 
 // Интерфейс пользователя
-interface User {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
-  role: {
-    id: number
-    name: string
-  }
-  created_at: string
-  file_link?: string
-}
+// interface User {
+//   id: string
+//   first_name: string
+//   last_name: string
+//   email: string
+//   role: {
+//     id: number
+//     name: string
+//   }
+//   created_at: string
+//   file_link?: string
+// }
 
 interface UserCellProps {
   userId: string
@@ -24,10 +27,40 @@ interface UserCellProps {
   fetchUserData?: (userId: string) => Promise<User | null>
 }
 
+const fetchUserById = async (userId: string): Promise<User | null> => {
+  try {
+    const token = localStorage.getItem('accessToken')
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    }
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+
+    const response = await fetch(`${config.BASE_URL}/users/${userId}`, {
+      headers,
+    })
+    if (!response.ok) {
+      throw new Error('Server error')
+    }
+
+    const apiResponse: { data: User; success: boolean } = await response.json()
+
+    if (apiResponse.success && apiResponse.data) {
+      return apiResponse.data
+    }
+    return null
+  } catch (error) {
+    console.error(`Error fetching user ${userId}:`, error)
+    return null
+  }
+}
+
 export const UserCell: React.FC<UserCellProps> = ({
   userId,
   userCache = {},
-  fetchUserData = mockFetchUserById,
+  // fetchUserData = mockFetchUserById,
+  fetchUserData = fetchUserById,
 }) => {
   const [userData, setUserData] = useState<User | null>(null)
   const [userLoading, setUserLoading] = useState(false)

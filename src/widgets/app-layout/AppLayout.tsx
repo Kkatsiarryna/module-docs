@@ -18,13 +18,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <Sidebar></Sidebar>
           </Box>
         )}
-        <Box
-          className={styles.content}
-          sx={{ width: { xs: '40%', sm: '50%', md: '60%', lg: '70%', xl: '80%' } }}
-          // sx={{ width: '80vh' }}
-        >
-          {children}
-        </Box>
+        <Box className={styles.content}>{children}</Box>
       </Box>
     </Box>
   )

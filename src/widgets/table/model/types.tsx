@@ -1,45 +1,22 @@
-export interface User {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
-  role: {
-    id: number
-    name: string
-  }
-  created_at: string
-  file_link?: string
-}
+// import type { ApiResponse } from '@shared/api/userApi'
+import type { MeResponse } from '@features/auth/model/types/types'
 
-export interface Document {
-  id: number
-  title: string
-  user_id: string
-  created_at: string
-  category_id: number
-  file_link: string
-  updated_at: string
-  available?: boolean
-  likes?: number
-  comments?: number
-  reviewed?: boolean
-}
+export type User = MeResponse['data']
+
+export type Row = { id: string | number } & Record<string, unknown>
 
 export interface ApiResponse<T> {
-  data: {
-    page_number?: number
-    total_count: number
-    users?: T[]
-    documents?: T[]
-  }
+  data: T | null
   success: boolean
+  error?: string
+  message?: string
 }
 
 export interface Column {
   key: string
   label: string
   sortable?: boolean
-  render?: (value: any, row: any) => React.ReactNode
+  render?: (value: unknown, row: Row) => React.ReactNode
   minWidth?: number
   width?: number | string
 }
@@ -47,8 +24,18 @@ export interface Column {
 export interface UniversalTableProps {
   type: 'users' | 'documents'
   columns: Column[]
-  fetchData: (page: number, limit: number) => Promise<ApiResponse<any>>
+  // fetchData: (page: number, limit: number) => Promise<ApiResponse<any>>
+  items: Row[]
+  totalCount: number
+  isLoading: boolean
+  page: number
+  rowsPerPage: number
+  onPageChange: (newPage: number) => void
+  onAddDocument?: () => void
+  onDeleteDocuments?: (ids: Array<string>) => void
+  onOpenDocument?: (id: string) => void
   height?: number | string
+  className?: string
 }
 
 export const usersColumns: Column[] = [

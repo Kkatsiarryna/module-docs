@@ -5,6 +5,7 @@ import { useConfirmPasswordMutation } from '@features/auth/api'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '@shared/config'
 import { useState } from 'react'
+import type { ConfirmPasswordType } from '@features/auth/model/schemas/confirm-password.schema.ts'
 
 export const useConfirmPasswordForm = () => {
   const [confirmPasswordMutation, { isLoading }] = useConfirmPasswordMutation()
@@ -28,9 +29,9 @@ export const useConfirmPasswordForm = () => {
   const isStrongPassword = hasValidLength && hasLettersAndDigits
   const showHint = isFocused || password.length > 0
 
-  const onSubmit = async () => {
+  const onSubmit = async ({ password }: ConfirmPasswordType) => {
     try {
-      await confirmPasswordMutation({ password: '12345' }).unwrap()
+      await confirmPasswordMutation({ new_password: password }).unwrap()
       navigate(routes.documents, { replace: true })
     } catch (error) {
       console.log('Ошибка подтверждения пароля:', error)

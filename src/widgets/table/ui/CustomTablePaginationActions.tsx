@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import { Button } from '@shared/ui/button/Button'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
-import { createRange } from '../utils/pagination'
+import { createRange } from './utils/pagination'
 
 type Props = {
   count: number
@@ -40,8 +40,6 @@ export const CustomTablePaginationActions: React.FC<Props> = ({
     minWidth: 36,
     height: 36,
     px: 1,
-    // borderColor: 'var(--background-surface-3)',
-    // background: 'var(--background-surface-3)',
     color: 'var(--text-secondary)',
     '& svg': { fill: 'var(--icon-disabled)' },
     '&:hover': {
@@ -60,7 +58,6 @@ export const CustomTablePaginationActions: React.FC<Props> = ({
 
   const buttons: React.ReactNode[] = []
 
-  // Prev arrow
   buttons.push(
     <Button
       key="prev"
@@ -139,7 +136,6 @@ export const CustomTablePaginationActions: React.FC<Props> = ({
     )
   }
 
-  // Next arrow
   buttons.push(
     <Button
       key="next"

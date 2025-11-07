@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TablePagination,
+  // TablePagination,
   Box,
   Checkbox,
   Popper,
@@ -19,31 +19,54 @@ import { Select } from '@shared/ui/select/Select'
 import { DropdownFilter } from '@shared/ui/dropdowns/dropdownFilter/dropdownFilter'
 import { DropdownFilterUsers } from '@shared/ui/dropdowns/dropdownFilterUsers/dropdownFilterUsers'
 import { Icon } from '@shared/model/icon/Icon'
-import { ICONS, SIZES_ICON } from '../../shared/ui/icons/icons'
+import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 import { UserCell } from './UserCell'
 import { rolesUsers } from '@shared/model/user/users'
-import { Typography } from '../../shared/ui/typography/Typography'
-import { LoadersMedium } from '../../shared/ui/loaders/loaders'
-import { CustomTablePaginationActions } from './pagination/CustomTablePaginationActions'
-import { TableHeader } from './components/TableHeader'
-import type { Column, UniversalTableProps, User } from './utils/types'
+import { Typography } from '@shared/ui/typography/Typography'
+import { LoadersMedium } from '@shared/ui/loaders/loaders'
+import { CustomTablePaginationActions } from './CustomTablePaginationActions'
+import { PageHeader } from './PageHeader'
+// import type { Column, UniversalTableProps, User } from '@shared/ui'
 import style from './Table.module.scss'
+// import type { Column, UniversalTableProps } from '../model/types'
+// import type { User } from '@features/auth/model'
+import type { Column, UniversalTableProps, User, Row } from '@widgets/table/model/types'
+// import { useGetUsersQuery } from '@features/user-management/api'
+// import { useMockUsers } from '@features/auth/model/hooks/useMockUsers'
+import { config } from '@shared/config/constants'
 
-export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fetchData }) => {
-  const [data, setData] = useState<any[]>([])
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [totalCount, setTotalCount] = useState(0)
-  const [loading, setLoading] = useState(false)
+export const TableTemplate: React.FC<UniversalTableProps> = ({
+  type,
+  columns,
+  items,
+  totalCount,
+  isLoading,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onAddDocument,
+  onDeleteDocuments,
+  onOpenDocument,
+}) => {
+  // const [data, setData] = useState<any[]>([])
+  // const [page, setPage] = useState(0)
+  // const [rowsPerPage, setRowsPerPage] = useState(10)
+  // const [totalCount, setTotalCount] = useState(0)
+  // const [loading, setLoading] = useState(false)
+  // const [data, setData] = useState<any[]>(items || [])
+  const [data, setData] = useState<Row[]>(items || [])
   const [selected, setSelected] = useState<string[]>([])
-  const [openFilter, setOpenFilter] = useState<{ [key: string]: boolean }>({})
-  const [filterAnchor, setFilterAnchor] = useState<{ [key: string]: HTMLElement | null }>({})
+  // const [openFilter, setOpenFilter] = useState<{ [key: string]: boolean }>({})
+  // const [filterAnchor, setFilterAnchor] = useState<{ [key: string]: HTMLElement | null }>({})
+  const [openFilter, setOpenFilter] = useState<Record<string, boolean>>({})
+  const [filterAnchor, setFilterAnchor] = useState<Record<string, HTMLElement | null>>({})
   const [userCache, setUserCache] = useState<{ [key: string]: User }>({})
-  const [deleteLoading, setDeleteLoading] = useState(false)
+  // const [deleteLoading, setDeleteLoading] = useState(false)
+  const deleteLoading = false
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-  const isTablet = useMediaQuery(theme.breakpoints.down('lg'))
+  // const isTablet = useMediaQuery(theme.breakpoints.down('lg'))
 
   const fetchUserData = async (userId: string): Promise<User | null> => {
     if (userCache[userId]) {
@@ -51,10 +74,31 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
     }
 
     try {
-      const { mockFetchUserById } = await import('@shared/api/userApi')
-      const userData = await mockFetchUserById(userId)
+      // const { mockFetchUserById } = await import('@shared/api/userApi')
+      // const userData = await mockFetchUserById(userId)
 
-      if (userData) {
+      // if (userData) {
+
+      const token = localStorage.getItem('accessToken')
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+      }
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
+      const response = await fetch(`${config.BASE_URL}/users/${userId}`, {
+        headers,
+      })
+      if (!response.ok) {
+        throw new Error('Server error')
+      }
+
+      const apiResponse: { data: User; success: boolean } = await response.json()
+
+      if (apiResponse.success && apiResponse.data) {
+        const userData = apiResponse.data
+
         setUserCache(prev => ({
           ...prev,
           [userId]: userData,
@@ -68,36 +112,51 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
     }
   }
 
-  const loadData = async (page: number, limit: number) => {
-    setLoading(true)
-    try {
-      const response = await fetchData(page + 1, limit)
-      if (response.success) {
-        const items = type === 'users' ? response.data.users : response.data.documents
-        setData(items || [])
-        setTotalCount(response.data.total_count)
+  // const loadData = async (page: number, limit: number) => {
+  //   setLoading(true)
+  //   try {
+  //     const response = await fetchData(page + 1, limit)
+  //     if (response.success) {
+  //       // const items = type === 'users' ? response.data.users : response.data.documents
+  //       const items = type === 'users' ? response.data?.users : response.data?.documents
 
-        if (type === 'documents' && items) {
-          const uniqueUserIds = [...new Set(items.map(item => item.user_id))] as string[]
+  //       setData(items || [])
+  //       if (response.data?.total_count) {
+  //         setTotalCount(response.data.total_count)
+  //       }
 
-          const userPromises = uniqueUserIds.map(userId => fetchUserData(userId))
-          await Promise.all(userPromises)
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  //       // if (type === 'documents' && items) {
+  //       //   const uniqueUserIds = [...new Set(items.map(item => item.user_id))] as string[]
+  //       if (type === 'documents' && Array.isArray(items)) {
+  //         const documents = items as Array<{ user_id?: string }>
+  //         const uniqueUserIds = Array.from(
+  //           new Set(documents.map(document => document.user_id).filter(Boolean))
+  //         ) as string[]
+
+  //         const userPromises = uniqueUserIds.map(userId => fetchUserData(userId))
+  //         await Promise.all(userPromises)
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+  useEffect(() => {
+    setData(items || [])
+  }, [items])
 
   useEffect(() => {
-    loadData(page, rowsPerPage)
-  }, [page, rowsPerPage, type])
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage)
-  }
+    if (type === 'documents' && Array.isArray(items)) {
+      const documents = items as Array<{ user_id?: string }>
+      const uniqueUserIds = Array.from(
+        new Set(documents.map(document => document.user_id).filter(Boolean))
+      ) as string[]
+      Promise.all(uniqueUserIds.map(userId => fetchUserData(userId))).catch(console.error)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, items])
 
   // Обработчики выбора строк (для документов)
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,6 +175,25 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
   }
 
   const isSelected = (id: string) => selected.indexOf(id) !== -1
+
+  // const {
+  //   data: usersData,
+  //   isLoading,
+  //   error,
+  // } = useGetUsersQuery({
+  //   page: page + 1, // преобразуем в 1-based индекс если API ожидает его
+  //   limit: rowsPerPage,
+  // })
+
+  // const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    event?.preventDefault()
+    onPageChange(newPage)
+  }
+
+  // if (isLoading) return <div>Loading...</div>
+  // if (error) return <div>Error loading users</div>
+  // if (!usersData) return <div>No data</div>
 
   // Обработчики фильтров
   const handleFilterToggle = (columnKey: string, event: React.MouseEvent) => {
@@ -158,17 +236,19 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
     )
   }
 
-  const renderCell = (column: Column, row: any) => {
+  const renderCell = (column: Column, row: Row) => {
     const value = row[column.key]
 
     if (column.render) {
-      return column.render(value, row)
+      return column.render(value, row) as React.ReactNode
     }
 
     if (type === 'users') {
       switch (column.key) {
-        case 'role':
-          const roleName = value?.name || ''
+        case 'role': {
+          // const roleName = value?.name || ''
+          type RoleLabel = (typeof rolesUsers)[number]
+          const roleName = ((value as { name?: string } | undefined)?.name || '') as RoleLabel | ''
           const baseItems = rolesUsers.map(role => ({ value: role, label: role }))
           const roleItems =
             roleName && !rolesUsers.includes(roleName)
@@ -180,15 +260,16 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
               <Select
                 placeholder="Роль"
                 selectItems={roleItems}
-                value={roleName}
+                value={roleName as RoleLabel}
                 onChange={newValue => console.log('Role changed:', newValue)}
               />
             </Box>
           )
+        }
         default:
           return (
             <Typography variant="bodyM" className={style.role}>
-              {value?.toString() || ''}
+              {String(value ?? '')}
             </Typography>
           )
       }
@@ -196,33 +277,44 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
       switch (column.key) {
         case 'title':
           return (
-            <Typography variant="bodyM" className={style.titleColumn}>
-              {value}
+            <Typography
+              variant="bodyM"
+              className={style.titleColumn}
+              onClick={() => onOpenDocument?.(String(row.id))}
+              sx={{ cursor: 'pointer' }}
+            >
+              {String(value ?? '')}
             </Typography>
           )
         case 'user_id':
           return (
-            <UserCell userId={row.user_id} userCache={userCache} fetchUserData={fetchUserData} />
+            <UserCell
+              userId={String((row.user_id as string | number | undefined) ?? '')}
+              userCache={userCache}
+              fetchUserData={fetchUserData}
+            />
           )
         case 'available':
           // Кому доступен документ (временно, потом из API)
           return (
-            <TableCell key={column.key}>
-              <Typography variant="bodyM" color="text.secondary">
-                Все сотрудники
-              </Typography>
-            </TableCell>
+            // <TableCell key={column.key}>
+            <Typography variant="bodyM" color="text.secondary">
+              Все сотрудники
+            </Typography>
           )
         case 'reviewed':
           return <Typography variant="bodyM">{value ? 'Ознакомлен' : 'Не ознакомлен'}</Typography>
         case 'created_at':
           return (
-            <Typography variant="bodyM">{new Date(value).toLocaleDateString('ru-RU')}</Typography>
+            // <Typography variant="bodyM">{new Date(value).toLocaleDateString('ru-RU')}</Typography>
+            <Typography variant="bodyM">
+              {new Date((value as string | number) ?? '').toLocaleDateString('ru-RU')}
+            </Typography>
           )
         default:
           return (
             <Typography variant="bodyM" className={style.nameOfDoc}>
-              {value?.toString() || ''}
+              {String(value ?? '')}
             </Typography>
           )
       }
@@ -238,28 +330,34 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
 
   const isAllSelected = data.length > 0 && selected.length === data.length
 
-  return (
-    <Paper
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        maxWidth: '100%',
-        overflow: 'hidden',
-        px: { xs: '0.5rem', sm: '1rem' },
-        boxSizing: 'border-box',
-        border: 'none',
-        boxShadow: 'none',
-      }}
-    >
-      <TableHeader type={type} deleteLoading={deleteLoading} />
+  const handleDelete = () => {
+    if (type !== 'documents') return
+    const ids = selected
+    if (ids.length === 0) return
+    onDeleteDocuments?.(ids)
+  }
 
+  return (
+    <Paper className={style.tableBox}>
+      <PageHeader
+        type={type}
+        deleteLoading={deleteLoading}
+        onAddClick={onAddDocument}
+        onDeleteClick={handleDelete}
+      />
       <Box className={style.tableWrapper}>
-        <Box className={style.table}>
-          <TableContainer className={style.tableContainer}>
+        <Box className={style.table} sx={{ width: '100%' }}>
+          <TableContainer
+            className={style.tableContainer}
+            sx={{
+              width: '100%',
+              scrollbarGutter: 'stable',
+            }}
+          >
             <Table
               stickyHeader
               sx={{
-                minWidth: 'min-content',
+                minWidth: '100%',
                 width: '100%',
                 tableLayout: 'auto',
               }}
@@ -271,9 +369,8 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                       padding="checkbox"
                       sx={{
                         bgcolor: '#fafbff',
-                        width: 60,
-                        minWidth: 60,
-                        maxWidth: 60,
+                        width: 56,
+                        minWidth: 56,
                         px: isMobile ? 3 : 5,
                         py: 1.5,
                       }}
@@ -291,17 +388,17 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                       key={column.key}
                       sx={{
                         bgcolor: '#fafbff',
-                        minWidth: column.minWidth || 120,
-                        width: column.width || 'auto',
-                        maxWidth: column.width || 'none',
+                        minWidth: column.minWidth ?? 120,
+                        width: column.width ?? 'auto',
+                        maxWidth: column.width ? column.width : 'none',
                         px: isMobile ? 3 : 5,
                         py: isMobile ? 2 : 1.5,
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
+                        whiteSpace: column.key === 'title' ? 'normal' : 'nowrap',
+                        overflow: column.key === 'title' ? 'visible' : 'hidden',
+                        textOverflow: column.key === 'title' ? 'clip' : 'ellipsis',
                       }}
                     >
-                      <Box display="flex" alignItems="center" gap={1}>
+                      <Box display="flex" alignItems="center" gap={1} sx={{ width: '100%' }}>
                         <Typography
                           variant="subheadingS"
                           sx={{
@@ -363,7 +460,7 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                 </TableRow>
               </TableHead>
               <TableBody>
-                {loading ? (
+                {isLoading ? (
                   <TableRow>
                     <TableCell
                       colSpan={columns.length + (type === 'documents' ? 1 : 0)}
@@ -380,7 +477,7 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                       colSpan={columns.length + (type === 'documents' ? 1 : 0)}
                       sx={{ px: isMobile ? 3 : 5, py: 1.5 }}
                     >
-                      <Typography align="center" variant="bodyM">
+                      <Typography align="center" variant="bodyM" className={style.textForEmpty}>
                         {`Список пуст — начните с добавления ${
                           type === 'users' ? 'пользователя' : 'документа'
                         }`}
@@ -401,8 +498,8 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                         <TableCell
                           padding="checkbox"
                           sx={{
-                            width: 60,
-                            minWidth: 60,
+                            width: 56,
+                            minWidth: 56,
                             px: isMobile ? 3 : 5,
                             py: 1.5,
                           }}
@@ -418,13 +515,13 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
                         <TableCell
                           key={`${row.id}-${column.key}`}
                           sx={{
-                            minWidth: '120px',
-                            maxWidth: column.width || 'none',
+                            minWidth: column.minWidth ?? 120,
+                            width: column.width ?? 'auto',
                             px: isMobile ? 3 : 5,
                             py: 1.5,
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
+                            whiteSpace: column.key === 'title' ? 'normal' : 'nowrap',
+                            overflow: column.key === 'title' ? 'visible' : 'hidden',
+                            textOverflow: column.key === 'title' ? 'clip' : 'ellipsis',
                           }}
                         >
                           {renderCell(column, row)}
@@ -438,21 +535,38 @@ export const TableTemplate: React.FC<UniversalTableProps> = ({ type, columns, fe
           </TableContainer>
         </Box>
       </Box>
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={totalCount}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        labelRowsPerPage=""
-        labelDisplayedRows={({ from, to, count }) =>
-          `${from}-${to} из ${count !== -1 ? count : `более ${to}`}`
-        }
-        ActionsComponent={CustomTablePaginationActions}
-        className={style.action}
-      />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mb: 2 }}>
+        <CustomTablePaginationActions
+          count={totalCount}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handlePageChange}
+        />
+      </Box>
+      {/* <TablePagination
+//         rowsPerPageOptions={[5, 10, 25]}
+//         component="div"
+//         count={10}
+//         rowsPerPage={5}
+//         page={page}
+//         onPageChange={handleChangePage}
+//         labelRowsPerPage=""
+//         labelDisplayedRows={({ from, to, count }) =>
+//         ActionsComponent={CustomTablePaginationActions}}
+//         className={style.action}
+//       /> */}
+      {/* <CustomTablePaginationActions
+//         count={usersData.data.total_count} // используем total_count из ответа
+//         page={page}
+//         rowsPerPage={rowsPerPage}
+//         onPageChange={handleChangePage}
+//       /> */}
+      {/* <CustomTablePaginationActions
+//         count={usersData?.data.total_count || 0} // используйте правильное поле из ответа
+//         page={page}
+//         rowsPerPage={rowsPerPage}
+//         onPageChange={handlePageChange}
+//       /> */}
     </Paper>
   )
 }

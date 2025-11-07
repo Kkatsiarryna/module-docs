@@ -9,10 +9,25 @@ import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 type Props = {
   type: 'users' | 'documents'
   deleteLoading?: boolean
+  onAddClick?: () => void
+  onDeleteClick?: () => void
 }
 
-export const TableHeader: React.FC<Props> = ({ type, deleteLoading = false }) => {
-  const headerConfig =
+type Action = {
+  label: string
+  variant: 'primary' | 'secondary'
+  startIcon?: React.ReactNode
+  loading?: boolean
+  onClick?: () => void
+}
+
+export const PageHeader: React.FC<Props> = ({
+  type,
+  deleteLoading = false,
+  onAddClick,
+  onDeleteClick,
+}) => {
+  const headerConfig: { title: string; actions: Action[] } =
     type === 'users'
       ? {
           title: 'Администрирование',
@@ -33,11 +48,13 @@ export const TableHeader: React.FC<Props> = ({ type, deleteLoading = false }) =>
               variant: 'primary' as const,
               startIcon: <Icon component={ICONS.ADD} size={SIZES_ICON.MEDIUM} />,
               loading: false,
+              onClick: onAddClick,
             },
             {
               label: 'Удалить документ',
               variant: 'secondary' as const,
               loading: deleteLoading,
+              onClick: onDeleteClick,
             },
           ],
         }
@@ -89,6 +106,7 @@ export const TableHeader: React.FC<Props> = ({ type, deleteLoading = false }) =>
               loadingPosition={action.startIcon ? 'start' : undefined}
               isIcon={!!action.startIcon}
               startIcon={action.startIcon}
+              onClick={action.onClick}
               sx={{
                 flex: { xs: '1 1 auto', sm: '0 0 auto' },
                 minWidth: { xs: 0, sm: 'auto' },
