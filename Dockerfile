@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install patch-package --save-dev
 RUN npm install
 
 COPY . .
