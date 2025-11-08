@@ -2,8 +2,15 @@ import { CreateForm, FileUploader, Input, Select } from '@shared/ui'
 import { Controller } from 'react-hook-form'
 import { roleDocsArray } from '@shared/model/user'
 import { useAddDocumentForm } from '@features/document-management/model'
+import styles from '@features/user-management/ui/add-user-form/AddUserForm.module.scss'
+import Modal from '@mui/material/Modal'
 
-export const AddDocumentForm = () => {
+type Props = {
+  open: boolean
+  onClose: () => void
+}
+
+export const AddDocumentForm = ({ open, onClose }: Props) => {
   const {
     control,
     register,
@@ -14,41 +21,48 @@ export const AddDocumentForm = () => {
   } = useAddDocumentForm()
 
   return (
-    <CreateForm
-      title={'Добавление пользователя'}
-      onSubmit={handleSubmit}
-      disabled={!isValid || isSubmitting}
+    <Modal
+      open={open}
+      onClose={onClose}
+      className={styles.modal}
+      aria-labelledby="add-document-modal"
     >
-      <Controller
-        name="category_id"
-        control={control}
-        render={({ field }) => (
-          <Select
-            placeholder="Категория документа *"
-            selectItems={categoryOptions}
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
-      />
-      <Controller
-        name="role_name"
-        control={control}
-        render={({ field }) => (
-          <Select
-            placeholder="Кому доступен документ *"
-            selectItems={roleDocsArray}
-            value={field.value}
-            onChange={field.onChange}
-          />
-        )}
-      />
-      <Input label={'Название документа *'} {...register('title')} error={!!errors.title} />
-      <Controller
-        name="file_content"
-        control={control}
-        render={({ field: { onChange } }) => <FileUploader onFileSelect={onChange} />}
-      />
-    </CreateForm>
+      <CreateForm
+        title={'Добавление пользователя'}
+        onSubmit={handleSubmit}
+        disabled={!isValid || isSubmitting}
+      >
+        <Controller
+          name="category_id"
+          control={control}
+          render={({ field }) => (
+            <Select
+              placeholder="Категория документа *"
+              selectItems={categoryOptions}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        <Controller
+          name="role_name"
+          control={control}
+          render={({ field }) => (
+            <Select
+              placeholder="Кому доступен документ *"
+              selectItems={roleDocsArray}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        <Input label={'Название документа *'} {...register('title')} error={!!errors.title} />
+        <Controller
+          name="file_content"
+          control={control}
+          render={({ field: { onChange } }) => <FileUploader onFileSelect={onChange} />}
+        />
+      </CreateForm>
+    </Modal>
   )
 }
