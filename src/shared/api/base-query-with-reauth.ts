@@ -3,9 +3,9 @@ import { config } from '@shared/config/constants.ts'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.BASE_URL,
+  baseUrl: `${config.BASE_URL}/api/v1`,
   prepareHeaders: headers => {
-    const token = localStorage.getItem('accessToken')
+    const token = localStorage.getItem('access_token')
     if (token) {
       headers.set('Authorization', `Bearer ${token}`)
     }
@@ -14,15 +14,15 @@ const baseQuery = fetchBaseQuery({
 })
 
 function logout() {
-  localStorage.removeItem('accessToken')
-  localStorage.removeItem('refreshToken')
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('refresh_token')
 }
 
 export const baseQueryWithReauth: typeof baseQuery = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
   if (result.error && (result.error as FetchBaseQueryError).status === 401) {
-    const refreshToken = localStorage.getItem('refreshToken')
+    const refreshToken = localStorage.getItem('refresh_token')
 
     if (!refreshToken) {
       logout()

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { ProtectedRoute } from '@app/routing/protected-route.tsx'
 import { DocumentsPage } from '@pages/documents'
 import { LoginPage } from '@pages/login'
@@ -8,12 +8,13 @@ import { routes } from '@shared/config'
 import { ConfirmPasswordPage } from '@pages/confirm-password'
 import { ProfilePage } from '@pages/profile'
 import { AdminPage } from '@pages/admin'
-import { TokenUserRoles } from '@shared/model/user'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const location = useLocation()
+
   return (
-    <Routes>
+    <Routes key={location.pathname}>
       <Route
         path={'/'}
         element={
@@ -28,8 +29,6 @@ export const Routing = () => {
         path={routes.login}
         element={isLoggedIn ? <Navigate to={routes.documents} replace /> : <LoginPage />}
       />
-
-      <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.confirmPassword} element={<ConfirmPasswordPage />} />
 
       <Route
@@ -53,7 +52,7 @@ export const Routing = () => {
       <Route
         path={routes.admin}
         element={
-          <ProtectedRoute roles={[TokenUserRoles.admin]}>
+          <ProtectedRoute roles={['admin']}>
             <AdminPage />
           </ProtectedRoute>
         }

@@ -14,7 +14,6 @@ export const ProtectedRoute = ({ children, roles }: ProtectedRouteProps) => {
   const user = useAppSelector(selectUser)
   const location = useLocation()
 
-  //console.log(location)
   if (!isLoggedIn) {
     return <Navigate to={routes.login} state={{ from: location }} replace />
   }

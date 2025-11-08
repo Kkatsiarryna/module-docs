@@ -1,4 +1,4 @@
-@use '../../shared/styles/variables/typography.scss';
+@use '@shared/styles/variables/typography';
 
 * {
   transition: 0.3s all ease-in-out;
@@ -6,14 +6,15 @@
 
 .container {
   height: 100vh;
-  border-right: 1px solid var(--divider-default);
-  padding-right: 36px;
   padding-top: 20px;
-  background-color: #fff;
+  background-color: var(--background-surface);
+  padding-right: 36px;
+  border-right: 1px solid var(--divider-default);
 }
 
 .section {
   @include typography.subheading-s;
+
   text-transform: none;
 }
 
@@ -25,10 +26,9 @@
 .section_item {
   display: flex;
   gap: 8px;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   width: -webkit-fill-available;
-
   height: 36px;
 
   svg:last-child {
@@ -67,10 +67,12 @@
 }
 
 .category {
+  cursor: pointer;
+
   display: flex;
   gap: 4px;
   align-items: center;
-  cursor: pointer;
+
   padding-left: 16px;
 }
 
@@ -87,18 +89,20 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+
   height: auto;
   margin-top: 12px;
 }
 
 .add_category_field {
   display: flex;
-  align-items: center;
-  padding-left: 16px;
   gap: 4px;
+  align-items: flex-start;
+  padding-left: 16px;
 
-  .error_input {
-    border-color: var(--error-color) !important;
+  :global(.MuiFormHelperText-root) {
+    position: static !important;
+    margin-top: 4px;
   }
 }
 
@@ -106,7 +110,7 @@
   max-width: 36px;
   height: 36px;
 
-  @media (max-width: 900px) {
+  @media (width <= 900px) {
     max-width: 32px;
     height: 32px;
   }

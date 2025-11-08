@@ -1,6 +1,6 @@
 import { baseApi } from '@shared/api'
 import type {
-  AddUserFormData,
+  AddUserRequest,
   GetUsersParams,
   UsersListResponse,
 } from '@features/user-management/model'
@@ -15,13 +15,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
-    getUserById: build.query<MeResponse, { id: string }>({
-      query: ({ id }) => ({
-        url: `/users/${id}`,
-      }),
-      providesTags: ['User'],
-    }),
-    addUser: build.mutation<void, AddUserFormData>({
+    addUser: build.mutation<void, AddUserRequest>({
       query: data => ({
         url: `/auth/register`,
         method: 'POST',

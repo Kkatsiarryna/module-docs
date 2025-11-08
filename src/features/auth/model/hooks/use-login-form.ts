@@ -22,7 +22,6 @@ export const useLoginForm = () => {
     },
   })
 
-  //Раскомментировать когда появится backend
   const { reset } = form
   const onSubmit = async (data: LoginCredentials) => {
     try {
@@ -36,11 +35,6 @@ export const useLoginForm = () => {
       showToast('Такой аккаунт не существует или введены неверные данные', 'error')
     }
   }
-
-  //удалить когда появится backend
-  // const onSubmit = () => {
-  //   dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-  // }
 
   return {
     ...form,
