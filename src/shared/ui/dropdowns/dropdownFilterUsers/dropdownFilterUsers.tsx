@@ -14,7 +14,7 @@ interface FilterUsers {
   onClose?: () => void
 }
 
-export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size, onClose }) => {
+export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {
   const [checked, setChecked] = React.useState<string[]>(['Все сотрудники'])
   const [open, setOpen] = React.useState(false)
 

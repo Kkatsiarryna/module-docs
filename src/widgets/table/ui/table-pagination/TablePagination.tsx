@@ -4,6 +4,7 @@ import { Button } from '@shared/ui/button/Button'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 import { createRange } from '../../model/utils/pagination'
+import style from './TablePagination.module.scss'
 
 type Props = {
   count: number
@@ -78,7 +79,7 @@ export const TablePagination: React.FC<Props> = ({ count, page, rowsPerPage, onP
         key="first"
         variant="ghost"
         sx={baseButtonSx}
-        onClick={e => handlePageNumberClick(e, 0)}
+        onClick={event => handlePageNumberClick(event, 0)}
       >
         1
       </Button>
@@ -144,5 +145,5 @@ export const TablePagination: React.FC<Props> = ({ count, page, rowsPerPage, onP
     </Button>
   )
 
-  return <Box sx={{ display: 'flex', gap: 1 }}>{buttons}</Box>
+  return <Box className={style.tablePagination}>{buttons}</Box>
 }

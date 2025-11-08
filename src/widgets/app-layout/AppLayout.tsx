@@ -4,6 +4,7 @@ import { Header } from '@shared/ui'
 import styles from './AppLayout.module.scss'
 import type { ReactNode } from 'react'
 import { Sidebar } from '@widgets/sidebar/Sidebar'
+import { Grid } from '@mui/system'
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation()
@@ -18,7 +19,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <Sidebar></Sidebar>
           </Box>
         )}
-        <Box className={styles.content}>{children}</Box>
+        <Grid className={styles.content}>{children}</Grid>
       </Box>
     </Box>
   )

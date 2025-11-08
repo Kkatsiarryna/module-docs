@@ -2,9 +2,8 @@ import { TableTemplate } from '@widgets/table/ui/table/Table'
 // import { DocumentViewer } from '@widgets/document-viewer/ui/document-viewer/DocumentViewer'
 import { AddDocumentForm } from '@features/document-management/ui'
 import { useDocumentsTable } from '@pages/documents/model/hooks/useDocumentsPage'
-import Box from '@mui/material/Box'
 import { documentsColumns } from '@widgets/table/model/types'
-import style from './documents-page.module.scss'
+import { Grid } from '@mui/system'
 
 export const DocumentsPage = () => {
   const {
@@ -22,8 +21,8 @@ export const DocumentsPage = () => {
     deleteSelected,
   } = useDocumentsTable()
   return (
-    <Box
-      className={style.documentsPage}
+    <Grid
+      size={8}
       sx={{
         px: { xs: 2, md: 4, xl: 6 },
         pb: { xs: 4, md: 6 },
@@ -59,6 +58,6 @@ export const DocumentsPage = () => {
         })()}
         title={viewer.title || ''}
       /> */}
-    </Box>
+    </Grid>
   )
 }

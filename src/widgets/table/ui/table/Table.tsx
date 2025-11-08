@@ -9,17 +9,16 @@ import {
   Paper,
   Box,
   Checkbox,
-  Popper,
-  Grow,
   useTheme,
   useMediaQuery,
+  Menu,
 } from '@mui/material'
 import { Select } from '@shared/ui/select/Select'
 import { DropdownFilter } from '@shared/ui/dropdowns/dropdownFilter/dropdownFilter'
 import { DropdownFilterUsers } from '@shared/ui/dropdowns/dropdownFilterUsers/dropdownFilterUsers'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
-import { UserCell } from '../documents-user-cell/UserCell'
+import { UserCell } from '../user-cell/UserCell'
 import { rolesUsers } from '@shared/model/user/users'
 import { Typography } from '@shared/ui/typography/Typography'
 import { LoadersMedium } from '@shared/ui/loaders/loaders'
@@ -104,7 +103,6 @@ export const TableTemplate: React.FC<TableProps> = ({
       ) as string[]
       Promise.all(uniqueUserIds.map(userId => fetchUserData(userId))).catch(console.error)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, items])
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,7 +211,6 @@ export const TableTemplate: React.FC<TableProps> = ({
               variant="bodyM"
               className={style.titleColumn}
               onClick={() => onOpenDocument?.(String(row.id))}
-              sx={{ cursor: 'pointer' }}
             >
               {String(value ?? '')}
             </Typography>
@@ -276,7 +273,7 @@ export const TableTemplate: React.FC<TableProps> = ({
         onDeleteClick={handleDelete}
       />
       <Box className={style.tableWrapper}>
-        <Box className={style.table} sx={{ width: '100%' }}>
+        <Box className={style.table}>
           <TableContainer className={style.tableContainer}>
             <Table stickyHeader className={style.headerTable}>
               <TableHead>
@@ -300,11 +297,10 @@ export const TableTemplate: React.FC<TableProps> = ({
                   {columns.map(column => (
                     <TableCell
                       key={column.key}
+                      className={style.tableData}
                       sx={{
-                        bgcolor: '#fafbff',
                         minWidth: column.minWidth ?? 120,
                         width: column.width ?? 'auto',
-                        maxWidth: column.width ? column.width : 'none',
                         px: isMobile ? 3 : 5,
                         py: isMobile ? 2 : 1.5,
                         whiteSpace: column.key === 'title' ? 'normal' : 'nowrap',
@@ -312,60 +308,58 @@ export const TableTemplate: React.FC<TableProps> = ({
                         textOverflow: column.key === 'title' ? 'clip' : 'ellipsis',
                       }}
                     >
-                      <Box display="flex" alignItems="center" gap={1} sx={{ width: '100%' }}>
+                      <Box className={style.column}>
                         <Typography
                           variant="subheadingS"
+                          className={style.columnData}
                           sx={{
                             fontSize: isMobile ? '0.75rem' : '0.875rem',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
                           }}
                         >
                           {column.label}
                         </Typography>
                         {column.sortable && (
-                          <Box position="relative" display="flex" alignItems="center">
+                          <Box className={style.sort}>
                             {getSortIcon(column.key)}
-                            <Popper
+                            <Menu
                               open={!!openFilter[column.key] && !!filterAnchor[column.key]}
                               anchorEl={filterAnchor[column.key]}
-                              placement="bottom-start"
-                              disablePortal={false}
-                              sx={{ zIndex: 2000 }}
-                              transition
+                              onClose={() => handleFilterClose(column.key)}
+                              anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                              }}
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                              }}
+                              slotProps={{
+                                paper: {
+                                  sx: {
+                                    mt: 1,
+                                    boxShadow: 3,
+                                    padding: 0,
+                                  },
+                                },
+                                list: {
+                                  sx: {
+                                    padding: 0,
+                                  },
+                                },
+                              }}
                             >
-                              {({ TransitionProps, placement }) => (
-                                <Grow
-                                  {...TransitionProps}
-                                  style={{
-                                    transformOrigin:
-                                      placement && placement.startsWith('bottom')
-                                        ? 'left top'
-                                        : 'left bottom',
-                                  }}
-                                >
-                                  <Box
-                                    bgcolor="background.paper"
-                                    boxShadow={3}
-                                    borderRadius={1}
-                                    mt={1}
-                                  >
-                                    {column.key === 'available' ? (
-                                      <DropdownFilterUsers
-                                        size={16}
-                                        onClose={() => handleFilterClose(column.key)}
-                                      />
-                                    ) : (
-                                      <DropdownFilter
-                                        nameArray={getFilterType(column.key)}
-                                        onClose={() => handleFilterClose(column.key)}
-                                      />
-                                    )}
-                                  </Box>
-                                </Grow>
+                              {column.key === 'available' ? (
+                                <DropdownFilterUsers
+                                  size={16}
+                                  onClose={() => handleFilterClose(column.key)}
+                                />
+                              ) : (
+                                <DropdownFilter
+                                  nameArray={getFilterType(column.key)}
+                                  onClose={() => handleFilterClose(column.key)}
+                                />
                               )}
-                            </Popper>
+                            </Menu>
                           </Box>
                         )}
                       </Box>
@@ -403,10 +397,7 @@ export const TableTemplate: React.FC<TableProps> = ({
                     <TableRow
                       key={row.id}
                       selected={isSelected(row.id.toString())}
-                      sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
-                        '&:hover': { backgroundColor: '#fafbff' },
-                      }}
+                      className={style.tableRow}
                     >
                       {type === 'documents' && (
                         <TableCell

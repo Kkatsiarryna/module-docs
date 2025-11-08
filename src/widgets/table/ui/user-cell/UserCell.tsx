@@ -4,6 +4,7 @@ import { Avatar } from '@shared/ui/avatar/Avatar'
 import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 import { LoadersMedium } from '@shared/ui'
+import style from './UserCell.module.scss'
 
 interface UserCellProps {
   userId: string
@@ -64,7 +65,7 @@ export const UserCell: React.FC<UserCellProps> = ({
   }, [userId, userCache, fetchUserData])
 
   return (
-    <Box display="flex" alignItems="center" gap={1}>
+    <Box className={style.userCell}>
       <Avatar
         user={{
           name: userData?.firstName || '',
