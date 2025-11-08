@@ -4,7 +4,6 @@ import type {
   GetUsersParams,
   UsersListResponse,
 } from '@features/user-management/model'
-import type { MeResponse } from '@features/auth/model'
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -25,4 +24,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useAddUserMutation, useGetUsersQuery, useGetUserByIdQuery } = userApi
+export const { useAddUserMutation, useGetUsersQuery } = userApi

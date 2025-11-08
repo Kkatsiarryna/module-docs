@@ -43,7 +43,7 @@ export const useDocumentsTable = () => {
         ids
           .map(id => Number(id))
           .filter(id => !Number.isNaN(id))
-          .map(id => deleteDocument({ id }).unwrap())
+          .map(id => deleteDocument(id).unwrap())
       )
       await refetch()
     } catch (error) {

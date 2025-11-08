@@ -1,7 +1,7 @@
 import { TableTemplate } from '@widgets/table/ui/table/Table'
 // import { DocumentViewer } from '@widgets/document-viewer/ui/document-viewer/DocumentViewer'
 import { AddDocumentForm } from '@features/document-management/ui'
-import { useDocumentsTable } from '@pages/documents/model/hooks/useDocumentsPage'
+import { useDocumentsTable } from '@pages/documents/model/hooks/use-documents-page'
 import { documentsColumns } from '@widgets/table/model/types'
 import { Grid } from '@mui/system'
 
@@ -42,7 +42,7 @@ export const DocumentsPage = () => {
         // onOpenDocument={openViewer}
       />
 
-      {isAddOpen && <AddDocumentForm />}
+      {isAddOpen && <AddDocumentForm open={false} onClose={() => {}} />}
 
       {/* <DocumentViewer
         open={viewer.open}
