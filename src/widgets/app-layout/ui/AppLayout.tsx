@@ -1,18 +1,16 @@
 import Box from '@mui/material/Box'
-import { useLocation } from 'react-router-dom'
 import { Header } from '@shared/ui'
 import styles from './AppLayout.module.scss'
 import type { ReactNode } from 'react'
 import { Grid } from '@mui/system'
-import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
+import { Sidebar } from '@widgets/sidebar/ui/Sidebar.tsx'
+import { useAppLayout } from '@widgets/app-layout/model'
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
-  const { pathname } = useLocation()
-  const isHideHeader = ['/', '/login', '/confirm-password'].includes(pathname)
-
+  const { user, isHideHeader } = useAppLayout()
   return (
     <Box className={styles.appLayout}>
-      {!isHideHeader && <Header />}
+      {!isHideHeader && user && <Header user={user} />}
       <Box className={styles.mainContent}>
         {!isHideHeader && (
           <Box className={styles.sidebarWrapper}>

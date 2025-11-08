@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import { Avatar } from '@shared/ui/avatar/Avatar'
-import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 import { LoadersMedium } from '@shared/ui'
 import style from './InitialsAvatar.module.scss'
+import { config } from '@shared/config/constants.ts'
 
 interface UserCellProps {
   userId: string
@@ -67,11 +67,11 @@ export const InitialsAvatar: React.FC<UserCellProps> = ({
   return (
     <Box className={style.userCell}>
       <Avatar
-        user={{
-          name: userData?.firstname || '',
-          surname: userData?.lastname || '',
-          img: userData?.avatar,
-        }}
+        // user={{
+        //   name: userData?.firstname || '',
+        //   surname: userData?.lastname || '',
+        //   img: userData?.avatar,
+        // }}
         size={32}
       />
       <Typography variant="body2">
