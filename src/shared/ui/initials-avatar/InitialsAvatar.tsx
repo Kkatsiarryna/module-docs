@@ -4,7 +4,7 @@ import { Avatar } from '@shared/ui/avatar/Avatar'
 import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 import { LoadersMedium } from '@shared/ui'
-import style from './UserCell.module.scss'
+import style from './InitialsAvatar.module.scss'
 
 interface UserCellProps {
   userId: string
@@ -41,7 +41,7 @@ const fetchUserById = async (userId: string): Promise<User | null> => {
   }
 }
 
-export const UserCell: React.FC<UserCellProps> = ({
+export const InitialsAvatar: React.FC<UserCellProps> = ({
   userId,
   userCache = {},
   fetchUserData = fetchUserById,

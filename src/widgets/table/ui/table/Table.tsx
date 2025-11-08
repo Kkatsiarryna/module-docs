@@ -18,7 +18,7 @@ import { DropdownFilter } from '@shared/ui/dropdowns/dropdownFilter/dropdownFilt
 import { DropdownFilterUsers } from '@shared/ui/dropdowns/dropdownFilterUsers/dropdownFilterUsers'
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
-import { UserCell } from '../user-cell/UserCell'
+import { InitialsAvatar } from '@shared/ui/initials-avatar/InitialsAvatar'
 import { rolesUsers } from '@shared/model/user/users'
 import { Typography } from '@shared/ui/typography/Typography'
 import { LoadersMedium } from '@shared/ui/loaders/loaders'
@@ -217,7 +217,7 @@ export const TableTemplate: React.FC<TableProps> = ({
           )
         case 'user_id':
           return (
-            <UserCell
+            <InitialsAvatar
               userId={String((row.user_id as string | number | undefined) ?? '')}
               userCache={userCache}
               fetchUserData={fetchUserData}
