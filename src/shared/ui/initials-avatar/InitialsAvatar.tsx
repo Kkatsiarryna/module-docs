@@ -68,8 +68,8 @@ export const InitialsAvatar: React.FC<UserCellProps> = ({
     <Box className={style.userCell}>
       <Avatar
         user={{
-          name: userData?.firstName || '',
-          surname: userData?.lastName || '',
+          name: userData?.firstname || '',
+          surname: userData?.lastname || '',
           img: userData?.avatar,
         }}
         size={32}
@@ -78,7 +78,7 @@ export const InitialsAvatar: React.FC<UserCellProps> = ({
         {userLoading
           ? LoadersMedium['outlined']
           : userData
-            ? `${userData.firstName} ${userData.lastName}`
+            ? `${userData.firstname} ${userData.lastname}`
             : 'Неизвестно'}
       </Typography>
     </Box>
