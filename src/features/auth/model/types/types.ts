@@ -30,20 +30,3 @@ export type MeResponse = {
     updated_at: string
   }
 }
-
-export type MeResponse = {
-  data: {
-    id: string
-    email: string
-    first_name: string
-    last_name: string
-    file_link?: string
-    role: {
-      id: number
-      name: string
-    }
-    status: string
-    created_at: string
-    updated_at: string
-  }
-}
