@@ -8,9 +8,15 @@ import Container from '@mui/material/Container'
 import MenuItem from '@mui/material/MenuItem'
 import styles from './Header.module.scss'
 import { Avatar } from '@shared/ui/avatar/Avatar'
-import { DropdownUser } from '@shared/ui/dropdowns/dropdownUser/DropdownUser'
+import type { User } from '@features/auth/model'
+import { TokenUserRoles } from '@shared/model/user'
+import { DropdownUser } from '@features/user-menu/ui'
 
-export const Header = () => {
+type Props = {
+  user: User
+}
+
+export const Header = ({ user }: Props) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,12 +29,7 @@ export const Header = () => {
     title: 'Betera',
   }
 
-  const user = {
-    name: 'John',
-    surname: 'Doe',
-    role: 'Администратор',
-    img: '',
-  }
+  const displayRole = TokenUserRoles[user.role]
 
   return (
     <AppBar className={styles.appBar}>
@@ -51,7 +52,7 @@ export const Header = () => {
             />
           </Box>
           <MenuItem component="div" className={styles.userRole}>
-            <Typography className={styles.userRoleText}>{user.role}</Typography>
+            <Typography className={styles.userRoleText}>{displayRole}</Typography>
           </MenuItem>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
