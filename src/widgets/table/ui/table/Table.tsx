@@ -6,7 +6,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  // Paper,
   Box,
   Checkbox,
   useTheme,
@@ -23,10 +23,9 @@ import { rolesUsers } from '@shared/model/user/users'
 import { Typography } from '@shared/ui/typography/Typography'
 import { LoadersMedium } from '@shared/ui/loaders/loaders'
 import { TablePagination } from '../table-pagination/TablePagination'
-import { PageHeader } from '../../../../shared/ui/page-header/PageHeader'
 import style from './Table.module.scss'
 import type { Column, TableProps, Row } from '@widgets/table/model/types/types'
-import { config } from '@shared/config/constants'
+// import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 
 export const TableTemplate: React.FC<TableProps> = ({
@@ -38,74 +37,34 @@ export const TableTemplate: React.FC<TableProps> = ({
   page,
   rowsPerPage,
   onPageChange,
-  onAddDocument,
-  onDeleteDocuments,
   onOpenDocument,
+  selected,
+  setSelected,
+  allUsers = [],
 }) => {
   const [data, setData] = useState<Row[]>(items || [])
-  const [selected, setSelected] = useState<string[]>([])
   const [openFilter, setOpenFilter] = useState<Record<string, boolean>>({})
   const [filterAnchor, setFilterAnchor] = useState<Record<string, HTMLElement | null>>({})
-  const [userCache, setUserCache] = useState<{ [key: string]: User }>({})
-  const deleteLoading = false
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-  const fetchUserData = async (userId: string): Promise<User | null> => {
-    if (userCache[userId]) {
-      return userCache[userId]
-    }
-
-    try {
-      const token = localStorage.getItem('accessToken')
-      const headers: HeadersInit = {
-        'Content-Type': 'application/json',
-      }
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`
-      }
-
-      const response = await fetch(`${config.BASE_URL}/users/${userId}`, {
-        headers,
-      })
-      if (!response.ok) {
-        throw new Error('Server error')
-      }
-
-      const apiResponse: { data: User; success: boolean } = await response.json()
-
-      if (apiResponse.success && apiResponse.data) {
-        const userData = apiResponse.data
-
-        setUserCache(prev => ({
-          ...prev,
-          [userId]: userData,
-        }))
-        return userData
-      }
-      return null
-    } catch (error) {
-      console.error(`Error fetching user ${userId}:`, error)
-      return null
-    }
-  }
+  // Создаём Map для быстрого поиска пользователей по ID
+  const usersMap = React.useMemo(() => {
+    const map = new Map<string, User>()
+    allUsers.forEach(user => {
+      map.set(user.id, user)
+    })
+    return map
+  }, [allUsers])
 
   useEffect(() => {
     setData(items || [])
   }, [items])
 
-  useEffect(() => {
-    if (type === 'documents' && Array.isArray(items)) {
-      const documents = items as Array<{ user_id?: string }>
-      const uniqueUserIds = Array.from(
-        new Set(documents.map(document => document.user_id).filter(Boolean))
-      ) as string[]
-      Promise.all(uniqueUserIds.map(userId => fetchUserData(userId))).catch(console.error)
-    }
-  }, [type, items])
-
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!setSelected) return
+
     if (event.target.checked) {
       const newSelected = data.map(n => n.id.toString())
       setSelected(newSelected)
@@ -115,12 +74,14 @@ export const TableTemplate: React.FC<TableProps> = ({
   }
 
   const handleClick = (id: string) => {
+    if (!setSelected || !selected) return
+
     setSelected(prevSelected =>
       prevSelected.includes(id) ? prevSelected.filter(item => item !== id) : [...prevSelected, id]
     )
   }
 
-  const isSelected = (id: string) => selected.indexOf(id) !== -1
+  const isSelected = (id: string) => selected?.indexOf(id) !== -1
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     event?.preventDefault()
@@ -169,6 +130,7 @@ export const TableTemplate: React.FC<TableProps> = ({
 
   const renderCell = (column: Column, row: Row) => {
     const value = row[column.key]
+    console.log(value)
 
     if (column.render) {
       return column.render(value, row) as React.ReactNode
@@ -216,15 +178,8 @@ export const TableTemplate: React.FC<TableProps> = ({
             </Typography>
           )
         case 'user_id':
-          return (
-            <InitialsAvatar
-              userId={String((row.user_id as string | number | undefined) ?? '')}
-              userCache={userCache}
-              fetchUserData={fetchUserData}
-            />
-          )
+          return <InitialsAvatar user={usersMap.get(String(row.user_id))} />
         case 'available':
-          // Кому доступен документ (временно, потом из API)
           return (
             <Typography variant="bodyM" color="text.secondary">
               Все сотрудники
@@ -232,12 +187,24 @@ export const TableTemplate: React.FC<TableProps> = ({
           )
         case 'reviewed':
           return <Typography variant="bodyM">{value ? 'Ознакомлен' : 'Не ознакомлен'}</Typography>
-        case 'created_at':
+        case 'created_at': {
+          const parsedValue = value ?? ''
+          let date: Date
+
+          if (typeof parsedValue === 'number') {
+            date = new Date(parsedValue)
+          } else if (typeof parsedValue === 'string') {
+            date = new Date(parsedValue)
+          } else {
+            date = new Date()
+          }
+
           return (
             <Typography variant="bodyM">
-              {new Date((value as string | number) ?? '').toLocaleDateString('ru-RU')}
+              {isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleDateString('ru-RU')}
             </Typography>
           )
+        }
         default:
           return (
             <Typography variant="bodyM" className={style.nameOfDoc}>
@@ -255,23 +222,10 @@ export const TableTemplate: React.FC<TableProps> = ({
     return 'sortDates'
   }
 
-  const isAllSelected = data.length > 0 && selected.length === data.length
-
-  const handleDelete = () => {
-    if (type !== 'documents') return
-    const ids = selected
-    if (ids.length === 0) return
-    onDeleteDocuments?.(ids)
-  }
+  const isAllSelected = data.length > 0 && selected && selected.length === data.length
 
   return (
-    <Paper className={style.tableBox}>
-      <PageHeader
-        type={type}
-        deleteLoading={deleteLoading}
-        onAddClick={onAddDocument}
-        onDeleteClick={handleDelete}
-      />
+    <>
       <Box className={style.tableWrapper}>
         <Box className={style.table}>
           <TableContainer className={style.tableContainer}>
@@ -287,7 +241,9 @@ export const TableTemplate: React.FC<TableProps> = ({
                       }}
                     >
                       <Checkbox
-                        indeterminate={selected.length > 0 && selected.length < data.length}
+                        indeterminate={
+                          selected && selected.length > 0 && selected.length < data.length
+                        }
                         checked={isAllSelected}
                         onChange={handleSelectAllClick}
                         size={isMobile ? 'small' : 'medium'}
@@ -446,6 +402,6 @@ export const TableTemplate: React.FC<TableProps> = ({
           onPageChange={handlePageChange}
         />
       </Box>
-    </Paper>
+    </>
   )
 }
