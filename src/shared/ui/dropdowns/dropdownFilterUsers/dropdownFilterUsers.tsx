@@ -11,6 +11,7 @@ import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 
 interface FilterUsers {
   size: number
+  onClose?: () => void
 }
 
 export const DropdownFilterUsers: React.FC<FilterUsers> = ({ size }) => {

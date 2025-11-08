@@ -1,0 +1,22 @@
+.header {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.inputWrapper {
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.inputSearch {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.buttonsWrapper {
+  display: flex;
+}

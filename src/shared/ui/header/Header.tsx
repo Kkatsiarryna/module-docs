@@ -55,7 +55,7 @@ export const Header = () => {
           </MenuItem>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar />
+              <Avatar user={user} size={40} />
             </IconButton>
             <DropdownUser anchorElUser={anchorElUser} setAnchorElUser={setAnchorElUser} />
           </Box>

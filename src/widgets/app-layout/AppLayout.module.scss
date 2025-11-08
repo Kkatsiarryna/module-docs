@@ -3,23 +3,30 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  background-color: var(--background-surface);
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .mainContent {
   overflow: hidden;
   display: flex;
   flex: 1;
-  margin: 0 40px;
+  margin: 0;
+  padding: 0 40px;
+  box-sizing: border-box;
+  background-color: var(--background-surface);
 }
 
 .sidebarWrapper {
   flex-shrink: 0;
-  width: 250px;
+  max-width: 250px;
   flex: 0.3;
+  background-color: var(--background-surface);
 }
 
 .content {
   flex: 1;
+  background-color: var(--background-surface);
+  width: 100%;
 }
-
-

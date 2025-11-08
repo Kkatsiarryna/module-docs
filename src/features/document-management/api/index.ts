@@ -1,1 +1,6 @@
-export { documentApi, useAddDocumentMutation } from './document-api'
+export {
+  documentApi,
+  useAddDocumentMutation,
+  useGetDocumentsQuery,
+  useDeleteDocumentMutation,
+} from './document-api'

@@ -68,7 +68,9 @@ export const Select = ({ value = '', onChange, placeholder, selectItems }: Dropd
     setOpen(true)
   }
 
-  const displayValue = selectItems.find(item => item.value === internalValue)?.label || ''
+  // Если значение не найдено в списке элементов, показываем само значение
+  const displayValue =
+    selectItems.find(item => item.value === internalValue)?.label || internalValue || ''
 
   return (
     <Box className={styles.formWrapper}>

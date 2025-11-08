@@ -7,6 +7,7 @@ import style from './Sidebar.module.scss'
 import { useSidebar } from '@widgets/sidebar/model'
 import { Button, Input, Typography } from '@shared/ui'
 import { ProtectedContent } from '@shared/model/access'
+import type { Category } from '@features/category-management/model'
 
 export const Sidebar = () => {
   const {
@@ -98,7 +99,7 @@ export const Sidebar = () => {
           <Typography variant="bodyS" className={style.category}>
             Все документы
           </Typography>
-          {categories.map(category => (
+          {categories.map((category: Category) => (
             <Typography key={category.id} variant="bodyS" className={style.category}>
               {category.name}
             </Typography>

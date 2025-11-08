@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { Header } from '@shared/ui'
 import styles from './AppLayout.module.scss'
 import type { ReactNode } from 'react'
-import { Sidebar } from '@widgets/sidebar/ui/Sidebar.tsx'
+import { Grid } from '@mui/system'
+import { Sidebar } from '@widgets/sidebar/ui/Sidebar'
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation()
@@ -18,7 +19,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <Sidebar></Sidebar>
           </Box>
         )}
-        <Box className={styles.content}>{children}</Box>
+        <Grid className={styles.content}>{children}</Grid>
       </Box>
     </Box>
   )
