@@ -1,13 +1,10 @@
 import MuiAvatar from '@mui/material/Avatar'
 import { useState } from 'react'
 import styles from './Avatar.module.scss'
+import type { User } from '@features/auth/model'
 
 interface AvatarProps {
-  user?: {
-    name: string
-    surname: string
-    img?: string
-  }
+  user?: User
   firstName?: string
   lastName?: string
   imageUrl?: string
@@ -22,18 +19,12 @@ function stringAvatar(name: string, surname: string) {
   }
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
-  user,
-  firstName,
-  lastName,
-  imageUrl,
-  size = 40,
-}) => {
+export const Avatar = ({ user, firstName, lastName, imageUrl, size = 40 }: AvatarProps) => {
   const [imageError, setImageError] = useState(false)
 
-  const displayName = user?.name || firstName || ''
-  const displaySurname = user?.surname || lastName || ''
-  const displayImage = !imageError ? user?.img || imageUrl || '' : ''
+  const displayName = user?.firstname || firstName || ''
+  const displaySurname = user?.lastname || lastName || ''
+  const displayImage = !imageError ? user?.avatar || imageUrl || '' : ''
 
   const handleImageError = () => {
     setImageError(true)
@@ -44,7 +35,11 @@ export const Avatar: React.FC<AvatarProps> = ({
       src={displayImage}
       alt={`${displayName} ${displaySurname}`}
       sx={{ width: size, height: size }}
-      imgProps={{ onError: handleImageError }}
+      slotProps={{
+        img: {
+          onError: handleImageError,
+        },
+      }}
       {...(!displayImage && stringAvatar(displayName, displaySurname))}
     >
       {!displayImage && stringAvatar(displayName, displaySurname).children}
