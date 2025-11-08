@@ -1,35 +1,34 @@
-import { type ChangeEvent, type SyntheticEvent, useState } from 'react'
+import { type ChangeEvent, type SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useHasRole } from '@shared/model/access'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from '@shared/config'
 import { useAddCategoryMutation, useGetCategoriesQuery } from '@features/category-management/api'
+import type { Category } from '@features/category-management/model'
 
 export const useSidebar = () => {
   const isAdmin = useHasRole(['admin'])
-
   const navigate = useNavigate()
   const location = useLocation()
 
-  const getInitialValue = () => {
+  const { data: categoriesData, isLoading: categoriesLoading } = useGetCategoriesQuery()
+  const [addCategory, { isLoading: addLoading, reset }] = useAddCategoryMutation()
+  const categories: Category[] = categoriesData?.data.categories ?? []
+
+  const getInitialValue = useCallback(() => {
     if (location.pathname === routes.admin) return 0
     if (location.pathname === routes.documents) return isAdmin ? 1 : 0
     return isAdmin ? 1 : 0
-  }
+  }, [location.pathname, isAdmin])
 
-  const initialValue = getInitialValue()
-
-  const { data: categoriesData, isLoading: categoriesLoading } = useGetCategoriesQuery()
-  const [addCategory, { isLoading: addLoading }] = useAddCategoryMutation()
-
-  const categories = categoriesData?.data.categories || []
-
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(getInitialValue())
   const [open, setOpen] = useState<boolean>(location.pathname === routes.documents)
   const [showInput, setShowInput] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>('')
   const [error, setError] = useState<string>('')
-  // const [isLoading, setIsLoading] = useState<boolean>(false)
-  //const [categories, setCategories] = useState<string[]>(initialCategories)
+
+  useEffect(() => {
+    setValue(getInitialValue())
+  }, [location.pathname, isAdmin, getInitialValue])
 
   const normalizedValue = isAdmin ? value : 0
   const documentsTabIndex = isAdmin ? 1 : 0
@@ -64,6 +63,7 @@ export const useSidebar = () => {
     setShowInput(true)
     setCategoryName('')
     setError('')
+    reset()
   }
 
   const handleCancelClick = (): void => {
@@ -73,8 +73,12 @@ export const useSidebar = () => {
   }
 
   const validateInput = (value: string): string => {
+    if (value.trim().length === 0) return ''
     if (value.length > 255) {
       return 'Максимальная длина 255'
+    }
+    if (categories.some(category => category.name.toLowerCase() === value.trim().toLowerCase())) {
+      return 'Категория с таким именем уже существует'
     }
 
     return ''
@@ -90,41 +94,24 @@ export const useSidebar = () => {
 
   const isAddButtonEnabled = categoryName.trim() !== '' && error === ''
 
-  const handleAddCategory = async (): Promise<void> => {
-    await addCategory({ name: '1223' })
-    // if (!isAddButtonEnabled) return
-    //
-    // setIsLoading(true)
-    //
-    // try {
-    //   // Здесь нужен API вызов
-    //   const response = await addCategoryAPI(categoryName.trim())
-    //
-    //   if (response.success) {
-    //     const newCategory = categoryName.trim()
-    //     setCategories(prevCategories => [...prevCategories, newCategory])
-    //     setShowInput(false)
-    //     setCategoryName('')
-    //     setError('')
-    //   } else {
-    //     setError('Неизвестная ошибка')
-    //   }
-    // } catch {
-    //   setError('Неизвестная ошибка')
-    // } finally {
-    //   setIsLoading(false)
-    // }
-  }
+  const handleAddCategory = async () => {
+    if (!isAddButtonEnabled || addLoading) return
 
-  // // Заглушка для вызова API
-  // const addCategoryAPI = async (categoryName: string): Promise<{ success: boolean }> => {
-  //   console.log(`Добавляем категорию: ${categoryName}`)
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       resolve({ success: true })
-  //     }, 1000)
-  //   })
-  // }
+    const trimmedName = categoryName.trim()
+    const validationError = validateInput(trimmedName)
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+    try {
+      await addCategory({ name: trimmedName }).unwrap()
+      setShowInput(false)
+      setCategoryName('')
+      setError('')
+    } catch {
+      setError('Неизвсетная ошибка')
+    }
+  }
 
   return {
     value,

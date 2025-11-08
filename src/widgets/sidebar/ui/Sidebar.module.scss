@@ -1,4 +1,4 @@
-@use '../../../shared/styles/variables/typography';
+@use '@shared/styles/variables/typography';
 
 * {
   transition: 0.3s all ease-in-out;
@@ -97,11 +97,12 @@
 .add_category_field {
   display: flex;
   gap: 4px;
-  align-items: center;
+  align-items: flex-start;
   padding-left: 16px;
 
-  .error_input {
-    border-color: var(--error-color) !important;
+  :global(.MuiFormHelperText-root) {
+    position: static !important;
+    margin-top: 4px;
   }
 }
 
