@@ -5,20 +5,19 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import styles from './Modal.module.scss'
 import { Icon } from '@shared/model/icon/Icon'
-import { Button } from '../button/Button'
-import { Typography } from '../typography/Typography'
 import { Box } from '@mui/material'
-import { ICONS, SIZES_ICON } from '../icons/icons'
+import { Button, ICONS, SIZES_ICON, Typography } from '@shared/ui'
 
 interface CustomModalProps {
-  icon: React.ComponentType 
+  icon: React.ComponentType
   title: string
   context?: string
   isButtons?: boolean
-  textButtons?: string[] 
+  textButtons?: string[]
   isClose?: boolean
-  open?: boolean 
-  onClose?: () => void 
+  open?: boolean
+  onClose?: () => void
+  onConfirm?: () => void | Promise<void>
 }
 
 export const Modal: React.FC<CustomModalProps> = ({
@@ -30,6 +29,7 @@ export const Modal: React.FC<CustomModalProps> = ({
   isClose = true,
   open: externalOpen,
   onClose,
+  onConfirm,
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(true)
 
@@ -37,7 +37,18 @@ export const Modal: React.FC<CustomModalProps> = ({
 
   const handleClose = () => {
     setInternalOpen(false)
-    onClose?.() 
+    onClose?.()
+  }
+
+  const handleConfirm = async () => {
+    if (!onConfirm) return
+
+    try {
+      await onConfirm()
+      onClose?.()
+    } catch (error) {
+      console.error('Modal confirm error:', error)
+    }
   }
 
   return (
@@ -54,9 +65,7 @@ export const Modal: React.FC<CustomModalProps> = ({
             <Icon component={ICONS.CLOSE} size={SIZES_ICON.MEDIUM} />
           </Button>
         )}
-        <Box
-          className={styles.iconBox}
-        >
+        <Box className={styles.iconBox}>
           <Icon
             component={icon}
             sx={{
@@ -83,7 +92,7 @@ export const Modal: React.FC<CustomModalProps> = ({
             <Button variant="outlined" onClick={handleClose}>
               {textButtons[0] || 'Отмена'}
             </Button>
-            <Button variant="primary" onClick={handleClose} autoFocus>
+            <Button variant="primary" onClick={handleConfirm} autoFocus>
               {textButtons[1] || 'OK'}
             </Button>
           </DialogActions>

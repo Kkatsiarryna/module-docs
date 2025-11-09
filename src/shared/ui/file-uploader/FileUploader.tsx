@@ -24,7 +24,7 @@ export const FileUploader = ({ className, onFileSelect, ...rest }: Props) => {
     setSelectedFile(null)
   }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null
 
     if (!file) {
@@ -32,7 +32,7 @@ export const FileUploader = ({ className, onFileSelect, ...rest }: Props) => {
       return
     }
 
-    const isValid = validateFile(file, DOCUMENT_SCHEMA)
+    const isValid = await validateFile(file, DOCUMENT_SCHEMA)
     if (isValid) {
       onFileSelect?.(file)
       setSelectedFile(file)
