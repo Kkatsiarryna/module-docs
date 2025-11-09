@@ -301,8 +301,9 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
                       sx={{
                         minWidth: column.minWidth ?? 120,
                         width: column.width ?? 'auto',
-                        px: isMobile ? 3 : 5,
-                        py: isMobile ? 2 : 1.5,
+                        // maxHeight: '48px',
+                        // px: isMobile ? 3 : 5,
+                        // py: isMobile ? 2 : 1.5,
                         whiteSpace: column.key === 'title' ? 'normal' : 'nowrap',
                         overflow: column.key === 'title' ? 'visible' : 'hidden',
                         textOverflow: column.key === 'title' ? 'clip' : 'ellipsis',
@@ -417,11 +418,13 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
                       {columns.map(column => (
                         <TableCell
                           key={`${row.id}-${column.key}`}
+                          className={style.columns}
                           sx={{
                             minWidth: column.minWidth ?? 120,
                             width: column.width ?? 'auto',
-                            px: isMobile ? 3 : 5,
-                            py: 1.5,
+                            // maxHeight: '48px',
+                            // px: isMobile ? 3 : 5,
+                            // py: 1.5,
                             whiteSpace: column.key === 'title' ? 'normal' : 'nowrap',
                             overflow: column.key === 'title' ? 'visible' : 'hidden',
                             textOverflow: column.key === 'title' ? 'clip' : 'ellipsis',

@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { Grid, Paper } from '@mui/material'
-// import { PageHeader } from '@shared/ui/page-header/PageHeader'
 import { TableTemplate } from '@widgets/table/ui/table/Table'
-// import { useAdminTable } from '@pages/admin/model/hooks/use-admin-table'
 import { usersColumns } from '@widgets/table/model/types'
 import Box from '@mui/material/Box'
 import { Button, InputSearch, Typography } from '@shared/ui'
@@ -21,17 +19,13 @@ export const AdminPage = () => {
     items,
     totalCount,
     isLoading,
-    // isAddOpen,
-    // openAdd,
-    // closeAdd,
   } = useAdminPage()
 
   const [selected, setSelected] = useState<string[]>([])
-  // const deleteLoading = false
 
   return (
     <Grid
-      container
+      size={12}
       sx={{
         px: { xs: 2, md: 4, xl: 6 },
         pb: { xs: 4, md: 6 },
@@ -39,7 +33,7 @@ export const AdminPage = () => {
       }}
       className={styles.adminPage}
     >
-      <Paper>
+      <Paper elevation={0} className={styles.userTable}>
         <Typography variant={'heading1'} className={styles.title}>
           Администрирование
         </Typography>
