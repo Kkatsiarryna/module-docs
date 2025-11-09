@@ -5,10 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useGetCategoriesQuery } from '@features/category-management/api'
 import { useMemo } from 'react'
 import type { Category } from '@features/category-management/model'
+import { useToast } from '@app/providers/toast'
 
-export const useAddDocumentForm = () => {
+export const useAddDocumentForm = (onSuccess?: () => void) => {
   const [addDocument, { isLoading, error }] = useAddDocumentMutation()
   const { data: categoriesData, isLoading: isCategoriesLoading } = useGetCategoriesQuery()
+  const { showToast } = useToast()
 
   const form = useForm<AddDocumentFormData>({
     mode: 'onChange',
@@ -44,8 +46,10 @@ export const useAddDocumentForm = () => {
 
       await addDocument({ data }).unwrap()
       form.reset()
+      onSuccess?.()
+      showToast('Документ успешно добавлен', 'success')
     } catch {
-      console.error('Failed to add document', formData)
+      showToast('Неизвестная ошибка', 'error')
     }
   }
 

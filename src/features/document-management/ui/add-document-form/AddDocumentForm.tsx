@@ -18,7 +18,7 @@ export const AddDocumentForm = ({ open, onClose }: Props) => {
     handleSubmit,
     formState: { errors, isValid },
     isSubmitting,
-  } = useAddDocumentForm()
+  } = useAddDocumentForm(onClose)
 
   return (
     <Modal
@@ -28,7 +28,7 @@ export const AddDocumentForm = ({ open, onClose }: Props) => {
       aria-labelledby="add-document-modal"
     >
       <CreateForm
-        title={'Добавление пользователя'}
+        title={'Добавление документа'}
         onSubmit={handleSubmit}
         disabled={!isValid || isSubmitting}
       >
