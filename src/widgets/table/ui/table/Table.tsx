@@ -18,7 +18,7 @@ import { DropdownFilterUsers } from '@shared/ui/dropdowns/dropdownFilterUsers/dr
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 import { InitialsAvatar } from '@shared/ui/initials-avatar/InitialsAvatar'
-import { rolesUsers } from '@shared/model/user/users'
+import { rolesUsers, TokenUserRoles } from '@shared/model/user/users'
 import { Typography } from '@shared/ui/typography/Typography'
 import { LoadersMedium } from '@shared/ui/loaders/loaders'
 import { TablePagination } from '../table-pagination/TablePagination'
@@ -52,6 +52,7 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
+  // Создаём Map для быстрого поиска пользователей по ID
   const usersMap = React.useMemo(() => {
     const map = new Map<string, User>()
     allUsers.forEach(user => {
@@ -141,10 +142,23 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
       switch (column.key) {
         case 'role': {
           type RoleLabel = (typeof rolesUsers)[number]
-          const roleName = ((value as { name?: string } | undefined)?.name || '') as RoleLabel | ''
+
+          // Extract role key (handle both string and object formats)
+          let roleKey: string
+          if (typeof value === 'object' && value !== null && 'name' in value) {
+            roleKey = (value as { name?: string }).name || ''
+          } else if (typeof value === 'string') {
+            roleKey = value
+          } else {
+            roleKey = ''
+          }
+
+          // Map key to display value
+          const roleName = TokenUserRoles[roleKey as keyof typeof TokenUserRoles] || roleKey
+
           const baseItems = rolesUsers.map(role => ({ value: role, label: role }))
           const roleItems =
-            roleName && !rolesUsers.includes(roleName)
+            roleName && !rolesUsers.includes(roleName as RoleLabel)
               ? [...baseItems, { value: roleName, label: roleName }]
               : baseItems
 
@@ -189,7 +203,7 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
         case 'reviewed':
           return <Typography variant="bodyM">{value ? 'Ознакомлен' : 'Не ознакомлен'}</Typography>
         case 'created_at': {
-          if (!value) return <Typography variant="bodyM">N/A</Typography>
+          if (!value) return <Typography variant="bodyM">—</Typography>
 
           let parsedDate: Date
 
@@ -231,7 +245,9 @@ export const TableTemplate: React.FC<ExtendedTableProps> = ({
         }
         case 'category_id':
           return (
-            <Typography variant="bodyM">{categoryMap?.get(Number(value)) || 'Unknown'}</Typography>
+            <Typography variant="bodyM">
+              {categoryMap?.get(Number(value)) || 'Без категории'}
+            </Typography>
           )
         default:
           return (

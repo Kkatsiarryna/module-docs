@@ -32,6 +32,7 @@ export const AddDocumentForm = ({ open, onClose }: Props) => {
         title={'Добавление документа'}
         onSubmit={handleSubmit}
         disabled={!isValid || isSubmitting}
+        onCancel={onClose}
       >
         <Controller
           name="category_id"
