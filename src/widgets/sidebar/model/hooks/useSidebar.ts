@@ -17,20 +17,21 @@ export const useSidebar = () => {
   const getInitialValue = useCallback(() => {
     if (location.pathname === routes.admin) return 0
     if (location.pathname === routes.documents) return isAdmin ? 1 : 0
-    return isAdmin ? 1 : 0
+    return -1
   }, [location.pathname, isAdmin])
 
   const [value, setValue] = useState(getInitialValue())
-  const [open, setOpen] = useState<boolean>(location.pathname === routes.documents)
+  const [open, setOpen] = useState<boolean>(false)
   const [showInput, setShowInput] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>('')
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
     setValue(getInitialValue())
+    setOpen(location.pathname === routes.documents)
   }, [location.pathname, isAdmin, getInitialValue])
 
-  const normalizedValue = isAdmin ? value : 0
+  const normalizedValue = value
   const documentsTabIndex = isAdmin ? 1 : 0
 
   const handleChange = (_event: SyntheticEvent, newValue: number) => {

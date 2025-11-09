@@ -6,7 +6,7 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     onSubmit,
     isSubmitting,
   } = useLoginForm()
@@ -36,7 +36,7 @@ export const LoginForm = () => {
       <Button
         variant="primary"
         type="submit"
-        disabled={isSubmitting}
+        disabled={!isValid || isSubmitting}
         loading={isSubmitting}
         className={styles.button}
       >

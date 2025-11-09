@@ -4,7 +4,6 @@ import { roleDocsArray } from '@shared/model/user'
 import { useAddDocumentForm } from '@features/document-management/model'
 import styles from '@features/user-management/ui/add-user-form/AddUserForm.module.scss'
 import Modal from '@mui/material/Modal'
-import type { FormEvent } from 'react'
 
 type Props = {
   open: boolean
@@ -12,7 +11,7 @@ type Props = {
   onSuccess?: () => void
 }
 
-export const AddDocumentForm = ({ open, onClose, onSuccess }: Props) => {
+export const AddDocumentForm = ({ open, onClose }: Props) => {
   const {
     control,
     register,
@@ -20,29 +19,7 @@ export const AddDocumentForm = ({ open, onClose, onSuccess }: Props) => {
     handleSubmit,
     formState: { errors, isValid },
     isSubmitting,
-  } = useAddDocumentForm()
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    console.log('Form submission started')
-
-    handleSubmit(e)
-      .then(() => {
-        console.log('Document added successfully')
-        if (onSuccess) {
-          Promise.resolve(onSuccess()).then(() => {
-            console.log('Data refetched')
-            onClose()
-          })
-        } else {
-          onClose()
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error)
-      })
-  }
+  } = useAddDocumentForm(onClose)
 
   return (
     <Modal
@@ -52,9 +29,8 @@ export const AddDocumentForm = ({ open, onClose, onSuccess }: Props) => {
       aria-labelledby="add-document-modal"
     >
       <CreateForm
-        title={'Добавление пользователя'}
-        onSubmit={onSubmit}
-        onCancel={onClose}
+        title={'Добавление документа'}
+        onSubmit={handleSubmit}
         disabled={!isValid || isSubmitting}
       >
         <Controller

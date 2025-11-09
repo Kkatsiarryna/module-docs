@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom'
-import { useLogoutMutation } from '@features/auth/api'
+import { useLogoutMutation, authApi } from '@features/auth/api'
 import { routes } from '@shared/config'
+import { useAppDispatch } from '@app/store'
 
 type Setting = 'Настройки' | 'Выйти'
 
 export const useDropdownUser = (setAnchorElUser: (value: HTMLElement | null) => void) => {
   const navigate = useNavigate()
   const [logout] = useLogoutMutation()
+  const dispatch = useAppDispatch()
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
@@ -25,6 +27,7 @@ export const useDropdownUser = (setAnchorElUser: (value: HTMLElement | null) => 
         await logout().unwrap()
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
+        dispatch(authApi.util.resetApiState())
         navigate(routes.login, { replace: true })
       } catch (error) {
         console.error('Logout failed:', error)
