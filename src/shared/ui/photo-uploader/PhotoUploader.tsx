@@ -7,33 +7,40 @@ import { useFileValidation } from '@shared/model/validation'
 import { IMAGE_SCHEMA } from '@shared/model/validation'
 import { ICONS } from '@shared/ui'
 import clsx from 'clsx'
+import { useToast } from '@app/providers/toast'
 
 type PhotoUploader = {
   disabled?: boolean
   onFileSelect?: (file: File | null) => void
+  onDeleteClick?: () => void
+  currentImage?: string | null
 }
 
-export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader) => {
+export const PhotoUploader = ({
+  disabled = false,
+  onFileSelect,
+  onDeleteClick,
+  currentImage,
+}: PhotoUploader) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [previewUrl, setPreviewUrl] = useState('')
+  const [previewUrl, setPreviewUrl] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-
+  const { showToast } = useToast()
   const { error, validateFile } = useFileValidation()
 
-  useEffect(() => {
-    if (selectedFile) {
-      const url = URL.createObjectURL(selectedFile)
-      setPreviewUrl(url)
-      return () => URL.revokeObjectURL(url)
-    }
-  }, [selectedFile])
+  const displayUrl = previewUrl || currentImage || ''
 
-  const resetImage = () => {
-    setSelectedFile(null)
-    setPreviewUrl('')
-    onFileSelect?.(null)
-  }
+  useEffect(() => {
+    setPreviewUrl(currentImage || '')
+  }, [currentImage])
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [previewUrl])
 
   const handleImgChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null
@@ -41,25 +48,30 @@ export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader)
     if (!file) return
 
     setIsLoading(true)
-    const isValid = validateFile(file, IMAGE_SCHEMA)
+    const isValid = await validateFile(file, IMAGE_SCHEMA)
 
     if (isValid) {
-      setSelectedFile(file)
       onFileSelect?.(file)
-    } else resetImage()
+      const url = URL.createObjectURL(file)
+      setPreviewUrl(url)
+    } else {
+      onFileSelect?.(null)
+      showToast('Недопустимый файл', 'error')
+    }
 
     setIsLoading(false)
   }
 
   const handleClick = () => {
-    if (!disabled && !selectedFile) {
+    if (!disabled && !isLoading) {
       fileInputRef.current?.click()
     }
   }
 
   const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation()
-    resetImage()
+    onDeleteClick?.()
+    setPreviewUrl('')
   }
 
   const handleEdit = (event: MouseEvent<HTMLButtonElement>) => {
@@ -106,7 +118,7 @@ export const PhotoUploader = ({ disabled = false, onFileSelect }: PhotoUploader)
       })}
       onClick={handleClick}
     >
-      {isLoading ? renderLoader() : previewUrl ? renderPreview() : renderPlaceholder()}
+      {isLoading ? renderLoader() : displayUrl ? renderPreview() : renderPlaceholder()}
       <input
         type="file"
         accept="image/*"
