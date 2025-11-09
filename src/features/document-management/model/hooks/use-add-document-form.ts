@@ -6,7 +6,7 @@ import { useGetCategoriesQuery } from '@features/category-management/api'
 import { useMemo } from 'react'
 import type { Category } from '@features/category-management/model'
 
-export const useAddDocumentForm = () => {
+export const useAddDocumentForm = (onSuccess?: () => void) => {
   const [addDocument, { isLoading, error }] = useAddDocumentMutation()
   const { data: categoriesData, isLoading: isCategoriesLoading } = useGetCategoriesQuery()
 
@@ -44,6 +44,7 @@ export const useAddDocumentForm = () => {
 
       await addDocument({ data }).unwrap()
       form.reset()
+      onSuccess?.()
     } catch {
       console.error('Failed to add document', formData)
     }
