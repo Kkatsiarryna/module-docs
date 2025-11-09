@@ -7,10 +7,12 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAddUserMutation } from '@features/user-management/api/user-api.ts'
 import { useApiError } from '@shared/model/hooks'
+import { useToast } from '@app/providers/toast'
 
 export const useAddUserForm = (onSuccess?: () => void) => {
   const [addUser, { isLoading, error }] = useAddUserMutation()
   const { handleApiError } = useApiError()
+  const { showToast } = useToast()
 
   const form = useForm<AddUserFormData>({
     mode: 'onChange',
@@ -34,6 +36,7 @@ export const useAddUserForm = (onSuccess?: () => void) => {
 
       await addUser(requestData).unwrap()
       onSuccess?.()
+      showToast('Пользователь успешно добавлен', 'success')
     } catch (error) {
       handleApiError(error)
     }
