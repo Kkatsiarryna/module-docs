@@ -1,3 +1,5 @@
+import type { User } from '@features/auth/model'
+
 export type Row = { id: string | number } & Record<string, unknown>
 
 export interface Column {
@@ -17,12 +19,11 @@ export interface TableProps {
   isLoading: boolean
   page: number
   rowsPerPage: number
-  onPageChange: (newPage: number) => void
-  onAddDocument?: () => void
-  onDeleteDocuments?: (ids: Array<string>) => void
+  onPageChange: (page: number) => void
   onOpenDocument?: (id: string) => void
-  height?: number | string
-  className?: string
+  selected?: string[]
+  setSelected?: (selected: string[] | ((prev: string[]) => string[])) => void
+  allUsers?: User[]
 }
 
 export const usersColumns: Column[] = [

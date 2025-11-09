@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal'
 type Props = {
   open: boolean
   onClose: () => void
+  onSuccess?: () => void
 }
 
 export const AddDocumentForm = ({ open, onClose }: Props) => {
@@ -31,6 +32,7 @@ export const AddDocumentForm = ({ open, onClose }: Props) => {
         title={'Добавление документа'}
         onSubmit={handleSubmit}
         disabled={!isValid || isSubmitting}
+        onCancel={onClose}
       >
         <Controller
           name="category_id"

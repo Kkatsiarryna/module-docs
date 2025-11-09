@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Box,
   Checkbox,
   useTheme,
@@ -19,17 +18,19 @@ import { DropdownFilterUsers } from '@shared/ui/dropdowns/dropdownFilterUsers/dr
 import { Icon } from '@shared/model/icon/Icon'
 import { ICONS, SIZES_ICON } from '@shared/ui/icons/icons'
 import { InitialsAvatar } from '@shared/ui/initials-avatar/InitialsAvatar'
-import { rolesUsers } from '@shared/model/user/users'
+import { rolesUsers, TokenUserRoles } from '@shared/model/user/users'
 import { Typography } from '@shared/ui/typography/Typography'
 import { LoadersMedium } from '@shared/ui/loaders/loaders'
 import { TablePagination } from '../table-pagination/TablePagination'
-import { PageHeader } from '../../../../shared/ui/page-header/PageHeader'
 import style from './Table.module.scss'
 import type { Column, TableProps, Row } from '@widgets/table/model/types/types'
-import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 
-export const TableTemplate: React.FC<TableProps> = ({
+interface ExtendedTableProps extends TableProps {
+  categoryMap?: Map<number, string>
+}
+
+export const TableTemplate: React.FC<ExtendedTableProps> = ({
   type,
   columns,
   items,
@@ -38,74 +39,35 @@ export const TableTemplate: React.FC<TableProps> = ({
   page,
   rowsPerPage,
   onPageChange,
-  onAddDocument,
-  onDeleteDocuments,
   onOpenDocument,
+  selected,
+  setSelected,
+  allUsers = [],
+  categoryMap,
 }) => {
   const [data, setData] = useState<Row[]>(items || [])
-  const [selected, setSelected] = useState<string[]>([])
   const [openFilter, setOpenFilter] = useState<Record<string, boolean>>({})
   const [filterAnchor, setFilterAnchor] = useState<Record<string, HTMLElement | null>>({})
-  const [userCache, setUserCache] = useState<{ [key: string]: User }>({})
-  const deleteLoading = false
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-  const fetchUserData = async (userId: string): Promise<User | null> => {
-    if (userCache[userId]) {
-      return userCache[userId]
-    }
-
-    try {
-      const token = localStorage.getItem('accessToken')
-      const headers: HeadersInit = {
-        'Content-Type': 'application/json',
-      }
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`
-      }
-
-      const response = await fetch(`${config.BASE_URL}/users/${userId}`, {
-        headers,
-      })
-      if (!response.ok) {
-        throw new Error('Server error')
-      }
-
-      const apiResponse: { data: User; success: boolean } = await response.json()
-
-      if (apiResponse.success && apiResponse.data) {
-        const userData = apiResponse.data
-
-        setUserCache(prev => ({
-          ...prev,
-          [userId]: userData,
-        }))
-        return userData
-      }
-      return null
-    } catch (error) {
-      console.error(`Error fetching user ${userId}:`, error)
-      return null
-    }
-  }
+  // Создаём Map для быстрого поиска пользователей по ID
+  const usersMap = React.useMemo(() => {
+    const map = new Map<string, User>()
+    allUsers.forEach(user => {
+      map.set(user.id, user)
+    })
+    return map
+  }, [allUsers])
 
   useEffect(() => {
     setData(items || [])
   }, [items])
 
-  useEffect(() => {
-    if (type === 'documents' && Array.isArray(items)) {
-      const documents = items as Array<{ user_id?: string }>
-      const uniqueUserIds = Array.from(
-        new Set(documents.map(document => document.user_id).filter(Boolean))
-      ) as string[]
-      Promise.all(uniqueUserIds.map(userId => fetchUserData(userId))).catch(console.error)
-    }
-  }, [type, items])
-
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!setSelected) return
+
     if (event.target.checked) {
       const newSelected = data.map(n => n.id.toString())
       setSelected(newSelected)
@@ -115,12 +77,14 @@ export const TableTemplate: React.FC<TableProps> = ({
   }
 
   const handleClick = (id: string) => {
+    if (!setSelected || !selected) return
+
     setSelected(prevSelected =>
       prevSelected.includes(id) ? prevSelected.filter(item => item !== id) : [...prevSelected, id]
     )
   }
 
-  const isSelected = (id: string) => selected.indexOf(id) !== -1
+  const isSelected = (id: string) => selected?.indexOf(id) !== -1
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     event?.preventDefault()
@@ -178,10 +142,23 @@ export const TableTemplate: React.FC<TableProps> = ({
       switch (column.key) {
         case 'role': {
           type RoleLabel = (typeof rolesUsers)[number]
-          const roleName = ((value as { name?: string } | undefined)?.name || '') as RoleLabel | ''
+
+          // Extract role key (handle both string and object formats)
+          let roleKey: string
+          if (typeof value === 'object' && value !== null && 'name' in value) {
+            roleKey = (value as { name?: string }).name || ''
+          } else if (typeof value === 'string') {
+            roleKey = value
+          } else {
+            roleKey = ''
+          }
+
+          // Map key to display value
+          const roleName = TokenUserRoles[roleKey as keyof typeof TokenUserRoles] || roleKey
+
           const baseItems = rolesUsers.map(role => ({ value: role, label: role }))
           const roleItems =
-            roleName && !rolesUsers.includes(roleName)
+            roleName && !rolesUsers.includes(roleName as RoleLabel)
               ? [...baseItems, { value: roleName, label: roleName }]
               : baseItems
 
@@ -216,15 +193,8 @@ export const TableTemplate: React.FC<TableProps> = ({
             </Typography>
           )
         case 'user_id':
-          return (
-            <InitialsAvatar
-              userId={String((row.user_id as string | number | undefined) ?? '')}
-              userCache={userCache}
-              fetchUserData={fetchUserData}
-            />
-          )
+          return <InitialsAvatar user={usersMap.get(String(row.user_id))} />
         case 'available':
-          // Кому доступен документ (временно, потом из API)
           return (
             <Typography variant="bodyM" color="text.secondary">
               Все сотрудники
@@ -232,10 +202,51 @@ export const TableTemplate: React.FC<TableProps> = ({
           )
         case 'reviewed':
           return <Typography variant="bodyM">{value ? 'Ознакомлен' : 'Не ознакомлен'}</Typography>
-        case 'created_at':
+        case 'created_at': {
+          if (!value) return <Typography variant="bodyM">—</Typography>
+
+          let parsedDate: Date
+
+          if (typeof value === 'object' && value !== null && 'seconds' in value) {
+            const timestamp = value as { seconds: number; nanos?: number }
+            parsedDate = new Date(timestamp.seconds * 1000)
+          } else if (typeof value === 'number') {
+            parsedDate = value > 10000000000 ? new Date(value) : new Date(value * 1000)
+          } else if (typeof value === 'string') {
+            const strValue = value.trim()
+
+            if (/^\d{2}\.\d{2}\.\d{4}$/.test(strValue)) {
+              const [day, month, year] = strValue.split('.').map(Number)
+              parsedDate = new Date(year, month - 1, day)
+            } else if (/^\d{4}-\d{2}-\d{2}/.test(strValue)) {
+              parsedDate = new Date(strValue)
+            } else {
+              parsedDate = new Date(strValue)
+            }
+          } else if (value instanceof Date) {
+            parsedDate = value
+          } else {
+            console.error('Unknown date format:', value)
+            return <Typography variant="bodyM">Invalid format</Typography>
+          }
+
+          if (isNaN(parsedDate.getTime())) {
+            console.error('Failed to parse date:', value)
+            return <Typography variant="bodyM">Invalid Date</Typography>
+          }
+
+          const formatter = new Intl.DateTimeFormat('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+
+          return <Typography variant="bodyM">{formatter.format(parsedDate)}</Typography>
+        }
+        case 'category_id':
           return (
             <Typography variant="bodyM">
-              {new Date((value as string | number) ?? '').toLocaleDateString('ru-RU')}
+              {categoryMap?.get(Number(value)) || 'Без категории'}
             </Typography>
           )
         default:
@@ -255,23 +266,10 @@ export const TableTemplate: React.FC<TableProps> = ({
     return 'sortDates'
   }
 
-  const isAllSelected = data.length > 0 && selected.length === data.length
-
-  const handleDelete = () => {
-    if (type !== 'documents') return
-    const ids = selected
-    if (ids.length === 0) return
-    onDeleteDocuments?.(ids)
-  }
+  const isAllSelected = data.length > 0 && selected && selected.length === data.length
 
   return (
-    <Paper className={style.tableBox}>
-      <PageHeader
-        type={type}
-        deleteLoading={deleteLoading}
-        onAddClick={onAddDocument}
-        onDeleteClick={handleDelete}
-      />
+    <>
       <Box className={style.tableWrapper}>
         <Box className={style.table}>
           <TableContainer className={style.tableContainer}>
@@ -287,7 +285,9 @@ export const TableTemplate: React.FC<TableProps> = ({
                       }}
                     >
                       <Checkbox
-                        indeterminate={selected.length > 0 && selected.length < data.length}
+                        indeterminate={
+                          selected && selected.length > 0 && selected.length < data.length
+                        }
                         checked={isAllSelected}
                         onChange={handleSelectAllClick}
                         size={isMobile ? 'small' : 'medium'}
@@ -446,6 +446,6 @@ export const TableTemplate: React.FC<TableProps> = ({
           onPageChange={handlePageChange}
         />
       </Box>
-    </Paper>
+    </>
   )
 }
