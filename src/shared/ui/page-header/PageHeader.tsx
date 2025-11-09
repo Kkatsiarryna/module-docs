@@ -67,7 +67,7 @@ export const PageHeader: React.FC<Props> = ({
         sx={{
           wordBreak: 'break-word',
           overflow: 'hidden',
-          fontSize: { sm: '24px' },
+          fontSize: { md: '24px', sm: '18px', xs: '14px' },
         }}
       >
         {headerConfig.title}
