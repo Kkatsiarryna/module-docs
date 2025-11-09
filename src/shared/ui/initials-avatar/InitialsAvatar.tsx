@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material'
 import { Avatar } from '@shared/ui/avatar/Avatar'
 import type { User } from '@features/auth/model'
 import style from './InitialsAvatar.module.scss'
-// import { config } from '@shared/config/constants.ts'
 
 interface UserCellProps {
   user?: User
@@ -14,11 +13,14 @@ export const InitialsAvatar: React.FC<UserCellProps> = ({ user }) => {
     return (
       <Box className={style.userCell}>
         <Avatar
-          // user={{
-          //   name: '',
-          //   surname: '',
-          //   img: undefined,
-          // }}
+          user={{
+            id: '',
+            email: '',
+            firstname: '',
+            lastname: '',
+            avatar: undefined,
+            role: 'admin',
+          }}
           size={32}
         />
         <Typography variant="body2" color="text.secondary">
@@ -31,11 +33,11 @@ export const InitialsAvatar: React.FC<UserCellProps> = ({ user }) => {
   return (
     <Box className={style.userCell}>
       <Avatar
-        // user={{
-        //   name: user.firstname || '',
-        //   surname: user.lastname || '',
-        //   img: user.avatar,
-        // }}
+        user={{
+          ...user,
+          firstname: user.firstname || '',
+          lastname: user.lastname || '',
+        }}
         size={32}
       />
       <Typography variant="body2">

@@ -7,6 +7,7 @@ import { documentsColumns } from '@widgets/table/model/types'
 import { Grid, Paper } from '@mui/material'
 import { PageHeader } from '@shared/ui/page-header/PageHeader'
 import { useGetUsersQuery } from '@features/user-management/api'
+import { useGetCategoriesQuery } from '@features/category-management/api'
 import type { User } from '@features/auth/model'
 import { TokenUserRoles } from '@shared/model/user'
 
@@ -20,18 +21,18 @@ export const DocumentsPage = () => {
     isLoading,
     isAddOpen,
     openAdd,
+    closeAdd,
     viewer,
     openViewer,
     closeViewer,
     deleteSelected,
+    refetch,
   } = useDocumentsTable()
 
   const [selected, setSelected] = useState<string[]>([])
   const deleteLoading = false
 
-  // Загружаем всех пользователей один раз
   const { data: usersData } = useGetUsersQuery()
-  console.log(usersData)
 
   interface RawUser {
     id: string
@@ -55,12 +56,24 @@ export const DocumentsPage = () => {
     }))
   }, [usersData])
 
+  const { data: categoriesData } = useGetCategoriesQuery()
+
+  const categoryMap = useMemo(() => {
+    const map = new Map<number, string>()
+    const categories = categoriesData?.data?.categories || []
+
+    categories.forEach(cat => {
+      map.set(cat.id, cat.name)
+    })
+    return map
+  }, [categoriesData])
+
   const handleDelete = () => {
     if (selected.length === 0) return
     deleteSelected(selected)
     setSelected([])
   }
-
+  console.log('All documents:', items)
   return (
     <Grid
       size={8}
@@ -90,10 +103,11 @@ export const DocumentsPage = () => {
           selected={selected}
           setSelected={setSelected}
           allUsers={allUsers}
+          categoryMap={categoryMap}
         />
       </Paper>
 
-      {isAddOpen && <AddDocumentForm open={false} onClose={() => {}} />}
+      {isAddOpen && <AddDocumentForm open={isAddOpen} onClose={closeAdd} onSuccess={refetch} />}
 
       <DocumentViewer
         open={viewer.open}

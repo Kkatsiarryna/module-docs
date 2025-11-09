@@ -9,6 +9,7 @@ interface DocumentsPayload {
 
 export const useDocumentsTable = () => {
   const [page, setPage] = React.useState(0)
+
   const rowsPerPage = 10
 
   const { data, isLoading, refetch } = useGetDocumentsQuery({ page: page + 1, limit: rowsPerPage })
@@ -65,5 +66,6 @@ export const useDocumentsTable = () => {
     openViewer,
     closeViewer,
     deleteSelected,
+    refetch,
   }
 }

@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  // Paper,
   Box,
   Checkbox,
   useTheme,
@@ -25,10 +24,13 @@ import { LoadersMedium } from '@shared/ui/loaders/loaders'
 import { TablePagination } from '../table-pagination/TablePagination'
 import style from './Table.module.scss'
 import type { Column, TableProps, Row } from '@widgets/table/model/types/types'
-// import { config } from '@shared/config/constants'
 import type { User } from '@features/auth/model'
 
-export const TableTemplate: React.FC<TableProps> = ({
+interface ExtendedTableProps extends TableProps {
+  categoryMap?: Map<number, string>
+}
+
+export const TableTemplate: React.FC<ExtendedTableProps> = ({
   type,
   columns,
   items,
@@ -41,6 +43,7 @@ export const TableTemplate: React.FC<TableProps> = ({
   selected,
   setSelected,
   allUsers = [],
+  categoryMap,
 }) => {
   const [data, setData] = useState<Row[]>(items || [])
   const [openFilter, setOpenFilter] = useState<Record<string, boolean>>({})
@@ -49,7 +52,6 @@ export const TableTemplate: React.FC<TableProps> = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-  // Создаём Map для быстрого поиска пользователей по ID
   const usersMap = React.useMemo(() => {
     const map = new Map<string, User>()
     allUsers.forEach(user => {
@@ -130,7 +132,6 @@ export const TableTemplate: React.FC<TableProps> = ({
 
   const renderCell = (column: Column, row: Row) => {
     const value = row[column.key]
-    console.log(value)
 
     if (column.render) {
       return column.render(value, row) as React.ReactNode
@@ -188,23 +189,50 @@ export const TableTemplate: React.FC<TableProps> = ({
         case 'reviewed':
           return <Typography variant="bodyM">{value ? 'Ознакомлен' : 'Не ознакомлен'}</Typography>
         case 'created_at': {
-          const parsedValue = value ?? ''
-          let date: Date
+          if (!value) return <Typography variant="bodyM">N/A</Typography>
 
-          if (typeof parsedValue === 'number') {
-            date = new Date(parsedValue)
-          } else if (typeof parsedValue === 'string') {
-            date = new Date(parsedValue)
+          let parsedDate: Date
+
+          if (typeof value === 'object' && value !== null && 'seconds' in value) {
+            const timestamp = value as { seconds: number; nanos?: number }
+            parsedDate = new Date(timestamp.seconds * 1000)
+          } else if (typeof value === 'number') {
+            parsedDate = value > 10000000000 ? new Date(value) : new Date(value * 1000)
+          } else if (typeof value === 'string') {
+            const strValue = value.trim()
+
+            if (/^\d{2}\.\d{2}\.\d{4}$/.test(strValue)) {
+              const [day, month, year] = strValue.split('.').map(Number)
+              parsedDate = new Date(year, month - 1, day)
+            } else if (/^\d{4}-\d{2}-\d{2}/.test(strValue)) {
+              parsedDate = new Date(strValue)
+            } else {
+              parsedDate = new Date(strValue)
+            }
+          } else if (value instanceof Date) {
+            parsedDate = value
           } else {
-            date = new Date()
+            console.error('Unknown date format:', value)
+            return <Typography variant="bodyM">Invalid format</Typography>
           }
 
-          return (
-            <Typography variant="bodyM">
-              {isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleDateString('ru-RU')}
-            </Typography>
-          )
+          if (isNaN(parsedDate.getTime())) {
+            console.error('Failed to parse date:', value)
+            return <Typography variant="bodyM">Invalid Date</Typography>
+          }
+
+          const formatter = new Intl.DateTimeFormat('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+
+          return <Typography variant="bodyM">{formatter.format(parsedDate)}</Typography>
         }
+        case 'category_id':
+          return (
+            <Typography variant="bodyM">{categoryMap?.get(Number(value)) || 'Unknown'}</Typography>
+          )
         default:
           return (
             <Typography variant="bodyM" className={style.nameOfDoc}>
