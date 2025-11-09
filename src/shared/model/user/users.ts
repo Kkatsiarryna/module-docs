@@ -1,9 +1,9 @@
 export const TokenUserRolesDocs = {
   all: 'Все сотрудники',
-  admins: 'Администраторы',
-  hrs: 'HR-специалист',
-  managers: 'Менеджеры',
-  specialists: 'Специалисты',
+  admin: 'Администраторы',
+  hr: 'HR-специалист',
+  manager: 'Менеджеры',
+  specialist: 'Специалисты',
 } as const
 
 export const TokenUserRoles = {
