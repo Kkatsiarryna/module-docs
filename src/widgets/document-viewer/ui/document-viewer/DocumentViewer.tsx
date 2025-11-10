@@ -2,8 +2,8 @@ import { Modal } from '@mui/material'
 import styles from './DocumentViewer.module.scss'
 import { ICONS, PdfViewer } from '@shared/ui'
 import { DocumentMeta } from '@widgets/document-viewer/ui'
-import { useState } from 'react'
 import IconButton from '@mui/material/IconButton'
+import { useDocumentViewer } from '@widgets/document-viewer/model'
 
 type Props = {
   open: boolean
@@ -13,16 +13,15 @@ type Props = {
 }
 
 export const DocumentViewer = ({ open, onClose, documentUrl, title }: Props) => {
-  const [zoom, setZoom] = useState(100)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(0)
-
-  const handleZoomIn = () => {
-    setZoom(prev => Math.min(prev + 25, 300))
-  }
-  const handleZoomOut = () => {
-    setZoom(prev => Math.max(prev - 25, 50))
-  }
+  const {
+    zoom,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    setTotalPages,
+    handleZoomIn,
+    handleZoomOut,
+  } = useDocumentViewer()
 
   return (
     <Modal open={open} onClose={onClose} className={styles.viewer}>

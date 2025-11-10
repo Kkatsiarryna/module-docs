@@ -11,6 +11,7 @@ import type { Category } from '@features/category-management/model'
 
 export const Sidebar = () => {
   const {
+    value,
     open,
     showInput,
     categoryName,
@@ -19,7 +20,6 @@ export const Sidebar = () => {
     categories,
     isAddButtonEnabled,
     isAdmin,
-    normalizedValue,
     documentsTabIndex,
     handleChange,
     handleAddCategoryClick,
@@ -71,7 +71,8 @@ export const Sidebar = () => {
       <Tabs
         orientation="vertical"
         variant="scrollable"
-        value={normalizedValue}
+        //value={normalizedValue}
+        value={value === false ? false : value}
         onChange={handleChange}
         aria-label="Section"
         sx={{

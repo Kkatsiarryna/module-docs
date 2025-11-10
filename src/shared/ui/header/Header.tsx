@@ -11,6 +11,8 @@ import { Avatar } from '@shared/ui/avatar/Avatar'
 import type { User } from '@features/auth/model'
 import { TokenUserRoles } from '@shared/model/user'
 import { DropdownUser } from '@features/user-menu/ui'
+import MobileLogo from '@shared/assets/logo/mobile_logo.svg?react'
+import DesktopLogo from '@shared/assets/logo/logo.svg?react'
 
 type Props = {
   user: User
@@ -23,39 +25,23 @@ export const Header = ({ user }: Props) => {
     setAnchorElUser(event.currentTarget)
   }
 
-  const logoImg = {
-    xs: 'src/shared/assets/logo/mobile_logo.svg',
-    md: 'src/shared/assets/logo/logo.svg',
-    title: 'Betera',
-  }
-
   const displayRole = TokenUserRoles[user.role]
 
   return (
     <AppBar className={styles.appBar}>
       <Container className={styles.appBarContainer} maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <img
-              srcSet={`${logoImg.xs}?w=64&h=50&fit=crop&auto=format&dpr=2 2x`}
-              src={`${logoImg.xs}?w=64&h=50&fit=crop&auto=format`}
-              alt={logoImg.title}
-              loading="lazy"
-            />
+          <Box className={styles.logoWrapperMobile}>
+            <MobileLogo className={styles.logoMobile} aria-label="Betera" />
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <img
-              srcSet={`${logoImg.md}?w=155h=40&fit=crop&auto=format&dpr=2 2x`}
-              src={`${logoImg.md}?w=155&h=40&fit=crop&auto=format`}
-              alt={logoImg.title}
-              loading="lazy"
-            />
+          <Box className={styles.logoWrapperDesktop}>
+            <DesktopLogo className={styles.logoDesktop} aria-label="Betera" />
           </Box>
           <MenuItem component="div" className={styles.userRole}>
             <Typography className={styles.userRoleText}>{displayRole}</Typography>
           </MenuItem>
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Box className={styles.avatarWrapper}>
+            <IconButton onClick={handleOpenUserMenu} className={styles.avatarButton}>
               <Avatar user={user} size={40} />
             </IconButton>
             <DropdownUser anchorElUser={anchorElUser} setAnchorElUser={setAnchorElUser} />
