@@ -1,4 +1,8 @@
 .adminPage {
+  overflow: hidden;
+}
+
+.userTable {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -13,7 +17,7 @@
     }
 
     .addButton {
-      width: 16%;
+      width: 40%;
     }
   }
 }

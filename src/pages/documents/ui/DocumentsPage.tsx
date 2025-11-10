@@ -80,9 +80,13 @@ export const DocumentsPage = () => {
       sx={{
         px: { xs: 2, md: 4, xl: 6 },
         pb: { xs: 4, md: 6 },
+        minHeight: '100vh', // Полная высота экрана
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden', // Избежать двойных скроллов
       }}
     >
-      <Paper>
+      <Paper elevation={0} sx={{ flex: 1, overflow: 'auto' }}>
         <PageHeader
           type="documents"
           deleteLoading={deleteLoading}
