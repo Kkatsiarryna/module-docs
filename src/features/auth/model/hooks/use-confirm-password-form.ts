@@ -7,7 +7,7 @@ import { routes } from '@shared/config'
 import { useState } from 'react'
 import type { ConfirmPasswordType } from '@features/auth/model/schemas/confirm-password.schema.ts'
 
-export const useConfirmPasswordForm = () => {
+export const useConfirmPasswordForm = (onSuccess?: () => void) => {
   const [confirmPasswordMutation, { isLoading }] = useConfirmPasswordMutation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -40,7 +40,11 @@ export const useConfirmPasswordForm = () => {
 
     try {
       await confirmPasswordMutation({ new_password: password, token: token }).unwrap()
-      navigate(routes.documents, { replace: true })
+
+      onSuccess?.()
+      setTimeout(() => {
+        navigate(routes.documents, { replace: true })
+      }, 3000)
     } catch (error) {
       console.log('Ошибка подтверждения пароля:', error)
     }

@@ -4,7 +4,11 @@ import { useConfirmPasswordForm } from '@features/auth/model'
 import CircleIcon from '@icons/filled/circle.svg?react'
 import CheckCircleGreenIcon from '@icons/filled/check_circle_green.svg?react'
 
-export const ConfirmPasswordForm = () => {
+type Props = {
+  onSuccess: () => void
+}
+
+export const ConfirmPasswordForm = ({ onSuccess }: Props) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +20,7 @@ export const ConfirmPasswordForm = () => {
     hasLettersAndDigits,
     isStrongPassword,
     isSubmitting,
-  } = useConfirmPasswordForm()
+  } = useConfirmPasswordForm(onSuccess)
 
   return (
     <AuthForm
