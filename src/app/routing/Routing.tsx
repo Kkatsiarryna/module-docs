@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import { ProtectedRoute } from '@app/routing/protected-route.tsx'
+import { ProtectedRoute } from '@app/routing/ProtectedRoute.tsx'
 import { DocumentsPage } from '@pages/documents'
 import { LoginPage } from '@pages/login'
 import { useAppSelector } from '@app/store'
@@ -8,6 +8,7 @@ import { routes } from '@shared/config'
 import { ConfirmPasswordPage } from '@pages/confirm-password'
 import { ProfilePage } from '@pages/profile'
 import { AdminPage } from '@pages/admin'
+import { ProtectedConfirmRoute } from '@app/routing/ProtectedConfirmRoute.tsx'
 
 export const Routing = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -29,7 +30,15 @@ export const Routing = () => {
         path={routes.login}
         element={isLoggedIn ? <Navigate to={routes.documents} replace /> : <LoginPage />}
       />
-      <Route path={routes.confirmPassword} element={<ConfirmPasswordPage />} />
+
+      <Route
+        path={routes.confirmPassword}
+        element={
+          <ProtectedConfirmRoute>
+            <ConfirmPasswordPage />
+          </ProtectedConfirmRoute>
+        }
+      />
 
       <Route
         path={routes.documents}
