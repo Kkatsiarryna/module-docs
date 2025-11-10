@@ -10,7 +10,12 @@ export const ConfirmPasswordPage = () => {
   return (
     <div className={styles.page}>
       <ConfirmPasswordForm onSuccess={() => setShowSuccessModal(true)} />
-      <Modal open={showSuccessModal} icon={ICONS.SUCCESS} title="Ваш аккаунт успешно подтвержден" />
+      <Modal
+        open={showSuccessModal}
+        icon={ICONS.SUCCESS}
+        title="Ваш аккаунт успешно подтвержден"
+        isButtons={false}
+      />
     </div>
   )
 }
