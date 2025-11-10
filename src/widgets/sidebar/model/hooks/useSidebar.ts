@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { routes } from '@shared/config'
 import { useAddCategoryMutation, useGetCategoriesQuery } from '@features/category-management/api'
 import type { Category } from '@features/category-management/model'
+import { useToast } from '@app/providers/toast'
 
 export const useSidebar = () => {
   const isAdmin = useHasRole(['admin'])
   const navigate = useNavigate()
   const location = useLocation()
+  const { showToast } = useToast()
 
   const { data: categoriesData, isLoading: categoriesLoading } = useGetCategoriesQuery()
   const [addCategory, { isLoading: addLoading, reset }] = useAddCategoryMutation()
@@ -17,21 +19,24 @@ export const useSidebar = () => {
   const getInitialValue = useCallback(() => {
     if (location.pathname === routes.admin) return 0
     if (location.pathname === routes.documents) return isAdmin ? 1 : 0
-    return -1
+    return false
   }, [location.pathname, isAdmin])
 
-  const [value, setValue] = useState(getInitialValue())
+  //const [value, setValue] = useState(getInitialValue())
+  const [value, setValue] = useState<number | false>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [showInput, setShowInput] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>('')
   const [error, setError] = useState<string>('')
 
   useEffect(() => {
-    setValue(getInitialValue())
+    const newValue = getInitialValue()
+    if (newValue !== null) {
+      setValue(newValue)
+    }
     setOpen(location.pathname === routes.documents)
   }, [location.pathname, isAdmin, getInitialValue])
 
-  const normalizedValue = value
   const documentsTabIndex = isAdmin ? 1 : 0
 
   const handleChange = (_event: SyntheticEvent, newValue: number) => {
@@ -109,6 +114,7 @@ export const useSidebar = () => {
       setShowInput(false)
       setCategoryName('')
       setError('')
+      showToast('Категория успешно добавлена', 'success')
     } catch {
       setError('Неизвсетная ошибка')
     }
@@ -124,7 +130,6 @@ export const useSidebar = () => {
     categories,
     isAddButtonEnabled,
     isAdmin,
-    normalizedValue,
     documentsTabIndex,
     handleChange,
     handleAddCategoryClick,
