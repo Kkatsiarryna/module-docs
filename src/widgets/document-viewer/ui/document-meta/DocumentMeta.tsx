@@ -20,6 +20,7 @@ export const DocumentMeta = ({ onClose, title }: Props) => {
           <span className={styles.label}>Добавил:</span>
           <div className={styles.documentAuthor}>
             <div className={styles.userTag}>FL</div>
+            {/*<InitialsAvatar />*/}
             <span className={styles.userName}>Firstname Lastname</span>
           </div>
         </div>
