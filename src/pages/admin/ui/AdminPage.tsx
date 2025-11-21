@@ -1,7 +1,4 @@
-import { useState } from 'react'
 import { Grid, Paper } from '@mui/material'
-import { TableTemplate } from '@widgets/table/ui/table/Table'
-import { usersColumns } from '@widgets/table/model/types'
 import Box from '@mui/material/Box'
 import { Button, InputSearch, Typography } from '@shared/ui'
 import styles from './AdminPage.module.scss'
@@ -9,19 +6,7 @@ import { useAdminPage } from '@pages/admin/model'
 import { AddUserForm } from '@features/user-management/ui'
 
 export const AdminPage = () => {
-  const {
-    isAddUserModalOpen,
-    openAddUserModal,
-    closeAddUserModal,
-    page,
-    setPage,
-    rowsPerPage,
-    items,
-    totalCount,
-    isLoading,
-  } = useAdminPage()
-
-  const [selected, setSelected] = useState<string[]>([])
+  const { isAddUserModalOpen, openAddUserModal, closeAddUserModal } = useAdminPage()
 
   return (
     <Grid
@@ -43,20 +28,6 @@ export const AdminPage = () => {
             + Добавить пользователя
           </Button>
         </Box>
-
-        <TableTemplate
-          type="users"
-          columns={usersColumns}
-          items={items}
-          totalCount={totalCount}
-          isLoading={isLoading}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          onPageChange={setPage}
-          selected={selected}
-          setSelected={setSelected}
-        />
-
         {isAddUserModalOpen && (
           <AddUserForm onClose={closeAddUserModal} open={isAddUserModalOpen} />
         )}

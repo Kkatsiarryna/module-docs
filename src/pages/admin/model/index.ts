@@ -1,1 +1,1 @@
-export { useAdminPage } from './hooks/useAdminPage'
+export { useAdminPage } from './hooks/use-admin-page.ts'

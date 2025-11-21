@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
-import styles from './dropdownFilterUsers.module.scss'
+import styles from './DropdownFilterUsers.module.scss'
 import { rolesDocs } from '@shared/model/user/users'
 import { Checkbox } from '@shared/ui/checkbox/Checkbox'
 

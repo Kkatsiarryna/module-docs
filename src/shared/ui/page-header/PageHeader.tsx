@@ -22,12 +22,7 @@ type Action = {
   onClick?: () => void
 }
 
-export const PageHeader: React.FC<Props> = ({
-  type,
-  deleteLoading = false,
-  onAddClick,
-  onDeleteClick,
-}) => {
+export const PageHeader = ({ type, deleteLoading, onAddClick, onDeleteClick }: Props) => {
   const headerConfig: { title: string; actions: Action[] } =
     type === 'users'
       ? {

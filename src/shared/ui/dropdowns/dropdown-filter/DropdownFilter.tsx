@@ -4,9 +4,9 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import styles from './dropdownFilter.module.scss'
-import { ICONS } from '../../icons/icons'
-import { type ReactElement } from 'react'
+import styles from './DropdownFilter.module.scss'
+import { ICONS } from '@shared/ui'
+import { type ReactElement, useState } from 'react'
 
 interface FilterOptions {
   text: string[]
@@ -18,8 +18,8 @@ interface FilterListItemProps {
   onClose?: () => void
 }
 
-export const DropdownFilter: React.FC<FilterListItemProps> = ({ nameArray, onClose }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number>(0)
+export const DropdownFilter = ({ nameArray, onClose }: FilterListItemProps) => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

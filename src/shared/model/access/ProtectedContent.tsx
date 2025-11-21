@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useHasRole } from './useHasRole'
+import { useHasRole } from './use-has-role.ts'
 
 interface ProtectedContentProps {
   roles?: string[]

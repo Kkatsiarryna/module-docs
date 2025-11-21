@@ -1,2 +1,2 @@
 export { ProtectedContent } from './ProtectedContent'
-export { useHasRole } from './useHasRole'
+export { useHasRole } from './use-has-role.ts'
