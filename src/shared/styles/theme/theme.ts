@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import type {} from '@mui/x-data-grid/themeAugmentation'
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -477,6 +478,99 @@ export const theme = createTheme({
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
+        },
+      },
+    },
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          border: '1px solid var(--divider-default)',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          background: 'white',
+          fontSize: 'var(--font-size-m)',
+          lineHeight: 'var(--line-height-m)',
+        },
+        columnHeaders: {
+          minHeight: '42px',
+          height: '42px',
+          //background: 'var(--background-surface-1)',
+          background: 'red',
+          borderBottom: '1px solid var(--divider-default)',
+          borderRadius: '12px 12px 0 0',
+        },
+        columnHeader: {
+          padding: '0 16px',
+          '& .MuiDataGrid-columnHeaderTitle': {
+            fontWeight: 500,
+          },
+          '&:focus': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+        },
+        cell: {
+          padding: '0 16px',
+          display: 'flex',
+          alignItems: 'center',
+          borderBottom: 'none',
+
+          '&:focus': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+
+          '&:focus-within': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+
+          '&.MuiDataGrid-cell--editing': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+        },
+        row: {
+          minHeight: '48px',
+          height: '48px',
+          borderBottom: '1px solid var(--divider-default)',
+
+          '&:last-child': {
+            borderBottom: 'none',
+          },
+
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          },
+          '&.Mui-hovered': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            outline: 'none',
+            boxShadow: 'none',
+          },
+          '&.Mui-selected': {
+            backgroundColor: 'transparent',
+            outline: 'none',
+            boxShadow: 'none',
+
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            },
+          },
+        },
+        scrollbar: {
+          '&::-webkit-scrollbar': {
+            width: 4,
+            height: 4,
+          },
+          '&::-webkit-scrollbar-track': {
+            background: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'var(--divider-default)',
+            borderRadius: 8,
+            // border: '2px solid transparent',
+            // backgroundClip: 'content-box',
+          },
         },
       },
     },
