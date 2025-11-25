@@ -494,12 +494,11 @@ export const theme = createTheme({
         columnHeaders: {
           minHeight: '42px',
           height: '42px',
-          //background: 'var(--background-surface-1)',
-          background: 'red',
           borderBottom: '1px solid var(--divider-default)',
           borderRadius: '12px 12px 0 0',
         },
         columnHeader: {
+          backgroundColor: 'var(--background-surface-1)',
           padding: '0 16px',
           '& .MuiDataGrid-columnHeaderTitle': {
             fontWeight: 500,
@@ -535,10 +534,6 @@ export const theme = createTheme({
           height: '48px',
           borderBottom: '1px solid var(--divider-default)',
 
-          '&:last-child': {
-            borderBottom: 'none',
-          },
-
           '&:hover': {
             backgroundColor: 'rgba(0, 0, 0, 0.04)',
           },
@@ -571,6 +566,42 @@ export const theme = createTheme({
             // border: '2px solid transparent',
             // backgroundClip: 'content-box',
           },
+        },
+        // filler: {
+        //   backgroundColor: 'var(--background-surface-1)',
+        // },
+      },
+    },
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          '& .MuiPaginationItem-root': {
+            '&.MuiPaginationItem-page': {
+              '&:hover': {
+                backgroundColor: 'var(--background-surface-2)',
+                borderRadius: 'var(--radius-3x)',
+                color: 'var(--accent-hover)',
+              },
+            },
+            '&.MuiPaginationItem-page.Mui-selected': {
+              backgroundColor: 'var(--accent-focused);',
+              color: 'var(--text-light)',
+              borderRadius: 'var(--radius-3x)',
+
+              '&:hover': {
+                backgroundColor: 'var(--accent-hover)',
+              },
+            },
+          },
+        },
+        ul: {
+          // display: 'flex',
+          // flexWrap: 'wrap',
+          // alignItems: 'center',
+          // padding: 0,
+          // margin: 0,
+          gap: '4px',
+          listStyle: 'none',
         },
       },
     },
