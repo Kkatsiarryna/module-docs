@@ -57,14 +57,19 @@
   height: 40px;
 }
 
-.userRole {
-  cursor: default;
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
 
-  &:hover {
-    background: transparent;
-  }
+  .userRole {
+    cursor: default;
 
-  &.Mui-focusVisible {
-    background: transparent;
+    &:hover {
+      background: transparent;
+    }
+
+    &.Mui-focusVisible {
+      background: transparent;
+    }
   }
 }
