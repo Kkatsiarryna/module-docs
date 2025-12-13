@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react'
+import type { GridRenderCellParams } from '@mui/x-data-grid'
+import { RoleCell } from '@widgets/users-table/ui/role-cell/RoleCell.tsx'
 
 const PAGE_SIZE = 10
 
@@ -7,7 +9,7 @@ const generateMockUsers = () => {
     id: i + 1,
     firstname: `Имя${i + 1}`,
     lastname: `Фамилия${i + 1}`,
-    role: i % 2 === 0 ? 'Admin' : 'User',
+    role: i % 2 === 0 ? 'admin' : 'specialist',
     email: `user${i + 1}@example.com`,
   }))
 }
@@ -32,6 +34,8 @@ export const useUsersTable = () => {
       headerName: 'Роль',
       editable: true,
       flex: 1,
+      renderCell: (params: GridRenderCellParams) => RoleCell({ params }),
+      //renderEditCell: (params: GridRenderEditCellParams) => RoleEditCell({ params }),
     },
     {
       field: 'email',
