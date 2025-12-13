@@ -11,8 +11,8 @@ import { Avatar } from '@shared/ui/avatar/Avatar'
 import type { User } from '@features/auth/model'
 import { TokenUserRoles } from '@shared/model/user'
 import { DropdownUser } from '@features/user-menu/ui'
-import MobileLogo from '@shared/assets/logo/mobile_logo.svg?react'
-import DesktopLogo from '@shared/assets/logo/logo.svg?react'
+// import MobileLogo from '@shared/assets/logo/mobile_logo.svg?react'
+// import DesktopLogo from '@shared/assets/logo/logo.svg?react'
 
 type Props = {
   user: User
@@ -30,13 +30,13 @@ export const Header = ({ user }: Props) => {
   return (
     <AppBar className={styles.appBar}>
       <Container className={styles.appBarContainer} maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box className={styles.logoWrapperMobile}>
-            <MobileLogo className={styles.logoMobile} aria-label="Betera" />
-          </Box>
-          <Box className={styles.logoWrapperDesktop}>
-            <DesktopLogo className={styles.logoDesktop} aria-label="Betera" />
-          </Box>
+        <Toolbar disableGutters className={styles.toolbar}>
+          {/*<Box className={styles.logoWrapperMobile}>*/}
+          {/*  <MobileLogo className={styles.logoMobile} aria-label="Betera" />*/}
+          {/*</Box>*/}
+          {/*<Box className={styles.logoWrapperDesktop}>*/}
+          {/*  <DesktopLogo className={styles.logoDesktop} aria-label="Betera" />*/}
+          {/*</Box>*/}
           <MenuItem component="div" className={styles.userRole}>
             <Typography className={styles.userRoleText}>{displayRole}</Typography>
           </MenuItem>
