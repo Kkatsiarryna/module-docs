@@ -48,7 +48,6 @@ export const InputSearch = ({ className, id, value, onChange, onClear, ...rest }
   return (
     <MuiTextField
       id={idCurrent}
-      //className={`search-input ${className ?? ''}`}
       className={clsx('search-input', className)}
       value={inputValue}
       onChange={handleChange}
