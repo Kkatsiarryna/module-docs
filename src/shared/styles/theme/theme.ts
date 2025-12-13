@@ -286,16 +286,17 @@ export const theme = createTheme({
       },
     },
     MuiInputBase: {
-      variants: [
-        {
-          props: {
-            size: 'small',
-          },
-          style: {
-            padding: '4px 12px',
-          },
-        },
-      ],
+      // variants: [
+      //   {
+      //     props: {
+      //       size: 'small',
+      //     },
+      //     style: {
+      //       padding: '4px 12px',
+      //       height: '24px',
+      //     },
+      //   },
+      // ],
       styleOverrides: {
         root: {
           padding: '9px 12px',
@@ -304,6 +305,10 @@ export const theme = createTheme({
           },
           '&.MuiInputBase-adornedEnd': {
             paddingRight: '12px',
+          },
+          '&.MuiInputBase-sizeSmall': {
+            padding: '4px 12px',
+            height: '24px',
           },
         },
       },
@@ -381,8 +386,11 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           fontWeight: 'var(--font-weight-regular)',
-          lineHeight: '129%',
-          color: 'var(--text-disabled-dark)',
+          fontSize: 'var(--font-size-2xs)',
+          lineHeight: '140%',
+          padding: '0 4px',
+          //color: 'var(--text-disabled-dark)',
+          color: 'var(--text-soft)',
           '&.Mui-focused': {
             color: 'var(--accent-focused)',
           },
@@ -391,6 +399,10 @@ export const theme = createTheme({
           },
           '&.Mui-disabled': {
             color: 'var(--text-disabled-dark)',
+          },
+          '&.MuiInputLabel-shrink': {
+            color: 'var(--text-soft)',
+            backgroundColor: '#fff',
           },
         },
         outlined: {
@@ -602,6 +614,21 @@ export const theme = createTheme({
           // margin: 0,
           gap: '4px',
           listStyle: 'none',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          '&.MuiInputBase-inputSizeSmall': {
+            fontSize: '12px',
+            //padding: '3px 24px 3px 8px !important',
+            padding: 0,
+            minHeight: '24px',
+            height: '24px',
+            display: 'flex',
+            alignItems: 'center',
+          },
         },
       },
     },
