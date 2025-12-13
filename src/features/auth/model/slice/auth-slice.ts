@@ -8,8 +8,17 @@ type AuthState = {
   isLoggedIn: boolean
 }
 
+const adminUser: User = {
+  id: '545545455',
+  email: 'email@mail.ru',
+  firstname: 'John',
+  lastname: 'Smith',
+  role: 'admin',
+}
+
 const initialState: AuthState = {
-  user: null,
+  // user: null,
+  user: adminUser,
   isLoggedIn: false, //поменять на false
 }
 
