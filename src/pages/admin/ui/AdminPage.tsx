@@ -4,6 +4,7 @@ import { Button, InputSearch, Typography } from '@shared/ui'
 import styles from './AdminPage.module.scss'
 import { useAdminPage } from '@pages/admin/model'
 import { AddUserForm } from '@features/user-management/ui'
+import { UsersTable } from '@widgets/users-table/ui'
 
 export const AdminPage = () => {
   const { isAddUserModalOpen, openAddUserModal, closeAddUserModal } = useAdminPage()
@@ -19,7 +20,7 @@ export const AdminPage = () => {
       className={styles.adminPage}
     >
       <Paper elevation={0} className={styles.userTable}>
-        <Typography variant={'heading1'} className={styles.title}>
+        <Typography variant={'heading2'} className={styles.title}>
           Администрирование
         </Typography>
         <Box className={styles.controls}>
@@ -28,6 +29,7 @@ export const AdminPage = () => {
             + Добавить пользователя
           </Button>
         </Box>
+        <UsersTable />
         {isAddUserModalOpen && (
           <AddUserForm onClose={closeAddUserModal} open={isAddUserModalOpen} />
         )}
