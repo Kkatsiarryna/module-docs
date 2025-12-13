@@ -8,6 +8,7 @@ import styles from './Select.module.scss'
 import { Box, InputLabel } from '@mui/material'
 import { Icon } from '../../model/icon/Icon'
 import { ICONS, SIZES_ICON } from '../icons/icons'
+import clsx from 'clsx'
 
 const MenuProps = {
   PaperProps: {
@@ -24,11 +25,13 @@ interface SelectItem {
 }
 
 interface DropdownRoleProps {
-  placeholder: string
+  placeholder?: string
   //selectItems: string[]
   selectItems: SelectItem[]
   value?: string
   onChange?: (value: string) => void
+  size?: 'small' | 'medium'
+  className?: string
 }
 
 const CustomSelect = styled(MuiSelect)({
@@ -44,7 +47,14 @@ const CustomSelect = styled(MuiSelect)({
   },
 })
 
-export const Select = ({ value = '', onChange, placeholder, selectItems }: DropdownRoleProps) => {
+export const Select = ({
+  value = '',
+  onChange,
+  placeholder,
+  selectItems,
+  size,
+  className,
+}: DropdownRoleProps) => {
   //const [role, setRole] = React.useState<string>('')
   const [internalValue, setInternalValue] = React.useState<string>(value)
   const [open, setOpen] = React.useState<boolean>(false)
@@ -82,7 +92,7 @@ export const Select = ({ value = '', onChange, placeholder, selectItems }: Dropd
           <CustomSelect
             id="name"
             labelId="select-label"
-            className={styles.menu}
+            className={clsx(styles.menu, className)}
             //value={role}
             value={internalValue}
             renderValue={() => displayValue}
@@ -90,6 +100,7 @@ export const Select = ({ value = '', onChange, placeholder, selectItems }: Dropd
             onClose={handleClose}
             onOpen={handleOpen}
             open={open}
+            size={size}
             input={<OutlinedInput label={placeholder} />}
             MenuProps={MenuProps}
             IconComponent={props => (
